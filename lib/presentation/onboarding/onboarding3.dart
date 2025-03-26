@@ -1,4 +1,4 @@
-import 'package:attend_pro/presentation/auth/screen/login_screen.dart';
+import 'package:attend_pro/presentation/student/studentLayout/auth/screen/login_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -107,7 +107,17 @@ class _Onboarding3State extends State<Onboarding3>
                     fontSize: 24,
                     fontWeight: FontWeight.w500,
                     color: Colors.white),
-                onPressed: () {},
+                onPressed: () 
+                {
+                    Navigator.pushReplacement(
+                    context,
+                    PageTransition(
+                      child: const LoginScreen(),
+                      type: PageTransitionType.rightToLeftWithFade,
+                      duration: const Duration(milliseconds: 1000),
+                    ),
+                  );
+                },
               ),
             ),
             SizedBox(height: 16.h),

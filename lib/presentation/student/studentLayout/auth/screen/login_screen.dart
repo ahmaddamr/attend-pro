@@ -1,8 +1,8 @@
 import 'package:attend_pro/core/app_colors.dart';
 import 'package:attend_pro/core/widgets/custom_elevatedButton.dart';
-import 'package:attend_pro/presentation/auth/screen/forget_password_screen.dart';
-import 'package:attend_pro/presentation/auth/screen/register_screen.dart';
-import 'package:attend_pro/presentation/auth/widget/custom_divider.dart';
+import 'package:attend_pro/presentation/student/studentLayout/auth/screen/forget_password_screen.dart';
+import 'package:attend_pro/presentation/student/studentLayout/auth/screen/register_screen.dart';
+import 'package:attend_pro/presentation/student/studentLayout/auth/widget/custom_divider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

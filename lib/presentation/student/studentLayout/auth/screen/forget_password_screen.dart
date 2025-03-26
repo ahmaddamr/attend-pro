@@ -1,10 +1,10 @@
-import 'package:attend_pro/presentation/auth/screen/login_screen.dart';
-import 'package:attend_pro/presentation/auth/screen/verification_code_screen.dart';
+import 'package:attend_pro/presentation/student/studentLayout/auth/screen/login_screen.dart';
+import 'package:attend_pro/presentation/student/studentLayout/auth/screen/verification_code_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
-import '../../../core/app_colors.dart';
-import '../../../core/widgets/custom_elevatedButton.dart';
+import '../../../../../core/app_colors.dart';
+import '../../../../../core/widgets/custom_elevatedButton.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({super.key});

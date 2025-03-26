@@ -1,9 +1,9 @@
-import 'package:attend_pro/presentation/auth/screen/forget_password_screen.dart';
+import 'package:attend_pro/presentation/student/studentLayout/auth/screen/forget_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
-import '../../../core/app_colors.dart';
+import '../../../../../core/app_colors.dart';
 class VerificationCodeScreen extends StatelessWidget {
   const VerificationCodeScreen({super.key});
 
