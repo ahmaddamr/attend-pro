@@ -1,5 +1,6 @@
 import 'package:attend_pro/core/app_colors.dart';
 import 'package:attend_pro/core/widgets/custom_elevatedButton.dart';
+import 'package:attend_pro/presentation/doctor/doctorLayout/screens/doctor_layout_screen.dart';
 import 'package:attend_pro/presentation/student/studentLayout/auth/screen/forget_password_screen.dart';
 import 'package:attend_pro/presentation/student/studentLayout/auth/screen/register_screen.dart';
 import 'package:attend_pro/presentation/student/studentLayout/auth/widget/custom_divider.dart';
@@ -8,14 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class DoctorLoginScreen extends StatefulWidget {
+  const DoctorLoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<DoctorLoginScreen> createState() => _DoctorLoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _DoctorLoginScreenState extends State<DoctorLoginScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _isPasswordVisible = false; // Manages password visibility
   final RegExp _htiEmailRegex = RegExp(r'^[0-9]+@hti\.edu\.eg$');
@@ -71,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           SizedBox(height: 6.h),
                           Text(
-                            'welcome'.tr(),
+                            'Welcome Doctor',
                             textAlign: TextAlign.center,
                             style:
                                 Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -203,6 +204,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                   fontWeight: FontWeight.w500,
                                   color: Colors.white),
                               onPressed: () {
+                              Navigator.pushReplacement(
+                              context,
+                              PageTransition(
+                                child: const DoctorLayoutScreen(),
+                                type: PageTransitionType.theme,
+                                duration: const Duration(milliseconds: 900),
+                              ),
+                            );
                                 // **Password Reset Dialog**
                                 // showDialog(
                                 //   context: context,
@@ -213,6 +222,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 //     );
                                 //   },
                                 // );
+
                                 if (_formKey.currentState!.validate()) {
                                   // Perform sign-up action
 

@@ -31,7 +31,9 @@
     "mysc": "My Schedule",
     "light": "Light Mode",
     "dark": "Dark Mode",
-    "save": "Save"
+    "save": "Save",
+    "logs": "Attendance Logs"
+    
 
 
 }
