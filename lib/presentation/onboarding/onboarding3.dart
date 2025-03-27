@@ -1,3 +1,4 @@
+import 'package:attend_pro/presentation/doctor/doctorLayout/doctorAuth/screens/doctor_register_screen.dart';
 import 'package:attend_pro/presentation/student/studentLayout/auth/screen/login_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -112,7 +113,7 @@ class _Onboarding3State extends State<Onboarding3>
                     Navigator.pushReplacement(
                     context,
                     PageTransition(
-                      child: const LoginScreen(),
+                      child:  DoctorRegisterScreen(),
                       type: PageTransitionType.rightToLeftWithFade,
                       duration: const Duration(milliseconds: 1000),
                     ),
