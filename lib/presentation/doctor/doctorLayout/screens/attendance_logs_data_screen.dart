@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:attend_pro/core/app_colors.dart';
 import 'package:attend_pro/core/widgets/custom_elevatedButton.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -72,13 +71,15 @@ class AttendanceLogsDataScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const PurpleDataLogItem(),
+                      const PurpleDataLogItem(
+                        status: 'Status',
+                      ),
                       ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: 3,
                         itemBuilder: (context, subindex) {
-                          return const StudentDataItem(
+                          return StudentDataItem(
                             id: '42021105',
                             name: 'Ahmed mohamed',
                           );

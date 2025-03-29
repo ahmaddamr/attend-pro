@@ -131,9 +131,9 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
                           type: PageTransitionType.theme,
                           duration: const Duration(seconds: 1),
                         )),
-                    child: const CustomDoctorServiceWidget(
+                    child:  CustomDoctorServiceWidget(
                         img: 'assets/images/icons/service1.png',
-                        title: 'Choose Hall'),
+                        title: 'hall'.tr()),
                   )
                 ],
               )

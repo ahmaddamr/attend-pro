@@ -33,5 +33,12 @@
     "dark": "Dark Mode",
     "save": "Save",
     "logs": "Attendance Logs",
-    "hall": "Hall Selection"
+    "hall": "Hall Selection",
+    "course": "Course Name : ",
+    "group": "Group Number : ",
+    "startt": "Start Time : ",
+    "end": "End Time : "
+
+
+
 }

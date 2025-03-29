@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -7,8 +9,10 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/app_colors.dart';
 
 class StudentDataItem extends StatelessWidget {
-  const StudentDataItem({super.key, required this.id, required this.name});
-  final String id,name;
+  StudentDataItem(
+      {super.key, required this.id, required this.name, this.status});
+  final String id, name;
+  String? status;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +21,7 @@ class StudentDataItem extends StatelessWidget {
         border: Border(bottom: BorderSide(color: AppColors.color2, width: 2)),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             id,

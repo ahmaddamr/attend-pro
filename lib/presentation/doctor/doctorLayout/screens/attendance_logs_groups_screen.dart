@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
-
-import '../widgets/attendance_logs_item.dart';
 import 'attendance_logs_data_screen.dart';
 
 class AttendanceLogsGroupsScreen extends StatelessWidget {

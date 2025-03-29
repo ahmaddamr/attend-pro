@@ -5,8 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/app_colors.dart';
 
 class PurpleDataLogItem extends StatelessWidget {
-  const PurpleDataLogItem({super.key});
-
+  const PurpleDataLogItem({super.key, required this.status});
+  final String status;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,7 +35,7 @@ class PurpleDataLogItem extends StatelessWidget {
             ),
           ),
           Text(
-            'Status',
+            status,
             style: GoogleFonts.montserrat(
               textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                   color: Colors.white,
