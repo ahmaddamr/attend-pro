@@ -110,16 +110,17 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   InkWell(
-                    onTap: () => Navigator.pushReplacement(
+                    onTap: () => Navigator.push(
                         context,
                         PageTransition(
-                          child: AttendanceLogsScreen(),
+                          child: const AttendanceLogsScreen(),
                           type: PageTransitionType.theme,
                           duration: const Duration(seconds: 1),
                         )),
-                    child: const CustomDoctorServiceWidget(
-                        img: 'assets/images/icons/service1.png',
-                        title: 'Attendace Logs'),
+                    child: CustomDoctorServiceWidget(
+                      img: 'assets/images/icons/service1.png',
+                      title: 'logs'.tr(),
+                    ),
                   ),
                   const CustomDoctorServiceWidget(
                       img: 'assets/images/icons/service1.png',

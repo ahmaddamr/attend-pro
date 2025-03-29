@@ -1,7 +1,11 @@
+import 'package:attend_pro/presentation/doctor/doctorLayout/widgets/attendance_logs_item.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
+
+import 'attendance_logs_data_screen.dart';
 
 class AttendanceLogsScreen extends StatelessWidget {
   const AttendanceLogsScreen({super.key});
@@ -22,10 +26,21 @@ class AttendanceLogsScreen extends StatelessWidget {
         ),
       ),
       body: GridView.builder(
-        gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        itemCount: 10,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, mainAxisSpacing: 10.h, crossAxisSpacing: 10.w),
+        padding: EdgeInsets.all(10.sp),
         itemBuilder: (context, index) {
-          return Container();
+          return InkWell(
+              onTap: () => Navigator.push(
+                  context,
+                  PageTransition(
+                    child: const AttendanceLogsDataScreen(),
+                    type: PageTransitionType.theme,
+                    duration: const Duration(seconds: 1),
+                  )),
+              child:
+                  const AttendanceLogsItem(subject: 'DataBase', groupNum: '5'));
         },
       ),
     );
