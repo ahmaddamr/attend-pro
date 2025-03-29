@@ -1,15 +1,15 @@
-import 'package:attend_pro/presentation/doctor/doctorLayout/screens/attendance_logs_groups_screen.dart';
-import 'package:attend_pro/presentation/doctor/doctorLayout/widgets/attendance_logs_item.dart';
+import 'package:attend_pro/presentation/doctor/doctorLayout/widgets/attendance_logs_group_item.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../widgets/attendance_logs_item.dart';
 import 'attendance_logs_data_screen.dart';
 
-class AttendanceLogsScreen extends StatelessWidget {
-  const AttendanceLogsScreen({super.key});
+class AttendanceLogsGroupsScreen extends StatelessWidget {
+  const AttendanceLogsGroupsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +34,14 @@ class AttendanceLogsScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           return InkWell(
               onTap: () => Navigator.push(
-                  context,
-                  PageTransition(
-                    child: const AttendanceLogsGroupsScreen(),
-                    type: PageTransitionType.theme,
-                    duration: const Duration(seconds: 1),
-                  )),
-              child:
-                  const AttendanceLogsItem(subject: 'DataBase'));
+                    context,
+                    PageTransition(
+                      child: const AttendanceLogsDataScreen(),
+                      type: PageTransitionType.theme,
+                      duration: const Duration(seconds: 1),
+                    ),
+                  ),
+              child: const AttendanceLogsGroupItem(gNum: '5'));
         },
       ),
     );

@@ -4,10 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/app_colors.dart';
 
-class AttendanceLogsItem extends StatelessWidget {
-  const AttendanceLogsItem(
-      {super.key, required this.subject, });
-  final String subject;
+class AttendanceLogsGroupItem extends StatelessWidget {
+  const AttendanceLogsGroupItem({super.key, required this.gNum});
+  final String gNum;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -27,7 +26,7 @@ class AttendanceLogsItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              subject,
+              'Group: $gNum',
               style: GoogleFonts.montserrat(
                 textStyle: Theme.of(context)
                     .textTheme
