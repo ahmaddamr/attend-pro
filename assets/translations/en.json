@@ -32,8 +32,6 @@
     "light": "Light Mode",
     "dark": "Dark Mode",
     "save": "Save",
-    "logs": "Attendance Logs"
-    
-
-
+    "logs": "Attendance Logs",
+    "hall": "Hall Selection"
 }

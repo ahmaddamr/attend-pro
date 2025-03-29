@@ -8,6 +8,7 @@ import '../../../student/studentLayout/widget/carousel_slider_widget.dart';
 import '../../../student/studentLayout/widget/custom_home_container.dart';
 import '../widgets/custom_doctor_service_widget.dart';
 import 'attendance_logs_screen.dart';
+import 'choose_hall_screen.dart';
 
 class DoctorHomeScreen extends StatefulWidget {
   const DoctorHomeScreen({super.key});
@@ -122,9 +123,18 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
                       title: 'logs'.tr(),
                     ),
                   ),
-                  const CustomDoctorServiceWidget(
-                      img: 'assets/images/icons/service1.png',
-                      title: 'Choose Hall')
+                  InkWell(
+                    onTap: () => Navigator.push(
+                        context,
+                        PageTransition(
+                          child: const ChooseHallScreen(),
+                          type: PageTransitionType.theme,
+                          duration: const Duration(seconds: 1),
+                        )),
+                    child: const CustomDoctorServiceWidget(
+                        img: 'assets/images/icons/service1.png',
+                        title: 'Choose Hall'),
+                  )
                 ],
               )
             ],
