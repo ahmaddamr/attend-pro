@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'doctor_announcments_screen.dart';
 import 'doctor_home_screen.dart';
 
 class DoctorLayoutScreen extends StatefulWidget {
@@ -23,7 +24,7 @@ class _LayoutScreenState extends State<DoctorLayoutScreen> {
 
   final List<Widget> _screens = [
     const DoctorHomeScreen(),
-    const AnnouncmentsScreen(),
+    const DoctorAnnouncmentsScreen(),
     const ScheduleScreen(),
   ];
 
