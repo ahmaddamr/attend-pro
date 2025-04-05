@@ -1,8 +1,10 @@
 import 'package:attend_pro/core/app_colors.dart';
+import 'package:attend_pro/presentation/doctor/doctorLayout/screens/doctor_announcments_data_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 
 class DoctorAnnouncmentsScreen extends StatelessWidget {
   const DoctorAnnouncmentsScreen({super.key});
@@ -28,7 +30,7 @@ class DoctorAnnouncmentsScreen extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.all(20.sp),
               decoration: BoxDecoration(
-                color: Colors.grey[800], // Dark background
+                color: AppColors.color2, // Dark background
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
@@ -80,7 +82,19 @@ class DoctorAnnouncmentsScreen extends StatelessWidget {
                                     return Column(
                                       children: [
                                         InkWell(
-                                          onTap: () => Navigator.pop(context),
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                            Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                child:
+                                                    const DoctorAnnouncmentsDataScreen(),
+                                                type: PageTransitionType.theme,
+                                                duration: const Duration(
+                                                    milliseconds: 900),
+                                              ),
+                                            );
+                                          },
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 8.0),
