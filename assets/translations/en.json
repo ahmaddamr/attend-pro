@@ -37,7 +37,13 @@
     "course": "Course Name : ",
     "group": "Group Number : ",
     "startt": "Start Time : ",
-    "end": "End Time : "
+    "end": "End Time : ",
+    "schedule": "Shcedule",
+    "allsub": "All Subjects",
+    "mysub": "My Subjects"
+
+
+
 
 
 

@@ -9,7 +9,9 @@ import 'package:page_transition/page_transition.dart';
 import '../widgets/hall_item.dart';
 
 class ChooseHallScreen extends StatelessWidget {
-  const ChooseHallScreen({super.key});
+   ChooseHallScreen({super.key});
+  final _formKey = GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class ChooseHallScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(14.sp),
               child: TextFormField(
+                key: _formKey,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: AppColors.color2,

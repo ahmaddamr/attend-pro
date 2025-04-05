@@ -11,6 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'doctor_announcments_screen.dart';
 import 'doctor_home_screen.dart';
+import 'schedules/doctor_shedules_screen.dart';
 
 class DoctorLayoutScreen extends StatefulWidget {
   const DoctorLayoutScreen({super.key});
@@ -25,7 +26,7 @@ class _LayoutScreenState extends State<DoctorLayoutScreen> {
   final List<Widget> _screens = [
     const DoctorHomeScreen(),
     const DoctorAnnouncmentsScreen(),
-    const ScheduleScreen(),
+    const DoctorShedulesScreen(),
   ];
 
   @override

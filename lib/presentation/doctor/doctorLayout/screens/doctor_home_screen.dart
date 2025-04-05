@@ -127,7 +127,7 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
                     onTap: () => Navigator.push(
                         context,
                         PageTransition(
-                          child: const ChooseHallScreen(),
+                          child:  ChooseHallScreen(),
                           type: PageTransitionType.theme,
                           duration: const Duration(seconds: 1),
                         )),
