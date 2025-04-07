@@ -1,5 +1,5 @@
 import 'package:attend_pro/core/widgets/custom_elevatedButton.dart';
-import 'package:attend_pro/presentation/student/studentLayout/screen/settings_screen.dart';
+import 'package:attend_pro/presentation/student/studentLayout/screens/settings_screen.dart';
 import 'package:attend_pro/presentation/student/studentLayout/widget/settings_item.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';

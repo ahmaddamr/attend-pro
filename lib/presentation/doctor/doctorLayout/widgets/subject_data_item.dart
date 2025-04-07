@@ -28,13 +28,16 @@ class SubjectDataItem extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              subject,
-              style: GoogleFonts.montserrat(
-                textStyle: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(fontSize: 18.sp, fontWeight: FontWeight.w700),
+            Padding(
+              padding: EdgeInsets.all(8.sp),
+              child: Text(
+                subject,
+                style: GoogleFonts.montserrat(
+                  textStyle: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(fontSize: 18.sp, fontWeight: FontWeight.w700),
+                ),
               ),
             ),
             const Spacer(

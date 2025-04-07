@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:attend_pro/presentation/student/studentLayout/screen/subjects_screen.dart';
-import 'package:attend_pro/presentation/student/studentLayout/screen/warning_screen.dart';
+import 'package:attend_pro/presentation/student/studentLayout/screens/subjects_screen.dart';
+import 'package:attend_pro/presentation/student/studentLayout/screens/warning_screen.dart';
 import 'package:attend_pro/presentation/student/studentLayout/widget/attendace_item.dart';
 import 'package:attend_pro/presentation/student/studentLayout/widget/custom_service_widget.dart';
 import 'package:easy_localization/easy_localization.dart';

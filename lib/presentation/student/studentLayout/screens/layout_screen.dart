@@ -1,10 +1,10 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:attend_pro/core/app_colors.dart';
-import 'package:attend_pro/presentation/student/studentLayout/screen/announcments_screen.dart';
-import 'package:attend_pro/presentation/student/studentLayout/screen/profile_screen.dart';
-import 'package:attend_pro/presentation/student/studentLayout/screen/schedule_screen.dart';
-import 'package:attend_pro/presentation/student/studentLayout/screen/home_screen.dart';
+import 'package:attend_pro/presentation/student/studentLayout/screens/announcments_screen.dart';
+import 'package:attend_pro/presentation/student/studentLayout/screens/profile_screen.dart';
+import 'package:attend_pro/presentation/student/studentLayout/screens/schedule_screen.dart';
+import 'package:attend_pro/presentation/student/studentLayout/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';

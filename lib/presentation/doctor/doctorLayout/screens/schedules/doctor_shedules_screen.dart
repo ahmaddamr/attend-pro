@@ -1,5 +1,6 @@
 import 'package:attend_pro/core/app_colors.dart';
 import 'package:attend_pro/core/widgets/custom_elevatedButton.dart';
+import 'package:attend_pro/presentation/doctor/doctorLayout/screens/schedules/doctor_full_shedule_screen.dart';
 import 'package:attend_pro/presentation/doctor/doctorLayout/screens/schedules/doctor_subject_choose_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +51,17 @@ class DoctorShedulesScreen extends StatelessWidget {
                   .bodySmall!
                   .copyWith(fontSize: 20.sp, fontWeight: FontWeight.w600),
             ),
-            onPressed: () {})
+            onPressed: () 
+            {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: const DoctorFullSheduleScreen(),
+                  type: PageTransitionType.theme,
+                  duration: const Duration(milliseconds: 900),
+                ),
+              );
+            })
       ],
     );
   }
