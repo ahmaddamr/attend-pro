@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:attend_pro/core/app_colors.dart';
+import 'package:attend_pro/presentation/doctor/doctorLayout/screens/doctor_notifications_screen.dart';
 import 'package:attend_pro/presentation/student/studentLayout/screens/announcments_screen.dart';
 import 'package:attend_pro/presentation/student/studentLayout/screens/profile_screen.dart';
 import 'package:attend_pro/presentation/student/studentLayout/screens/schedule_screen.dart';
@@ -8,6 +9,7 @@ import 'package:attend_pro/presentation/student/studentLayout/screens/home_scree
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 
 import 'doctor_announcments_screen.dart';
 import 'doctor_home_screen.dart';
@@ -61,7 +63,14 @@ class _LayoutScreenState extends State<DoctorLayoutScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              // Navigator.push(context, route)
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: const DoctorNotificationsScreen(),
+                  type: PageTransitionType.theme,
+                  duration: const Duration(milliseconds: 900),
+                ),
+              );
             },
             icon: Icon(
               Icons.notifications_none_outlined,

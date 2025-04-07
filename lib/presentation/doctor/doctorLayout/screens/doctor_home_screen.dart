@@ -7,7 +7,7 @@ import 'package:page_transition/page_transition.dart';
 import '../../../student/studentLayout/widget/carousel_slider_widget.dart';
 import '../../../student/studentLayout/widget/custom_home_container.dart';
 import '../widgets/custom_doctor_service_widget.dart';
-import 'attendance_logs_screen.dart';
+import 'attendanceLogs/attendance_logs_screen.dart';
 import 'choose_hall_screen.dart';
 
 class DoctorHomeScreen extends StatefulWidget {
