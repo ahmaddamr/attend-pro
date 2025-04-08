@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:attend_pro/core/widgets/custom_elevatedButton.dart';
 import 'package:attend_pro/presentation/doctor/doctorLayout/screens/check_in_screen.dart';
+import 'package:attend_pro/presentation/doctor/doctorLayout/screens/start_check_in_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -260,7 +261,7 @@ class HallEditsScreen extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   PageTransition(
-                                    child: const CheckInScreen(),
+                                    child: const StartCheckInScreen(),
                                     type: PageTransitionType.theme,
                                     duration: const Duration(seconds: 1),
                                   ));

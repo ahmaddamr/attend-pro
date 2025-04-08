@@ -9,9 +9,8 @@ import 'package:page_transition/page_transition.dart';
 import '../widgets/hall_item.dart';
 
 class ChooseHallScreen extends StatelessWidget {
-   ChooseHallScreen({super.key});
+  ChooseHallScreen({super.key});
   final _formKey = GlobalKey<FormState>();
-
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +73,7 @@ class ChooseHallScreen extends StatelessWidget {
                       onTap: () => Navigator.push(
                           context,
                           PageTransition(
-                            child:  HallEditsScreen(),
+                            child: HallEditsScreen(),
                             type: PageTransitionType.theme,
                             duration: const Duration(seconds: 1),
                           )),

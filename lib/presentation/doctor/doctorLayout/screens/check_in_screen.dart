@@ -20,18 +20,6 @@ class CheckInScreen extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                Expanded(
-                  child: CustomElvatedButton(
-                    text: 'Start Check-In',
-                    backgroundColor: AppColors.color1,
-                    borderSideColor: Colors.transparent,
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white),
-                    onPressed: () {},
-                  ),
-                ),
                 SizedBox(width: 15.w),
                 Expanded(
                   child: CustomElvatedButton(
@@ -54,10 +42,11 @@ class CheckInScreen extends StatelessWidget {
           ),
 
           /// ✅ Ensure `Expanded` starts directly after `PurpleDataLogItem`
-          Expanded(
+          SizedBox(
+            height: 450.h,
             child: ListView.builder(
               padding: EdgeInsets.zero, // Remove any extra padding
-              itemCount: 5,
+              itemCount: 10,
               itemBuilder: (context, index) {
                 return StudentCheckInDataItem(
                     id: '42021106',

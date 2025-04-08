@@ -2,6 +2,7 @@
 
 import 'package:attend_pro/core/app_colors.dart';
 import 'package:attend_pro/presentation/doctor/doctorLayout/screens/doctor_notifications_screen.dart';
+import 'package:attend_pro/presentation/doctor/doctorLayout/screens/doctor_profile_screen.dart';
 import 'package:attend_pro/presentation/student/studentLayout/screens/announcments_screen.dart';
 import 'package:attend_pro/presentation/student/studentLayout/screens/profile_screen.dart';
 import 'package:attend_pro/presentation/student/studentLayout/screens/schedule_screen.dart';
@@ -83,7 +84,7 @@ class _LayoutScreenState extends State<DoctorLayoutScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const ProfileScreen(),
+        builder: (context) => const DoctorProfileScreen(),
       ),
     );
   },
