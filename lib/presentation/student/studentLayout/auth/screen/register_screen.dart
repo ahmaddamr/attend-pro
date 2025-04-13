@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:attend_pro/core/app_colors.dart';
 import 'package:attend_pro/core/widgets/custom_elevatedButton.dart';
 import 'package:attend_pro/presentation/student/studentLayout/auth/widget/custom_divider.dart';
@@ -5,14 +7,36 @@ import 'package:attend_pro/presentation/student/studentLayout/screens/layout_scr
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
 
 import 'login_screen.dart';
 
-class RegisterScreen extends StatelessWidget {
-  RegisterScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
+
   final RegExp _htiEmailRegex = RegExp(r'^[0-9]+@hti\.edu\.eg$');
+
+  File? _pickedImage;
+
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile =
+        await picker.pickImage(source: ImageSource.gallery); // or camera
+
+    if (pickedFile != null) {
+      setState(() {
+        _pickedImage = File(pickedFile.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -310,6 +334,29 @@ class RegisterScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 15.h),
                             // **Password Field**
+                            Center(
+                              child: GestureDetector(
+                                onTap: _pickImage,
+                                child: CircleAvatar(
+                                  radius: 40.r,
+                                  backgroundColor: Colors.grey[300],
+                                  backgroundImage: _pickedImage != null
+                                      ? FileImage(_pickedImage!)
+                                      : null,
+                                  child: _pickedImage == null
+                                      ? const Icon(Icons.camera_alt,
+                                          size: 40, color: Colors.white)
+                                      : null,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 10.h),
+                            Center(
+                              child: Text(
+                                'Tap to select image',
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ),
 
                             SizedBox(
                               height: 32.h,

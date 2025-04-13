@@ -23,11 +23,11 @@ class StartCheckInScreen extends StatelessWidget {
               textStyle: Theme.of(context)
                   .textTheme
                   .bodySmall!
-                  .copyWith(fontSize: 26.sp, fontWeight: FontWeight.w600),
+                  .copyWith(fontSize: 60.sp, fontWeight: FontWeight.w600),
             ),
           ),
           Text(
-            'Check In',
+            'Check-In',
             style: GoogleFonts.montserrat(
               textStyle: Theme.of(context)
                   .textTheme
@@ -35,15 +35,17 @@ class StartCheckInScreen extends StatelessWidget {
                   .copyWith(fontSize: 26.sp, fontWeight: FontWeight.w600),
             ),
           ),
+          SizedBox(height: 15.h),
           Text(
-            'Your Lecture Will Start',
+            'Your Lecture Will Start at 10:00 Am',
             style: GoogleFonts.montserrat(
               textStyle: Theme.of(context)
                   .textTheme
                   .bodySmall!
-                  .copyWith(fontSize: 22.sp, fontWeight: FontWeight.w400),
+                  .copyWith(fontSize: 21.sp, fontWeight: FontWeight.w400),
             ),
           ),
+          SizedBox(height: 30.h),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -57,7 +59,9 @@ class StartCheckInScreen extends StatelessWidget {
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w700,
                         color: Colors.white),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
                 ),
                 SizedBox(width: 15.w),

@@ -108,17 +108,11 @@ class DoctorAnnouncmentsDataScreen extends StatelessWidget {
                             ),
                             PopupMenuButton<String>(
                               onSelected: (value) {
-                                if (value == "Edit") {
-                                  log('Edit');
-                                } else if (value == "Delete") {
-                                  log('Send Warning');
+                                if (value == "Delete") {
+                                  log('Delete');
                                 }
                               },
                               itemBuilder: (context) => [
-                                const PopupMenuItem(
-                                  value: "Edit",
-                                  child: Text("Edit"),
-                                ),
                                 const PopupMenuItem(
                                   value: "Delete",
                                   child: Text("Delete"),
