@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
-import 'attendance_logs_data_screen.dart';
 
 class AttendanceLogsScreen extends StatelessWidget {
   const AttendanceLogsScreen({super.key});

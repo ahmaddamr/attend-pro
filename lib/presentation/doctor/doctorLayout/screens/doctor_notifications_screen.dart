@@ -1,4 +1,3 @@
-import 'package:attend_pro/core/app_colors.dart';
 import 'package:attend_pro/presentation/doctor/doctorLayout/widgets/notifications_item.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';

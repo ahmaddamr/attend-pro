@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../../../../student/studentLayout/auth/screen/login_screen.dart';
 
 class DoctorRegisterScreen extends StatelessWidget {
   DoctorRegisterScreen({super.key});

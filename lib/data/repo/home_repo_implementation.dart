@@ -41,7 +41,10 @@ class HomeRepoImplementation implements HomeRepo {
       log(
         'Exception in register: $e',
       );
-      rethrow;
+      return StudentsSignUpModel(
+      message: 'An error occurred: $e',
+      user: null,
+    );
     }
   }
 }

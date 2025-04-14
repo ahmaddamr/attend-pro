@@ -1,6 +1,6 @@
 class StudentsSignUpModel {
   final String message;
-  final StudentUser user;
+  final StudentUser? user;
 
   StudentsSignUpModel({required this.message, required this.user});
 
