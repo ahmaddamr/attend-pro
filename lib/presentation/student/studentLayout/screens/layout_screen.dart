@@ -8,6 +8,9 @@ import 'package:attend_pro/presentation/student/studentLayout/screens/home_scree
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../../main.dart';
 
 class LayoutScreen extends StatefulWidget {
   const LayoutScreen({super.key});
@@ -27,7 +30,13 @@ class _LayoutScreenState extends State<LayoutScreen> {
 
   @override
   Widget build(BuildContext context) {
+        String? fname = prefs.getString('fname');
+        String? lname = prefs.getString('lname');
+        String? email = prefs.getString('email');
+
+
     return Scaffold(
+      
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         toolbarHeight: 80.h,
@@ -35,7 +44,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Ahmed miahmed mohamed',
+              '$fname $lname',
               style: GoogleFonts.montserrat(
                 textStyle: Theme.of(context)
                     .textTheme

@@ -76,29 +76,30 @@ class RemoteDataSource implements DataSource {
     return dio
         .post('/auth/login', data: {'email': email, 'password': password});
   }
-  
+
   @override
-  Future<Response> logout() async{
+  Future<Response> logout() async {
     return dio.post('/auth/logout');
   }
+
+  @override
+  Future<Response> staffSignUp({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String university_email,
+    required String password,
+    required String phoneNumber,
+  }) {
+    FormData formData = FormData.fromMap({
+      'firstName': firstName,
+      'lastName': lastName,
+      'email': email,
+      'university_email': university_email,
+      'password': password,
+      'phoneNumber': phoneNumber,
+    });
+
+    return dio.post('/auth/staff/signUp', data: formData);
+  }
 }
-
-  // Future<Response> StudentSignUp(
-  //     {required String firstName,
-  //     required String lastName,
-  //     required String email,
-  //     required String university_email,
-  //     required String password,
-  //     required String phoneNumber,
-  //     required File image}) {
-  //   return dio.post('/auth/student/signUp', data: {
-  //     'firstName': firstName,
-  //     'lastName': lastName,
-  //     'email': email,
-  //     'universityEmail': university_email,
-  //     'password': password,
-  //     'phoneNumber': phoneNumber,
-  //     'image': image
-  //   });
-  // }
-

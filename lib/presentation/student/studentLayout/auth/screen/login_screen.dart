@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         builder: (context) {
                           return const LayoutScreen();
                         },
-                      ));
+                      ),);
                       toastification.show(
                         context:
                             context, // optional if you use ToastificationWrapper

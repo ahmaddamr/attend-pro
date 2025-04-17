@@ -14,6 +14,12 @@ abstract class DataSource {
   });
   Future<Response> login({required String email, required String password});
   Future<Response> logout();
-  
-
+  Future<Response> staffSignUp({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String university_email,
+    required String password,
+    required String phoneNumber,
+  });
 }

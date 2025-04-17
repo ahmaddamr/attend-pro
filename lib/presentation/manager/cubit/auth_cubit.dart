@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:attend_pro/data/models/staff_signup_model.dart';
 import 'package:attend_pro/data/models/students_signup_model.dart';
 import 'package:attend_pro/domain/use_case.dart';
 import 'package:bloc/bloc.dart';
@@ -26,6 +27,7 @@ class AuthCubit extends Cubit<AuthState> {
   StudentsSignUpModel? model;
   LoginModel? loginModel;
   LogoutModel? logoutModel;
+  StaffSignUpModel? staffModel;
 
   Future<void> studentSignUp() async {
     emit(AuthLoading());
@@ -66,8 +68,11 @@ class AuthCubit extends Cubit<AuthState> {
 
       if (loginModel.user?.role == 'student') {
         emit(LoginStudentSuccess());
+      }
+      if (loginModel.user?.role == 'admin') {
+        emit(LoginStaffSuccess());
       } else {
-        emit(LoginFailure(msg: 'You are not a student.'));
+        emit(LoginFailure(msg: 'You are not a student or staff.'));
       }
     } catch (e) {
       emit(
@@ -84,5 +89,32 @@ class AuthCubit extends Cubit<AuthState> {
     LogoutModel logoutModel = await useCase.logout();
 
     emit(LogoutSuccess());
+  }
+
+  Future<void> staffSignUp() async {
+    emit(StaffSignLoading());
+    try {
+      staffModel = await useCase.staffSignUp(
+          firstName: firstName.text,
+          lastName: lastName.text,
+          email: email.text,
+          university_email: uniEmail.text,
+          password: password.text,
+          phoneNumber: phone.text);
+      if (model != null && model!.user != null) {
+        emit(StaffSignSuccess());
+      } else {
+        emit(StaffSignFailure(
+            msg: model?.message ?? "staff Registration failed."));
+      }
+    } on Exception catch (e) {
+      emit(
+        StaffSignFailure(
+          msg: e.toString(),
+        ),
+      );
+    } catch (e) {
+      emit(StaffSignFailure(msg: "Unexpected error: $e"));
+    }
   }
 }
