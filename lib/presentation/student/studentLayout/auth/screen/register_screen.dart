@@ -13,6 +13,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:toastification/toastification.dart';
 import 'login_screen.dart';
+import 'package:path/path.dart' as path;
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -29,13 +30,44 @@ class _RegisterScreenState extends State<RegisterScreen> {
   // File? _pickedImage;
 
   Future<void> _pickImage(BuildContext context) async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery,imageQuality: 70);
-    if (pickedFile != null) {
-      AuthCubit.get(context).img = File(pickedFile.path);
-      // You can emit a state here if you want UI to rebuild, but it's optional
-    }
+  final pickedFile = await ImagePicker().pickImage(
+    source: ImageSource.gallery,
+    // imageQuality: 70, // Optional compression
+  );
+
+  if (pickedFile == null) return;
+
+  final file = File(pickedFile.path);
+  final fileSizeInBytes = await file.length();
+  final fileSizeInMB = fileSizeInBytes / (1024 * 1024);
+
+  // Check file size
+  if (fileSizeInMB > 5) {
+    _showError(context, 'Image must be less than 5MB');
+    return;
   }
+
+  // Check file extension
+  final ext = path.extension(file.path).toLowerCase();
+  const allowedExtensions = ['.jpg', '.jpeg', '.png', '.webp'];
+
+  if (!allowedExtensions.contains(ext)) {
+    _showError(context, 'Only JPG, JPEG, PNG, or WEBP formats are allowed');
+    return;
+  }
+
+  // All good: assign to cubit
+  final cubit = BlocProvider.of<AuthCubit>(context);
+  cubit.img = file;
+
+  // Optionally emit state to rebuild UI
+}
+
+void _showError(BuildContext context, String message) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(content: Text(message)),
+  );
+}
 
   @override
   Widget build(BuildContext context) {

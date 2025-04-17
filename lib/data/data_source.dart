@@ -12,4 +12,8 @@ abstract class DataSource {
     required String phoneNumber,
     required File image,
   });
+  Future<Response> login({required String email, required String password});
+  Future<Response> logout();
+  
+
 }

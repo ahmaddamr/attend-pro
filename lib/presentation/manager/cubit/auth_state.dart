@@ -14,3 +14,21 @@ final class AuthFailure extends AuthState {
 
   AuthFailure({required this.msg});
 }
+
+final class LoginInitial extends AuthState {}
+
+final class LoginLoading extends AuthState {}
+
+final class LoginStudentSuccess extends AuthState {}
+
+final class LoginFailure extends AuthState {
+  final String msg;
+
+  LoginFailure({required this.msg});
+}
+
+final class LogoutInitial extends AuthState {}
+
+final class LogoutLoading extends AuthState {}
+
+final class LogoutSuccess extends AuthState {}
