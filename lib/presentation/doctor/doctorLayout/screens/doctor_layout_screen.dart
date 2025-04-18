@@ -76,36 +76,36 @@ class _LayoutScreenState extends State<DoctorLayoutScreen> {
             ),
           ),
           InkWell(
-  onTap: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const DoctorProfileScreen(),
-      ),
-    );
-  },
-  child: Padding(
-    padding: EdgeInsets.all(13.sp),
-    child: Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle, // Ensure the container is circular
-        border: Border.all(
-          color: AppColors.color1, // Border color
-          width: 2.w, // Border width
-        ),
-      ),
-      child: CircleAvatar(
-        radius: 30.r,
-        backgroundColor: AppColors.color2,
-        child: Icon(
-          Icons.person,
-          size: 40.sp,
-          color: Colors.white,
-        ),
-      ),
-    ),
-  ),
-)
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const DoctorProfileScreen(),
+                ),
+              );
+            },
+            child: Padding(
+              padding: EdgeInsets.all(13.sp),
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle, // Ensure the container is circular
+                  border: Border.all(
+                    color: AppColors.color1, // Border color
+                    width: 2.w, // Border width
+                  ),
+                ),
+                child: CircleAvatar(
+                  radius: 30.r,
+                  backgroundColor: AppColors.color2,
+                  child: Icon(
+                    Icons.person,
+                    size: 40.sp,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          )
         ],
       ),
       body: AnimatedSwitcher(

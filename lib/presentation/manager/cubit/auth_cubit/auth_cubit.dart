@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:attend_pro/data/models/staff_signup_model.dart';
 import 'package:attend_pro/data/models/students_signup_model.dart';
-import 'package:attend_pro/domain/use_case.dart';
+import 'package:attend_pro/domain/repo/use_cases/use_case.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../data/models/login_model.dart';
-import '../../../data/models/logout_model.dart';
+import '../../../../data/models/login_model.dart';
+import '../../../../data/models/logout_model.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
@@ -66,10 +66,11 @@ class AuthCubit extends Cubit<AuthState> {
       LoginModel loginModel =
           await useCase.login(email: email.text, password: password.text);
 
-      if (loginModel.user?.role == 'student') {
+      if (loginModel.user == null) {
+        emit(LoginFailure(msg: 'Invalid user data received.'));
+      } else if (loginModel.user!.role == 'student') {
         emit(LoginStudentSuccess());
-      }
-      if (loginModel.user?.role == 'admin') {
+      } else if (loginModel.user!.role == 'admin') {
         emit(LoginStaffSuccess());
       } else {
         emit(LoginFailure(msg: 'You are not a student or staff.'));
@@ -114,7 +115,9 @@ class AuthCubit extends Cubit<AuthState> {
         ),
       );
     } catch (e) {
-      emit(StaffSignFailure(msg: "Unexpected error: $e"));
+      emit(
+        StaffSignFailure(msg: "Unexpected error: $e"),
+      );
     }
   }
 }

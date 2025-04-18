@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:attend_pro/data/data_source.dart';
+import 'package:attend_pro/data/models/get_halls_model.dart';
 import 'package:attend_pro/data/models/login_model.dart';
 import 'package:attend_pro/data/models/logout_model.dart';
 import 'package:attend_pro/data/models/staff_signup_model.dart';
@@ -42,10 +43,12 @@ class HomeRepoImplementation implements HomeRepo {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         var model = StudentsSignUpModel.fromJson(response.data);
-        prefs.setString('fname', response.data['firstName']);
-        prefs.setString('lname', response.data['lastName']);
-        prefs.setString('email', response.data['university_email']);
+        prefs.setString('fname', response.data['user']['firstName'] ?? '');
+        prefs.setString('lname', response.data['user']['lastName'] ?? '');
+        prefs.setString(
+            'email', response.data['user']['university_email'] ?? '');
         log('Success: ${model.user}');
+        log('${response.data}');
         return model;
       } else {
         log('Registration failed: ${response.data}');
@@ -158,6 +161,22 @@ class HomeRepoImplementation implements HomeRepo {
         message: 'Exception: $e',
         user: null,
       );
+    }
+  }
+
+  @override
+  Future<List<HallDevice>> getAllHalls() async {
+    var response = await dataSource.getAllHalls();
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = GetHallsModel.fromJson(response.data);
+        log(data.devices.toString());
+        return data.devices ?? [];
+      } else {
+        return response.data['message'];
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 }

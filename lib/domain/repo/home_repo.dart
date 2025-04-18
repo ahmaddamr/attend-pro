@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:attend_pro/data/models/logout_model.dart';
 
+import '../../data/models/get_halls_model.dart';
 import '../../data/models/login_model.dart';
 import '../../data/models/staff_signup_model.dart';
 import '../../data/models/students_signup_model.dart';
@@ -26,4 +27,5 @@ abstract class HomeRepo {
       required String university_email,
       required String password,
       required String phoneNumber});
+  Future<List<HallDevice>> getAllHalls();
 }

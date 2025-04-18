@@ -1,6 +1,6 @@
 import 'package:attend_pro/core/app_colors.dart';
 import 'package:attend_pro/core/widgets/custom_elevatedButton.dart';
-import 'package:attend_pro/presentation/manager/cubit/auth_cubit.dart';
+import 'package:attend_pro/presentation/manager/cubit/auth_cubit/auth_cubit.dart';
 import 'package:attend_pro/presentation/student/studentLayout/auth/screen/forget_password_screen.dart';
 import 'package:attend_pro/presentation/student/studentLayout/auth/screen/register_screen.dart';
 import 'package:attend_pro/presentation/student/studentLayout/auth/widget/custom_divider.dart';

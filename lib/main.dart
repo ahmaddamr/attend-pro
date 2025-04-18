@@ -1,4 +1,4 @@
-import 'package:attend_pro/presentation/manager/cubit/auth_cubit.dart';
+import 'package:attend_pro/presentation/manager/cubit/auth_cubit/auth_cubit.dart';
 import 'package:attend_pro/presentation/manager/provider/main_provider.dart';
 import 'package:attend_pro/presentation/splash/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';

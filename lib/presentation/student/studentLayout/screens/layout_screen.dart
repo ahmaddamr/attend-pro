@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable
-
 import 'package:attend_pro/core/app_colors.dart';
 import 'package:attend_pro/presentation/student/studentLayout/screens/announcments_screen.dart';
 import 'package:attend_pro/presentation/student/studentLayout/screens/profile_screen.dart';
@@ -8,8 +7,6 @@ import 'package:attend_pro/presentation/student/studentLayout/screens/home_scree
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../../main.dart';
 
 class LayoutScreen extends StatefulWidget {
@@ -30,13 +27,11 @@ class _LayoutScreenState extends State<LayoutScreen> {
 
   @override
   Widget build(BuildContext context) {
-        String? fname = prefs.getString('fname');
-        String? lname = prefs.getString('lname');
-        String? email = prefs.getString('email');
-
+    String? fname = prefs.getString('fname');
+    String? lname = prefs.getString('lname');
+    String? email = prefs.getString('email');
 
     return Scaffold(
-      
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         toolbarHeight: 80.h,
@@ -75,36 +70,36 @@ class _LayoutScreenState extends State<LayoutScreen> {
             ),
           ),
           InkWell(
-  onTap: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const ProfileScreen(),
-      ),
-    );
-  },
-  child: Padding(
-    padding: EdgeInsets.all(13.sp),
-    child: Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle, // Ensure the container is circular
-        border: Border.all(
-          color: AppColors.color1, // Border color
-          width: 2.w, // Border width
-        ),
-      ),
-      child: CircleAvatar(
-        radius: 30.r,
-        backgroundColor: AppColors.color2,
-        child: Icon(
-          Icons.person,
-          size: 40.sp,
-          color: Colors.white,
-        ),
-      ),
-    ),
-  ),
-)
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProfileScreen(),
+                ),
+              );
+            },
+            child: Padding(
+              padding: EdgeInsets.all(13.sp),
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle, // Ensure the container is circular
+                  border: Border.all(
+                    color: AppColors.color1, // Border color
+                    width: 2.w, // Border width
+                  ),
+                ),
+                child: CircleAvatar(
+                  radius: 30.r,
+                  backgroundColor: AppColors.color2,
+                  child: Icon(
+                    Icons.person,
+                    size: 40.sp,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          )
         ],
       ),
       body: AnimatedSwitcher(

@@ -1,5 +1,6 @@
 import 'package:attend_pro/core/widgets/custom_elevatedButton.dart';
-import 'package:attend_pro/presentation/manager/cubit/auth_cubit.dart';
+import 'package:attend_pro/presentation/manager/cubit/auth_cubit/auth_cubit.dart';
+import 'package:attend_pro/presentation/onboarding/onboarding3.dart';
 import 'package:attend_pro/presentation/student/studentLayout/auth/screen/login_screen.dart';
 import 'package:attend_pro/presentation/student/studentLayout/screens/settings_screen.dart';
 import 'package:attend_pro/presentation/student/studentLayout/widget/settings_item.dart';
@@ -166,7 +167,7 @@ class ProfileScreen extends StatelessWidget {
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const LoginScreen(),
+                      builder: (context) => const Onboarding3(),
                     ),
                     (route) => false,
                   );

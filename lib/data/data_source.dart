@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -22,4 +24,5 @@ abstract class DataSource {
     required String password,
     required String phoneNumber,
   });
+  Future<Response> getAllHalls();
 }
