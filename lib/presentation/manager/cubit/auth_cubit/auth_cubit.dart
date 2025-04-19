@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:attend_pro/data/models/staff_signup_model.dart';
 import 'package:attend_pro/data/models/students_signup_model.dart';
-import 'package:attend_pro/domain/repo/use_cases/use_case.dart';
+import 'package:attend_pro/domain/use_cases/use_case.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

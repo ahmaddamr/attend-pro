@@ -27,8 +27,9 @@ class MySubjectsScreen extends StatelessWidget {
             child: ListView.builder(
               itemCount: 7,
               itemBuilder: (context, index) {
-                return const SubjectItem(
+                return  const SubjectItem(
                     lectDay: 'sunday',
+                    code: '000',
                     dr: 'Ahmed',
                     lecTime: '12:30',
                     lectRoom: '108',

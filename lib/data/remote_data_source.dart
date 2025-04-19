@@ -114,4 +114,26 @@ class RemoteDataSource implements DataSource {
       }),
     );
   }
+
+  @override
+  Future<Response> getAllSubjects() async {
+    final prefs = await SharedPreferences.getInstance();
+    return dio.get(
+      '/subjects/getAllSubjects',
+      options: Options(headers: {
+        'accesstoken': 'accesstoken_${prefs.getString('token')}',
+      }),
+    );
+  }
+
+  @override
+  Future<Response> getCourses() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    return dio.get(
+      '/subjects/getAllSubjectForAstaff/67ffeeae215b893eb9b42f41',
+      options: Options(
+          headers: {'accesstoken': 'accesstoken_${prefs.getString('token')}'}),
+    );
+  }
 }

@@ -4,11 +4,13 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:attend_pro/data/data_source.dart';
+import 'package:attend_pro/data/models/courses_model.dart';
 import 'package:attend_pro/data/models/get_halls_model.dart';
 import 'package:attend_pro/data/models/login_model.dart';
 import 'package:attend_pro/data/models/logout_model.dart';
 import 'package:attend_pro/data/models/staff_signup_model.dart';
 import 'package:attend_pro/data/models/students_signup_model.dart';
+import 'package:attend_pro/data/models/subjects_model.dart';
 import 'package:attend_pro/data/remote_data_source.dart';
 import 'package:attend_pro/domain/repo/home_repo.dart';
 import 'package:dio/dio.dart';
@@ -173,10 +175,55 @@ class HomeRepoImplementation implements HomeRepo {
         log(data.devices.toString());
         return data.devices ?? [];
       } else {
-        return response.data['message'];
+        log('❌ Unexpected response: ${response.data}');
+        return []; // Don't return the message directly, just log it and return empty list
       }
-    } catch (e) {
-      rethrow;
+    } catch (e, stackTrace) {
+      log('❌ Exception in getAllHalls: $e');
+      log('📍 StackTrace: $stackTrace');
+      return []; // Also return empty list here to avoid crashing the app
+    }
+  }
+
+  @override
+  Future<List<Subject>> getAllSubjects() async {
+    var response = await dataSource.getAllSubjects();
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = SubjectsModel.fromJson(response.data);
+        log(data.subjects.toString());
+        return data.subjects ?? [];
+      } else {
+        log('❌ Unexpected response: ${response.data}');
+        return [];
+      }
+    } catch (e, stackTrace) {
+      log('❌ Exception in getSubjects: $e');
+      log('📍 StackTrace: $stackTrace');
+      return []; // Also return empty list here to avoid crashing the app
+    }
+  }
+
+  @override
+  Future<List<CourseSubject>> getCourses() async {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var response = await dataSource.getCourses();
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = CoursesModel.fromJson(response.data);
+        log(data.subjects.toString());
+        prefs.setString('subId', response.data['subjects'][0]['_id']);
+        log(response.data['subjects'][0]['_id']);
+
+        return data.subjects ?? [];
+      } else {
+        log('❌ Unexpected response: ${response.data}');
+        return [];
+      }
+    } catch (e, stackTrace) {
+      log('❌ Exception in getCourses: $e');
+      log('📍 StackTrace: $stackTrace');
+      return []; // Also return empty list here to avoid crashing the app
     }
   }
 }

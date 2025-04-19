@@ -15,7 +15,7 @@ class SubjectItem extends StatelessWidget {
       required this.eng,
       required this.secTime,
       required this.secRoom,
-      required this.subject});
+      required this.subject, required this.code});
   final String subject,
       lectDay,
       dr,
@@ -24,6 +24,7 @@ class SubjectItem extends StatelessWidget {
       secDay,
       eng,
       secTime,
+      code,
       secRoom;
 
   @override
@@ -59,7 +60,7 @@ class SubjectItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Lecture: $lectDay',
+                        'Code: $code',
                         style: GoogleFonts.montserrat(
                           textStyle: Theme.of(context)
                               .textTheme
@@ -68,88 +69,88 @@ class SubjectItem extends StatelessWidget {
                                   fontSize: 17.sp, fontWeight: FontWeight.w400),
                         ),
                       ),
-                      Text(
-                        'Dr, $dr',
-                        style: GoogleFonts.montserrat(
-                          textStyle: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  fontSize: 17.sp, fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                      Text(
-                        'Time: $lecTime',
-                        style: GoogleFonts.montserrat(
-                          textStyle: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  fontSize: 17.sp, fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                      Text(
-                        'Room: $lectRoom',
-                        style: GoogleFonts.montserrat(
-                          textStyle: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  fontSize: 17.sp, fontWeight: FontWeight.w400),
-                        ),
-                      ),
+                      // Text(
+                      //   'Dr, $dr',
+                      //   style: GoogleFonts.montserrat(
+                      //     textStyle: Theme.of(context)
+                      //         .textTheme
+                      //         .bodySmall!
+                      //         .copyWith(
+                      //             fontSize: 17.sp, fontWeight: FontWeight.w400),
+                      //   ),
+                      // ),
+                      // Text(
+                      //   'Time: $lecTime',
+                      //   style: GoogleFonts.montserrat(
+                      //     textStyle: Theme.of(context)
+                      //         .textTheme
+                      //         .bodySmall!
+                      //         .copyWith(
+                      //             fontSize: 17.sp, fontWeight: FontWeight.w400),
+                      //   ),
+                      // ),
+                      // Text(
+                      //   'Room: $lectRoom',
+                      //   style: GoogleFonts.montserrat(
+                      //     textStyle: Theme.of(context)
+                      //         .textTheme
+                      //         .bodySmall!
+                      //         .copyWith(
+                      //             fontSize: 17.sp, fontWeight: FontWeight.w400),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.all(15.sp),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Section: $secDay',
-                        style: GoogleFonts.montserrat(
-                          textStyle: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  fontSize: 17.sp, fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                      Text(
-                        'Eng, $eng',
-                        style: GoogleFonts.montserrat(
-                          textStyle: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  fontSize: 17.sp, fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                      Text(
-                        'Time: $secTime',
-                        style: GoogleFonts.montserrat(
-                          textStyle: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  fontSize: 17.sp, fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                      Text(
-                        'Room: $secRoom',
-                        style: GoogleFonts.montserrat(
-                          textStyle: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  fontSize: 17.sp, fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
+                // Padding(
+                //   padding: EdgeInsets.all(15.sp),
+                //   child: Column(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     children: [
+                //       Text(
+                //         'Section: $secDay',
+                //         style: GoogleFonts.montserrat(
+                //           textStyle: Theme.of(context)
+                //               .textTheme
+                //               .bodySmall!
+                //               .copyWith(
+                //                   fontSize: 17.sp, fontWeight: FontWeight.w400),
+                //         ),
+                //       ),
+                //       Text(
+                //         'Eng, $eng',
+                //         style: GoogleFonts.montserrat(
+                //           textStyle: Theme.of(context)
+                //               .textTheme
+                //               .bodySmall!
+                //               .copyWith(
+                //                   fontSize: 17.sp, fontWeight: FontWeight.w400),
+                //         ),
+                //       ),
+                //       Text(
+                //         'Time: $secTime',
+                //         style: GoogleFonts.montserrat(
+                //           textStyle: Theme.of(context)
+                //               .textTheme
+                //               .bodySmall!
+                //               .copyWith(
+                //                   fontSize: 17.sp, fontWeight: FontWeight.w400),
+                //         ),
+                //       ),
+                //       Text(
+                //         'Room: $secRoom',
+                //         style: GoogleFonts.montserrat(
+                //           textStyle: Theme.of(context)
+                //               .textTheme
+                //               .bodySmall!
+                //               .copyWith(
+                //                   fontSize: 17.sp, fontWeight: FontWeight.w400),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // )
               ],
             )
           ],

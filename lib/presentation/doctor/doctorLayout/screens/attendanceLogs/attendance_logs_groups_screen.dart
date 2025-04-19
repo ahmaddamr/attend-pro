@@ -7,7 +7,8 @@ import 'package:page_transition/page_transition.dart';
 import 'attendance_logs_data_screen.dart';
 
 class AttendanceLogsGroupsScreen extends StatelessWidget {
-  const AttendanceLogsGroupsScreen({super.key});
+  const AttendanceLogsGroupsScreen({super.key, required this.id});
+  final String id;
 
   @override
   Widget build(BuildContext context) {

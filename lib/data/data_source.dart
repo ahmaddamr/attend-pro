@@ -25,4 +25,7 @@ abstract class DataSource {
     required String phoneNumber,
   });
   Future<Response> getAllHalls();
+  Future<Response> getAllSubjects();
+  Future<Response> getCourses();
+  
 }
