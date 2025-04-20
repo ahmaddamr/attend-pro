@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:attend_pro/presentation/doctor/doctorLayout/screens/check_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,17 +10,19 @@ import '../../../../core/app_colors.dart';
 import '../../../../core/widgets/custom_elevatedButton.dart';
 
 class StartCheckInScreen extends StatelessWidget {
-  const StartCheckInScreen({super.key});
+  const StartCheckInScreen({super.key, required this.hall, required this.id});
+  final String hall, id;
 
   @override
   Widget build(BuildContext context) {
+    log("latest $id");
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'M102',
+            hall,
             style: GoogleFonts.montserrat(
               textStyle: Theme.of(context)
                   .textTheme
@@ -33,16 +37,6 @@ class StartCheckInScreen extends StatelessWidget {
                   .textTheme
                   .bodySmall!
                   .copyWith(fontSize: 26.sp, fontWeight: FontWeight.w600),
-            ),
-          ),
-          SizedBox(height: 15.h),
-          Text(
-            'Your Lecture Will Start at 10:00 Am',
-            style: GoogleFonts.montserrat(
-              textStyle: Theme.of(context)
-                  .textTheme
-                  .bodySmall!
-                  .copyWith(fontSize: 21.sp, fontWeight: FontWeight.w400),
             ),
           ),
           SizedBox(height: 30.h),
@@ -78,7 +72,11 @@ class StartCheckInScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         PageTransition(
-                          child: const CheckInScreen(),
+                          child: CheckInScreen(
+                            id: id,
+                            
+                          ),
+                          
                           type: PageTransitionType.rightToLeft,
                           duration: const Duration(milliseconds: 600),
                         ),

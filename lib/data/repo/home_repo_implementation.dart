@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:attend_pro/data/data_source.dart';
 import 'package:attend_pro/data/models/courses_model.dart';
 import 'package:attend_pro/data/models/get_halls_model.dart';
+import 'package:attend_pro/data/models/groups_model.dart';
 import 'package:attend_pro/data/models/login_model.dart';
 import 'package:attend_pro/data/models/logout_model.dart';
 import 'package:attend_pro/data/models/staff_signup_model.dart';
@@ -206,7 +207,7 @@ class HomeRepoImplementation implements HomeRepo {
 
   @override
   Future<List<CourseSubject>> getCourses() async {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     var response = await dataSource.getCourses();
     try {
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -222,6 +223,24 @@ class HomeRepoImplementation implements HomeRepo {
       }
     } catch (e, stackTrace) {
       log('❌ Exception in getCourses: $e');
+      log('📍 StackTrace: $stackTrace');
+      return []; // Also return empty list here to avoid crashing the app
+    }
+  }
+
+  @override
+  Future<List<GroupData>> getGroups(String id) async {
+    var response = await dataSource.getGroups(id);
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = GroupModel.fromJson(response.data);
+        return data.data ?? [];
+      } else {
+        log('❌ Unexpected response: ${response.data}');
+        return [];
+      }
+    } catch (e, stackTrace) {
+      log('❌ Exception in getGroups: $e');
       log('📍 StackTrace: $stackTrace');
       return []; // Also return empty list here to avoid crashing the app
     }

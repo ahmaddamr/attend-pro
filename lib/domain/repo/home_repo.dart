@@ -2,14 +2,15 @@
 
 import 'dart:io';
 
+import 'package:attend_pro/data/models/groups_model.dart';
 import 'package:attend_pro/data/models/logout_model.dart';
+import 'package:attend_pro/data/models/subjects_model.dart';
 
 import '../../data/models/courses_model.dart';
 import '../../data/models/get_halls_model.dart';
 import '../../data/models/login_model.dart';
 import '../../data/models/staff_signup_model.dart';
 import '../../data/models/students_signup_model.dart';
-import '../../data/models/subjects_model.dart';
 
 abstract class HomeRepo {
   Future<StudentsSignUpModel> studentSignUp(
@@ -32,4 +33,5 @@ abstract class HomeRepo {
   Future<List<HallDevice>> getAllHalls();
   Future<List<Subject>> getAllSubjects();
   Future<List<CourseSubject>> getCourses();
+  Future<List<GroupData>> getGroups(String id);
 }

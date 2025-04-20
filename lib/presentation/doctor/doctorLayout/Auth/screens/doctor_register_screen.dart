@@ -3,7 +3,6 @@ import 'package:attend_pro/core/widgets/custom_elevatedButton.dart';
 import 'package:attend_pro/presentation/doctor/doctorLayout/Auth/screens/doctor_login_screen.dart';
 import 'package:attend_pro/presentation/manager/cubit/auth_cubit/auth_cubit.dart';
 import 'package:attend_pro/presentation/student/studentLayout/auth/widget/custom_divider.dart';
-import 'package:attend_pro/presentation/student/studentLayout/screens/layout_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

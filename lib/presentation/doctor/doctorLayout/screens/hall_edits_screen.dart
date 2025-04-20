@@ -1,8 +1,9 @@
 // ignore_for_file: must_be_immutable
 import 'dart:developer';
 import 'package:attend_pro/core/widgets/custom_elevatedButton.dart';
-import 'package:attend_pro/presentation/doctor/doctorLayout/screens/check_in_screen.dart';
+import 'package:attend_pro/data/models/groups_model.dart';
 import 'package:attend_pro/presentation/doctor/doctorLayout/screens/start_check_in_screen.dart';
+import 'package:attend_pro/presentation/manager/cubit/groups_cubit/groups_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +17,7 @@ import '../../../../data/models/courses_model.dart';
 import '../../../manager/cubit/subjects_cubit/subjects_cubit.dart';
 
 class HallEditsScreen extends StatefulWidget {
-  HallEditsScreen({super.key, required this.location});
+  const HallEditsScreen({super.key, required this.location});
   final String location;
 
   @override
@@ -26,20 +27,37 @@ class HallEditsScreen extends StatefulWidget {
 class _HallEditsScreenState extends State<HallEditsScreen> {
   final _formKey = GlobalKey<FormState>();
   CourseSubject? selectedCourse;
+  GroupData? selectedGroup;
+  late GroupsCubit groupsCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    groupsCubit = GroupsCubit();
+  }
+
+  @override
+  void dispose() {
+    groupsCubit.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => SubjectsCubit()..getCourses(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => SubjectsCubit()..getCourses()),
+        BlocProvider(create: (context) => groupsCubit),
+      ],
       child: Scaffold(
         appBar: AppBar(
           title: Text(
             'hall'.tr(),
             style: GoogleFonts.montserrat(
-              textStyle: Theme.of(context)
-                  .textTheme
-                  .bodySmall!
-                  .copyWith(fontSize: 24.sp, fontWeight: FontWeight.w700),
+              textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 24.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
             ),
           ),
         ),
@@ -59,7 +77,6 @@ class _HallEditsScreenState extends State<HallEditsScreen> {
             },
             builder: (context, state) {
               final cubit = SubjectsCubit.get(context);
-
               return SingleChildScrollView(
                 padding: EdgeInsets.all(20.sp),
                 child: Column(
@@ -95,7 +112,10 @@ class _HallEditsScreenState extends State<HallEditsScreen> {
                             CircularProgressIndicator(color: AppColors.color1),
                       )
                     else if (cubit.courses.isEmpty)
-                      const Text("No courses available.")
+                      const Text(
+                        "No courses available.",
+                        style: TextStyle(color: AppColors.color1),
+                      )
                     else
                       DropdownButtonFormField<CourseSubject>(
                         value: selectedCourse,
@@ -110,8 +130,12 @@ class _HallEditsScreenState extends State<HallEditsScreen> {
                         onChanged: (value) {
                           setState(() {
                             selectedCourse = value;
+                            selectedGroup = null;
                           });
-                          log("Selected course: ${value?.name}");
+                          if (value != null) {
+                            groupsCubit.getGroups(value.id.toString());
+                            log(value.id);
+                          }
                         },
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(
@@ -124,108 +148,119 @@ class _HallEditsScreenState extends State<HallEditsScreen> {
                         ),
                         hint: const Text("Select a course"),
                       ),
-                    // if (selectedCourse != null) ...[
-                    //   SizedBox(height: 20.h),
-                    //   Text("Course Code: ${selectedCourse!.code}"),
-                    //   Text("Year: ${selectedCourse!.year}"),
-                    //   Text("Department: ${selectedCourse!.department.name}"),
-                    // ],
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Text(
-                            'group'.tr(),
-                            style: GoogleFonts.montserrat(
-                              textStyle: Theme.of(context)
+                    SizedBox(height: 30.h),
+                    Text(
+                      'group'.tr(),
+                      style: GoogleFonts.montserrat(
+                        textStyle:
+                            Theme.of(context).textTheme.bodySmall!.copyWith(
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                      ),
+                    ),
+                    SizedBox(height: 10.h),
+                    BlocBuilder<GroupsCubit, GroupsState>(
+                      builder: (context, state) {
+                        if (state is GroupsLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                                color: AppColors.color1),
+                          );
+                        }
+
+                        if (groupsCubit.groups.isEmpty) {
+                          return const Text(
+                            "No groups available!",
+                            style: TextStyle(color: AppColors.color1),
+                          );
+                        }
+
+                        return DropdownButtonFormField<GroupData>(
+                          value: selectedGroup,
+                          items: groupsCubit.groups
+                              .map(
+                                (group) => DropdownMenuItem<GroupData>(
+                                  value: group,
+                                  child: Text(group.name),
+                                ),
+                              )
+                              .toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              selectedGroup = value;
+                            });
+                            log("Selected group: ${value?.name}");
+                            log("Selected group id: ${value?.id}");
+                          },
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 16.w, vertical: 10.h),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.r),
+                              borderSide:
+                                  const BorderSide(color: AppColors.color1),
+                            ),
+                          ),
+                          hint: const Text("Select a Group"),
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Please select a group';
+                            }
+                            return null;
+                          },
+                        );
+                      },
+                    ),
+                    SizedBox(height: 30.h),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomElvatedButton(
+                              text: 'Cancel',
+                              backgroundColor: AppColors.color5,
+                              borderSideColor: Colors.transparent,
+                              style: Theme.of(context)
                                   .textTheme
                                   .bodySmall!
                                   .copyWith(
-                                      fontSize: 24.sp,
+                                      fontSize: 20.sp,
                                       fontWeight: FontWeight.w700),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                decoration: const InputDecoration(
-                                  filled: true,
-                                  fillColor: AppColors.color2,
-                                  border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
+                              onPressed: () {}),
+                        ),
+                        SizedBox(width: 15.w),
+                        Expanded(
+                          child: CustomElvatedButton(
+                            text: 'Start',
+                            backgroundColor: AppColors.color1,
+                            borderSideColor: Colors.transparent,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w700),
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                log('valid');
+                                Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    child: StartCheckInScreen(
+                                      hall: widget.location,
+                                      id: selectedGroup!.id,
+                                    ),
+                                    type: PageTransitionType.theme,
+                                    duration: const Duration(seconds: 1),
                                   ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    borderSide:
-                                        BorderSide(color: AppColors.color2),
-                                  ),
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter Group Number';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: CustomElvatedButton(
-                                text: 'Cancel',
-                                backgroundColor: AppColors.color5,
-                                borderSideColor: Colors.transparent,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.w700),
-                                onPressed: () {}),
+                                );
+                              } else {
+                                log('invalid');
+                              }
+                            },
                           ),
-                          SizedBox(
-                            width: 15.w,
-                          ),
-                          Expanded(
-                            child: CustomElvatedButton(
-                                text: 'Start',
-                                backgroundColor: AppColors.color1,
-                                borderSideColor: Colors.transparent,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.w700),
-                                onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    log('valid');
-                                  } else {
-                                    Navigator.push(
-                                        context,
-                                        PageTransition(
-                                          child: const StartCheckInScreen(),
-                                          type: PageTransitionType.theme,
-                                          duration: const Duration(seconds: 1),
-                                        ));
-                                    log('invalid');
-                                  }
-                                }),
-                          )
-                        ],
-                      ),
+                        ),
+                      ],
                     )
                   ],
                 ),

@@ -27,5 +27,5 @@ abstract class DataSource {
   Future<Response> getAllHalls();
   Future<Response> getAllSubjects();
   Future<Response> getCourses();
-  
+  Future<Response> getGroups(String id);
 }

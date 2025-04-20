@@ -136,4 +136,14 @@ class RemoteDataSource implements DataSource {
           headers: {'accesstoken': 'accesstoken_${prefs.getString('token')}'}),
     );
   }
+
+  @override
+  Future<Response> getGroups(String id) async {
+    final prefs = await SharedPreferences.getInstance();
+    return dio.get(
+      '/subjects/getSubjectsForStaffForSubject/staff/67ffeeae215b893eb9b42f41/subject/$id',
+      options: Options(
+          headers: {'accesstoken': 'accesstoken_${prefs.getString('token')}'}),
+    );
+  }
 }

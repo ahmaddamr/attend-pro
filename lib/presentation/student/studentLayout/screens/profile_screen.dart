@@ -149,7 +149,7 @@ class ProfileScreen extends StatelessWidget {
               }
             },
             builder: (context, state) {
-              AuthCubit cubit = AuthCubit.get(context);
+              // AuthCubit cubit = AuthCubit.get(context);
               return CustomElvatedButton(
                 text: 'logout'.tr(),
                 backgroundColor: AppColors.color1,

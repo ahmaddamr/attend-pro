@@ -26,7 +26,7 @@ class AttendanceLogsGroupItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Group: $gNum',
+              gNum,
               style: GoogleFonts.montserrat(
                 textStyle: Theme.of(context)
                     .textTheme

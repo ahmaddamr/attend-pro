@@ -1,8 +1,11 @@
 import 'package:attend_pro/presentation/doctor/doctorLayout/widgets/subject_data_item.dart';
+import 'package:attend_pro/presentation/manager/cubit/subjects_cubit/subjects_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:toastification/toastification.dart';
 
 import '../../../../../core/app_colors.dart';
 
@@ -55,21 +58,56 @@ class AllSubjectsScreen extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return SubjectDataItem(
-                  subject: 'DataBase',
-                  drname: 'Dr. Ali',
-                  code: 'Csc114',
-                  color: index % 2 == 0 ? AppColors.color2 : null,
-                );
+          BlocProvider(
+            create: (context) => SubjectsCubit()..getSubjects(),
+            child: BlocConsumer<SubjectsCubit, SubjectsState>(
+              listener: (context, state) {
+                if (state is SubjectsFailure) {
+                  Navigator.pop(context);
+                  toastification.show(
+                    context:
+                        context, // optional if you use ToastificationWrapper
+                    type: ToastificationType.error,
+                    style: ToastificationStyle.flat,
+                    autoCloseDuration: const Duration(seconds: 5),
+                    title: Text(state.msg),
+                  );
+                }
+              },
+              builder: (context, state) {
+                var cubit = SubjectsCubit.get(context);
+                if (state is SubjectsLoading) {
+                  // Return the loading indicator when SubjectsCubit is loading
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: AppColors.color1,
+                    ),
+                  );
+                }
+                if (state is SubjectsSuccess) {
+                  // Display the list of subjects when data is successfully loaded
+                  return Expanded(
+                    child: ListView.builder(
+                      itemCount:
+                          cubit.subjects.length, // Update to dynamic count
+                      itemBuilder: (context, index) {
+                        var subject = cubit.subjects[index];
+                        return SubjectDataItem(
+                          subject: subject.name, // Use actual subject data
+                          drname: '', // Update with actual data
+                          code: subject.code, // Use actual course code
+                          color: index % 2 == 0 ? AppColors.color2 : null,
+                        );
+                      },
+                    ),
+                  );
+                }
+                return const SizedBox(); // Fallback empty widget if no state is matched
               },
             ),
-          )
+          ),
         ],
       ),
     );
   }
-}
+} 
