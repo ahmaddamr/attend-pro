@@ -4,11 +4,13 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:attend_pro/data/data_source.dart';
+import 'package:attend_pro/data/models/all_schedules_model.dart';
 import 'package:attend_pro/data/models/courses_model.dart';
 import 'package:attend_pro/data/models/get_halls_model.dart';
 import 'package:attend_pro/data/models/groups_model.dart';
 import 'package:attend_pro/data/models/login_model.dart';
 import 'package:attend_pro/data/models/logout_model.dart';
+import 'package:attend_pro/data/models/my_schedule_model.dart';
 import 'package:attend_pro/data/models/staff_signup_model.dart';
 import 'package:attend_pro/data/models/students_signup_model.dart';
 import 'package:attend_pro/data/models/subjects_model.dart';
@@ -83,7 +85,9 @@ class HomeRepoImplementation implements HomeRepo {
       if (response.statusCode == 200 || response.statusCode == 201) {
         var model = LoginModel.fromJson(response.data);
         prefs.setString('token', response.data['accessToken']);
+        prefs.setString('userId', response.data['user']['_id']);
         log('Token: ${response.data['accessToken']}');
+        log('UserId: ${response.data['user']['_id']}');
 
         log('Success Login: ${model.user}');
         return model;
@@ -92,7 +96,7 @@ class HomeRepoImplementation implements HomeRepo {
       }
     } catch (e) {
       log('Exception in Login: $e');
-      return LoginModel(msg: e.toString(), accessToken: '', user: null);
+      return LoginModel(message: e.toString(), accessToken: '', user: null);
     }
   }
 
@@ -241,6 +245,44 @@ class HomeRepoImplementation implements HomeRepo {
       }
     } catch (e, stackTrace) {
       log('❌ Exception in getGroups: $e');
+      log('📍 StackTrace: $stackTrace');
+      return []; // Also return empty list here to avoid crashing the app
+    }
+  }
+
+  @override
+  Future<List<ScheduleGroup>> getAllSchedules() async {
+    var response = await dataSource.getAllSchedules();
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = AllSchedulesModel.fromJson(response.data);
+        log(data.schedules.toString());
+        return data.schedules ?? [];
+      } else {
+        log('❌ Unexpected response: ${response.data}');
+        return [];
+      }
+    } catch (e, stackTrace) {
+      log('❌ Exception in getSchedules: $e');
+      log('📍 StackTrace: $stackTrace');
+      return []; // Also return empty list here to avoid crashing the app
+    }
+  }
+
+  @override
+  Future<List<ScheduleItems>> getMySchedules() async {
+    var response = await dataSource.getMySchedules();
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = MyScheduleModel.fromJson(response.data);
+        log(data.schedule.toString());
+        return data.schedule ?? [];
+      } else {
+        log('❌ Unexpected response: ${response.data}');
+        return [];
+      }
+    } catch (e, stackTrace) {
+      log('❌ Exception in getMySchedules: $e');
       log('📍 StackTrace: $stackTrace');
       return []; // Also return empty list here to avoid crashing the app
     }

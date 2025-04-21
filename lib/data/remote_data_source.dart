@@ -1,4 +1,5 @@
 // ignore_for_file: non_constant_identifier_names, avoid_print
+import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio/src/response.dart';
@@ -129,9 +130,10 @@ class RemoteDataSource implements DataSource {
   @override
   Future<Response> getCourses() async {
     final prefs = await SharedPreferences.getInstance();
+    String id = prefs.getString('userId') ?? '';
 
     return dio.get(
-      '/subjects/getAllSubjectForAstaff/67ffeeae215b893eb9b42f41',
+      '/subjects/getAllSubjectForAstaff/$id',
       options: Options(
           headers: {'accesstoken': 'accesstoken_${prefs.getString('token')}'}),
     );
@@ -140,10 +142,32 @@ class RemoteDataSource implements DataSource {
   @override
   Future<Response> getGroups(String id) async {
     final prefs = await SharedPreferences.getInstance();
+    String Uid = prefs.getString('userId') ?? '';
+    log('uid is : $Uid');
     return dio.get(
-      '/subjects/getSubjectsForStaffForSubject/staff/67ffeeae215b893eb9b42f41/subject/$id',
+      '/subjects/getSubjectsForStaffForSubject/staff/$Uid/subject/$id',
       options: Options(
           headers: {'accesstoken': 'accesstoken_${prefs.getString('token')}'}),
     );
+  }
+
+  @override
+  Future<Response> getAllSchedules() async {
+    final prefs = await SharedPreferences.getInstance();
+    return dio.get(
+      '/schedules/getAllSchedules',
+      options: Options(headers: {
+        'accesstoken': 'accesstoken_${prefs.getString('token')}',
+      }),
+    );
+  }
+
+  @override
+  Future<Response> getMySchedules() async {
+    final prefs = await SharedPreferences.getInstance();
+    return dio.get('/schedules/get-user-schedule',
+        options: Options(headers: {
+          'accesstoken': 'accesstoken_${prefs.getString('token')}',
+        }));
   }
 }

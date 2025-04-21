@@ -75,37 +75,32 @@ class AllScheduleItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(
-                        subject,
-                        style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(
-                              fontSize: 22.sp,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700),
-                        ),
-                      ),
-                      Text(
-                        'G:$groub',
-                        style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(
-                              fontSize: 22.sp,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700),
-                        ),
-                      ),
-                      Text(
-                        'Room: $room',
-                        style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(
-                              fontSize: 22.sp,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700),
-                        ),
-                      ),
-                    ],
+                  Text(
+                    subject,
+                    style: GoogleFonts.montserrat(
+                      textStyle: TextStyle(
+                          fontSize: 22.sp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  Text(
+                    groub,
+                    style: GoogleFonts.montserrat(
+                      textStyle: TextStyle(
+                          fontSize: 22.sp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  Text(
+                    'Room: $room',
+                    style: GoogleFonts.montserrat(
+                      textStyle: TextStyle(
+                          fontSize: 22.sp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700),
+                    ),
                   ),
                   SizedBox(height: 5.h),
 

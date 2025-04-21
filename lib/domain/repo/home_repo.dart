@@ -2,8 +2,10 @@
 
 import 'dart:io';
 
+import 'package:attend_pro/data/models/all_schedules_model.dart';
 import 'package:attend_pro/data/models/groups_model.dart';
 import 'package:attend_pro/data/models/logout_model.dart';
+import 'package:attend_pro/data/models/my_schedule_model.dart';
 import 'package:attend_pro/data/models/subjects_model.dart';
 
 import '../../data/models/courses_model.dart';
@@ -34,4 +36,6 @@ abstract class HomeRepo {
   Future<List<Subject>> getAllSubjects();
   Future<List<CourseSubject>> getCourses();
   Future<List<GroupData>> getGroups(String id);
+  Future<List<ScheduleGroup>> getAllSchedules();
+  Future<List<ScheduleItems>> getMySchedules();
 }
