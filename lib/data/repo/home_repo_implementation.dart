@@ -12,6 +12,7 @@ import 'package:attend_pro/data/models/login_model.dart';
 import 'package:attend_pro/data/models/logout_model.dart';
 import 'package:attend_pro/data/models/my_schedule_model.dart';
 import 'package:attend_pro/data/models/staff_signup_model.dart';
+import 'package:attend_pro/data/models/student_login_model.dart';
 import 'package:attend_pro/data/models/students_signup_model.dart';
 import 'package:attend_pro/data/models/subjects_model.dart';
 import 'package:attend_pro/data/remote_data_source.dart';
@@ -88,7 +89,7 @@ class HomeRepoImplementation implements HomeRepo {
         prefs.setString('userId', response.data['user']['_id']);
         log('Token: ${response.data['accessToken']}');
         log('UserId: ${response.data['user']['_id']}');
-
+        log('Response Data: ${response.data}');
         log('Success Login: ${model.user}');
         return model;
       } else {
@@ -97,6 +98,32 @@ class HomeRepoImplementation implements HomeRepo {
     } catch (e) {
       log('Exception in Login: $e');
       return LoginModel(message: e.toString(), accessToken: '', user: null);
+    }
+  }
+
+  @override
+  Future<StudentLoginModel> Studentlogin(
+      {required String email, required String password}) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      var response = await dataSource.login(email: email, password: password);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var model = StudentLoginModel.fromJson(response.data);
+        prefs.setString('token', response.data['accessToken']);
+        prefs.setString('userId', response.data['user']['user_id']);
+        log('Token: ${response.data['accessToken']}');
+        log('UserId: ${response.data['user']['user_id']}');
+        log('Response Data: ${response.data}');
+        log('Success Student Login: ${model.user}');
+        return model;
+      } else {
+        throw Exception('Student Login failed. Unexpected response format.');
+      }
+    } catch (e) {
+      log('Exception in Login: $e');
+      return StudentLoginModel(
+          message: e.toString(), accessToken: '', user: null);
     }
   }
 

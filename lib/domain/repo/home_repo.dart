@@ -12,6 +12,7 @@ import '../../data/models/courses_model.dart';
 import '../../data/models/get_halls_model.dart';
 import '../../data/models/login_model.dart';
 import '../../data/models/staff_signup_model.dart';
+import '../../data/models/student_login_model.dart';
 import '../../data/models/students_signup_model.dart';
 
 abstract class HomeRepo {
@@ -24,6 +25,7 @@ abstract class HomeRepo {
       required String phoneNumber,
       required File image});
   Future<LoginModel> login({required String email, required String password});
+  Future<StudentLoginModel> Studentlogin({required String email, required String password});
   Future<LogoutModel> logout();
   Future<StaffSignUpModel> staffSignUp(
       {required String firstName,

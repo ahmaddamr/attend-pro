@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:io';
+import 'package:attend_pro/data/models/student_login_model.dart';
 import 'package:attend_pro/data/repo/home_repo_implementation.dart';
 import 'package:attend_pro/domain/repo/home_repo.dart';
 import '../../data/models/login_model.dart';
@@ -30,6 +31,11 @@ class UseCase {
   Future<LoginModel> login(
       {required String email, required String password}) async {
     return await repo.login(email: email, password: password);
+  }
+
+  Future<StudentLoginModel> studentlogin(
+      {required String email, required String password}) async {
+    return await repo.Studentlogin(email: email, password: password);
   }
 
   Future<LogoutModel> logout() async {

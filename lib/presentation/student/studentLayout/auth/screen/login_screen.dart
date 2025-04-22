@@ -280,7 +280,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           content: Text('Processing Data'),
                                         ),
                                       );
-                                      cubit.login();
+                                      cubit.studentlogin();
                                     }
                                   }),
                               SizedBox(height: 15.h),

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:attend_pro/data/models/staff_signup_model.dart';
+import 'package:attend_pro/data/models/student_login_model.dart';
 import 'package:attend_pro/data/models/students_signup_model.dart';
 import 'package:attend_pro/domain/use_cases/use_case.dart';
 import 'package:bloc/bloc.dart';
@@ -26,6 +27,7 @@ class AuthCubit extends Cubit<AuthState> {
   File? img;
   StudentsSignUpModel? model;
   LoginModel? loginModel;
+  StudentLoginModel? studentLoginModel;
   LogoutModel? logoutModel;
   StaffSignUpModel? staffModel;
 
@@ -71,6 +73,30 @@ class AuthCubit extends Cubit<AuthState> {
       } else if (loginModel.user!.role == 'student') {
         emit(LoginStudentSuccess());
       } else if (loginModel.user!.role == 'admin') {
+        emit(LoginStaffSuccess());
+      } else {
+        emit(LoginFailure(msg: 'You are not a student or staff.'));
+      }
+    } catch (e) {
+      emit(
+        LoginFailure(
+          msg: e.toString(),
+        ),
+      );
+    }
+  }
+
+  Future<void> studentlogin() async {
+    emit(LoginLoading());
+    try {
+      StudentLoginModel studentLoginModel = await useCase.studentlogin(
+          email: email.text, password: password.text);
+
+      if (studentLoginModel.user == null) {
+        emit(LoginFailure(msg: 'Invalid user data received.'));
+      } else if (studentLoginModel.user!.role == 'student') {
+        emit(LoginStudentSuccess());
+      } else if (studentLoginModel.user!.role == 'admin') {
         emit(LoginStaffSuccess());
       } else {
         emit(LoginFailure(msg: 'You are not a student or staff.'));
