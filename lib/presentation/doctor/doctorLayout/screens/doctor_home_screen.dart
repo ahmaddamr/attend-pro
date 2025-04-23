@@ -21,10 +21,10 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
   final ScrollController _scrollController = ScrollController();
   late Timer _timer;
   List<String> imgs = [
+    'assets/images/icons/slider4.png',
     'assets/images/icons/slider1.png',
     'assets/images/icons/slider2.png',
     'assets/images/icons/slider3.png',
-    'assets/images/icons/slider4.png',
   ];
 
   @override

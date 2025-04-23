@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:attend_pro/presentation/doctor/doctorLayout/widgets/attendance_logs_group_item.dart';
 import 'package:attend_pro/presentation/manager/cubit/groups_cubit/groups_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -16,6 +18,7 @@ class AttendanceLogsGroupsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log('g Id is: $id');
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: Colors.transparent,
@@ -71,11 +74,12 @@ class AttendanceLogsGroupsScreen extends StatelessWidget {
                   crossAxisSpacing: 10.w),
               padding: EdgeInsets.all(10.sp),
               itemBuilder: (context, index) {
+                log('group id: ${cubit.groups[index].id}');
                 return InkWell(
                   onTap: () => Navigator.push(
                     context,
                     PageTransition(
-                      child: const AttendanceLogsDataScreen(),
+                      child:  AttendanceLogsDataScreen(id: cubit.groups[index].id,),
                       type: PageTransitionType.theme,
                       duration: const Duration(seconds: 1),
                     ),

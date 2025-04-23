@@ -75,11 +75,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                     if (state is LoginStudentSuccess) {
                       Navigator.pop(context);
-                      Navigator.pushReplacement(context, MaterialPageRoute(
-                        builder: (context) {
-                          return const LayoutScreen();
-                        },
-                      ),);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const LayoutScreen();
+                          },
+                        ),
+                      );
                       toastification.show(
                         context:
                             context, // optional if you use ToastificationWrapper

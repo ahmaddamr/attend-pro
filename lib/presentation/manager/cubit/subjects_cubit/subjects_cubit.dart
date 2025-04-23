@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:attend_pro/data/models/courses_model.dart';
 import 'package:attend_pro/data/models/subjects_model.dart';
 import 'package:attend_pro/domain/use_cases/get_courses_use_case.dart';
@@ -40,7 +39,9 @@ class SubjectsCubit extends Cubit<SubjectsState> {
       log('❌ Error in getCourses Cubit: $e');
       log('📍 Stack trace: $stackTrace');
       emit(
-        CoursesFailure(msg: e.toString()),
+        CoursesFailure(
+          msg: e.toString(),
+        ),
       );
     }
   }

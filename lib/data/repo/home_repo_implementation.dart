@@ -15,6 +15,7 @@ import 'package:attend_pro/data/models/staff_signup_model.dart';
 import 'package:attend_pro/data/models/student_login_model.dart';
 import 'package:attend_pro/data/models/students_signup_model.dart';
 import 'package:attend_pro/data/models/subjects_model.dart';
+import 'package:attend_pro/data/models/week_attendance_model.dart';
 import 'package:attend_pro/data/remote_data_source.dart';
 import 'package:attend_pro/domain/repo/home_repo.dart';
 import 'package:dio/dio.dart';
@@ -310,6 +311,25 @@ class HomeRepoImplementation implements HomeRepo {
       }
     } catch (e, stackTrace) {
       log('❌ Exception in getMySchedules: $e');
+      log('📍 StackTrace: $stackTrace');
+      return []; // Also return empty list here to avoid crashing the app
+    }
+  }
+
+  @override
+  Future<List<WeekAttendance>> getGroupAttendance(String id) async {
+    var response = await dataSource.getGroupAttendance(id);
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = GroupAttendanceModel.fromJson(response.data);
+        log(data.data.toString());
+        return data.data ?? [];
+      } else {
+        log('❌ Unexpected response: ${response.data}');
+        return [];
+      }
+    } catch (e, stackTrace) {
+      log('❌ Exception in getGroupAttendance: $e');
       log('📍 StackTrace: $stackTrace');
       return []; // Also return empty list here to avoid crashing the app
     }

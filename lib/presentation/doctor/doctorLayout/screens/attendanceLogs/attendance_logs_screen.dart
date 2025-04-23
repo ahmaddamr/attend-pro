@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:attend_pro/presentation/doctor/doctorLayout/screens/attendanceLogs/attendance_logs_groups_screen.dart';
 import 'package:attend_pro/presentation/doctor/doctorLayout/widgets/attendance_logs_item.dart';
 import 'package:attend_pro/presentation/manager/cubit/subjects_cubit/subjects_cubit.dart';
@@ -79,10 +81,12 @@ class AttendanceLogsScreen extends StatelessWidget {
                       PageTransition(
                         child: AttendanceLogsGroupsScreen(
                           id: cubit.courses[index].id,
+                          
                         ),
                         type: PageTransitionType.theme,
                         duration: const Duration(seconds: 1),
                       ),
+                      
                     );
                   },
                   child: AttendanceLogsItem(

@@ -82,36 +82,64 @@ class DoctorAnnouncmentsScreen extends StatelessWidget {
                                     return Column(
                                       children: [
                                         InkWell(
-                                          onTap: () {
-                                            Navigator.pop(context);
-                                            Navigator.push(
-                                              context,
-                                              PageTransition(
-                                                child:
-                                                    const DoctorAnnouncmentsDataScreen(),
-                                                type: PageTransitionType.theme,
-                                                duration: const Duration(
-                                                    milliseconds: 900),
-                                              ),
-                                            );
-                                          },
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 8.0),
-                                            child: Text(
-                                              'DataBase',
-                                              style: GoogleFonts.montserrat(
-                                                textStyle: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall!
-                                                    .copyWith(
-                                                        fontSize: 18.sp,
-                                                        fontWeight:
-                                                            FontWeight.w700),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                              Navigator.push(
+                                                context,
+                                                PageTransition(
+                                                  child:
+                                                      const DoctorAnnouncmentsDataScreen(),
+                                                  type:
+                                                      PageTransitionType.theme,
+                                                  duration: const Duration(
+                                                      milliseconds: 900),
+                                                ),
+                                              );
+                                            },
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(vertical: 8.0),
+                                                  child: Text(
+                                                    'DataBase',
+                                                    style:
+                                                        GoogleFonts.montserrat(
+                                                      textStyle: Theme.of(
+                                                              context)
+                                                          .textTheme
+                                                          .bodySmall!
+                                                          .copyWith(
+                                                              fontSize: 18.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(vertical: 8.0),
+                                                  child: Text(
+                                                    'G:1',
+                                                    style:
+                                                        GoogleFonts.montserrat(
+                                                      textStyle: Theme.of(
+                                                              context)
+                                                          .textTheme
+                                                          .bodySmall!
+                                                          .copyWith(
+                                                              fontSize: 18.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            )),
                                         const Divider(),
                                       ],
                                     );

@@ -30,4 +30,6 @@ abstract class DataSource {
   Future<Response> getGroups(String id);
   Future<Response> getAllSchedules();
   Future<Response> getMySchedules();
+  Future<Response> getGroupAttendance(String id);
+
 }
