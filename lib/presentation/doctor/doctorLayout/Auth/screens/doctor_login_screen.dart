@@ -299,7 +299,7 @@ class _DoctorLoginScreenState extends State<DoctorLoginScreen> {
                                       onTap: () => Navigator.pushReplacement(
                                         context,
                                         PageTransition(
-                                          child: RegisterScreen(),
+                                          child: const RegisterScreen(),
                                           type: PageTransitionType.theme,
                                           duration: const Duration(seconds: 1),
                                         ),

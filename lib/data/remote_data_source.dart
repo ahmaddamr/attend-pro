@@ -179,4 +179,27 @@ class RemoteDataSource implements DataSource {
           'accesstoken': 'accesstoken_${prefs.getString('token')}',
         }));
   }
+
+  @override
+  Future<Response> getStudentAttendance(String id) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    return dio.get(
+      '/attendance/getStudentAttendanceHistory/student/$id',
+      options: Options(headers: {
+        'accesstoken': 'accesstoken_${prefs.getString('token')}',
+      }),
+    );
+  }
+
+  @override
+  Future<Response> getWarnings() async {
+    final prefs = await SharedPreferences.getInstance();
+    return dio.get(
+      '/warnings/getMyWarnings',
+      options: Options(headers: {
+        'accesstoken': 'accesstoken_${prefs.getString('token')}',
+      }),
+    );
+  }
 }

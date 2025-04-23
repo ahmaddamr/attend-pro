@@ -12,9 +12,11 @@ import 'package:attend_pro/data/models/login_model.dart';
 import 'package:attend_pro/data/models/logout_model.dart';
 import 'package:attend_pro/data/models/my_schedule_model.dart';
 import 'package:attend_pro/data/models/staff_signup_model.dart';
+import 'package:attend_pro/data/models/student_attendance_model.dart';
 import 'package:attend_pro/data/models/student_login_model.dart';
 import 'package:attend_pro/data/models/students_signup_model.dart';
 import 'package:attend_pro/data/models/subjects_model.dart';
+import 'package:attend_pro/data/models/warning_model.dart';
 import 'package:attend_pro/data/models/week_attendance_model.dart';
 import 'package:attend_pro/data/remote_data_source.dart';
 import 'package:attend_pro/domain/repo/home_repo.dart';
@@ -113,6 +115,8 @@ class HomeRepoImplementation implements HomeRepo {
         var model = StudentLoginModel.fromJson(response.data);
         prefs.setString('token', response.data['accessToken']);
         prefs.setString('userId', response.data['user']['user_id']);
+        prefs.setString('studentId', response.data['user']['student_id']);
+
         log('Token: ${response.data['accessToken']}');
         log('UserId: ${response.data['user']['user_id']}');
         log('Response Data: ${response.data}');
@@ -332,6 +336,43 @@ class HomeRepoImplementation implements HomeRepo {
       log('❌ Exception in getGroupAttendance: $e');
       log('📍 StackTrace: $stackTrace');
       return []; // Also return empty list here to avoid crashing the app
+    }
+  }
+
+  @override
+  Future<List<AttendanceData>> getStudentAttendance(String id) async {
+    var response = await dataSource.getStudentAttendance(id);
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = StudentAttendanceModel.fromJson(response.data);
+        log(data.data.toString());
+        return data.data ?? [];
+      } else {
+        log('❌ Unexpected response: ${response.data}');
+        return [];
+      }
+    } catch (e, stackTrace) {
+      log('❌ Exception in getStudentAttendance: $e');
+      log('📍 StackTrace: $stackTrace');
+      return []; // Also return empty list here to avoid crashing the app
+    }
+  }
+
+  @override
+  Future<WarningModel> getWarnings() async {
+    var response = await dataSource.getWarnings();
+
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = WarningModel.fromJson(response.data);
+        return data;
+      } else {
+        log('❌ Unexpected response: ${response.data}');
+        throw Exception(
+            'warning failed with status code ${response.statusCode}');
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 }

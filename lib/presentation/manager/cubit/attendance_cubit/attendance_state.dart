@@ -14,3 +14,23 @@ final class AttendanceError extends AttendanceState {
 
   AttendanceError({required this.msg});
 }
+
+final class StudentAttendanceLoading extends AttendanceState {}
+
+final class StudentAttendanceSuccess extends AttendanceState {}
+
+final class StudentAttendanceFailure extends AttendanceState {
+  final String msg;
+
+  StudentAttendanceFailure({required this.msg});
+}
+
+final class WarningLoading extends AttendanceState {}
+
+final class WarningSuccess extends AttendanceState {}
+
+final class WarningFailure extends AttendanceState {
+  final String msg;
+
+  WarningFailure({required this.msg});
+}

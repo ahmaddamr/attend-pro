@@ -176,7 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: 10,
                   itemBuilder: (context, index) {
                     return const AttendaceItem(
-                        txt: 'Network', date: '15/10/2024');
+                        txt: 'Network', date: '15/10/2024',status: 'no',);
                   },
                 ),
               )

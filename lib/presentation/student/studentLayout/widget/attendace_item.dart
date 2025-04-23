@@ -4,8 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/app_colors.dart';
 
 class AttendaceItem extends StatelessWidget {
-  const AttendaceItem({super.key, required this.txt, required this.date});
-  final String txt, date;
+  const AttendaceItem(
+      {super.key, required this.txt, required this.date, required this.status});
+  final String txt, date, status;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,15 @@ class AttendaceItem extends StatelessWidget {
                 ),
               ],
             ),
-            Image.asset('assets/images/icons/done.png')
+            Text(
+              status,
+              style: GoogleFonts.montserrat(
+                textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.color1),
+              ),
+            ),
           ],
         ),
       ),

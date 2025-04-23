@@ -3,10 +3,8 @@ import 'package:attend_pro/data/models/all_schedules_model.dart';
 import 'package:attend_pro/data/models/my_schedule_model.dart';
 import 'package:attend_pro/domain/use_cases/get_all_schedules_use_case.dart';
 import 'package:attend_pro/domain/use_cases/get_my_schedules_use_case.dart';
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 
 part 'schedules_state.dart';
 

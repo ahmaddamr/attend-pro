@@ -118,7 +118,7 @@ class _AttendanceLogsDataScreenState extends State<AttendanceLogsDataScreen> {
                                 ],
                               ),
                               const SizedBox(height: 8),
-                              PurpleDataLogItem(
+                              const PurpleDataLogItem(
                                 status: 'Status',
                               ),
                               const SizedBox(height: 8),
@@ -181,7 +181,6 @@ class _AttendanceLogsDataScreenState extends State<AttendanceLogsDataScreen> {
                       },
                     );
             }
-
             return const Center(child: Text('No data loaded.'));
           },
         ),

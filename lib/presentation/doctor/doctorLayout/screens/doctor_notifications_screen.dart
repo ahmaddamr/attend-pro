@@ -27,7 +27,7 @@ class DoctorNotificationsScreen extends StatelessWidget {
               child: ListView.builder(
             itemCount: 7,
             itemBuilder: (context, index) {
-              return NotificationsItem(
+              return const NotificationsItem(
                   time: '12:00 Am',
                   content: 'Name NameNameNameNameNameNameNameName');
             },

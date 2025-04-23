@@ -86,7 +86,7 @@ class MyScheduleItem extends StatelessWidget {
                   ),
                   SizedBox(height: 5.h),
                   Text(
-                    'Dr: $instructor',
+                    ' $instructor',
                     style: GoogleFonts.montserrat(
                       textStyle:
                           TextStyle(fontSize: 18.sp, color: Colors.white),

@@ -6,7 +6,9 @@ import 'package:attend_pro/data/models/all_schedules_model.dart';
 import 'package:attend_pro/data/models/groups_model.dart';
 import 'package:attend_pro/data/models/logout_model.dart';
 import 'package:attend_pro/data/models/my_schedule_model.dart';
+import 'package:attend_pro/data/models/student_attendance_model.dart';
 import 'package:attend_pro/data/models/subjects_model.dart';
+import 'package:attend_pro/data/models/warning_model.dart';
 import 'package:attend_pro/data/models/week_attendance_model.dart';
 
 import '../../data/models/courses_model.dart';
@@ -26,7 +28,8 @@ abstract class HomeRepo {
       required String phoneNumber,
       required File image});
   Future<LoginModel> login({required String email, required String password});
-  Future<StudentLoginModel> Studentlogin({required String email, required String password});
+  Future<StudentLoginModel> Studentlogin(
+      {required String email, required String password});
   Future<LogoutModel> logout();
   Future<StaffSignUpModel> staffSignUp(
       {required String firstName,
@@ -42,4 +45,6 @@ abstract class HomeRepo {
   Future<List<ScheduleGroup>> getAllSchedules();
   Future<List<ScheduleItems>> getMySchedules();
   Future<List<WeekAttendance>> getGroupAttendance(String id);
+  Future<List<AttendanceData>> getStudentAttendance(String id);
+  Future<WarningModel> getWarnings();
 }
