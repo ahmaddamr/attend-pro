@@ -202,4 +202,53 @@ class RemoteDataSource implements DataSource {
       }),
     );
   }
+
+  @override
+  Future<Response> getAttendanceData(
+      String id, String date, String type) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    return dio.get(
+      '/attendance/getAttendanceResultsForSession/group/$id?sessionDate=$date&sessionType=$type',
+      options: Options(headers: {
+        'accesstoken': 'accesstoken_${prefs.getString('token')}',
+      }),
+    );
+  }
+
+  @override
+  Future<Response> selectHall(String hallId,
+      {required String subjectId,
+      required String groupId,
+      required int weekNumber,
+      required String sessionType}) async {
+    final prefs = await SharedPreferences.getInstance();
+    return dio.patch(
+      '/devices/selectHall/$hallId',
+      data: {
+        'subjectId': subjectId,
+        'groupId': groupId,
+        'weekNumber': weekNumber,
+        'sessionType': sessionType
+      },
+      options: Options(
+        headers: {
+          'accesstoken': 'accesstoken_${prefs.getString('token')}',
+        },
+      ),
+    );
+  }
+
+  @override
+  Future<Response> cancelHall(String id) async {
+    final prefs = await SharedPreferences.getInstance();
+    return dio.patch(
+      '/devices/cancel-selection/$id',
+      options: Options(
+        headers: {
+          'accesstoken': 'accesstoken_${prefs.getString('token')}',
+        },
+      ),
+    );
+  }
 }

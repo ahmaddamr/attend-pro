@@ -1,141 +1,186 @@
-import 'package:attend_pro/presentation/doctor/doctorLayout/widgets/purple_data_log_item.dart';
-import 'package:attend_pro/presentation/doctor/doctorLayout/widgets/student_check_in_data_item.dart';
+import 'package:attend_pro/presentation/doctor/doctorLayout/screens/doctor_layout_screen.dart';
+import 'package:attend_pro/presentation/manager/cubit/attendance_cubit/attendance_cubit.dart';
+import 'package:attend_pro/presentation/manager/cubit/attendance_cubit/attendance_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../../core/app_colors.dart';
 import '../../../../core/widgets/custom_elevatedButton.dart';
+import '../../doctorLayout/widgets/purple_data_log_item.dart';
+import '../../doctorLayout/widgets/student_check_in_data_item.dart';
 
 class LectureAttendanceScreen extends StatelessWidget {
-  const LectureAttendanceScreen({super.key});
+  const LectureAttendanceScreen({
+    super.key,
+    required this.id,
+    required this.date,
+    required this.type,
+  });
+
+  final String id, date, type;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 80.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  'Attendance',
-                  style: GoogleFonts.montserrat(
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(fontSize: 24.sp, fontWeight: FontWeight.w700),
-                  ),
-                ),
-                Text(
-                  '1/1/2025',
-                  style: GoogleFonts.montserrat(
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(fontSize: 24.sp, fontWeight: FontWeight.w700),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10.h),
-            const PurpleDataLogItem(status: 'Time'),
+      body: BlocProvider(
+        create: (_) => AttendanceCubit()..getSessionData(id, date, type),
+        child: BlocBuilder<AttendanceCubit, AttendanceState>(
+          builder: (context, state) {
+            if (state is SessionDataLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is SessionDataFailure) {
+              return Center(
+                  child: Text(
+                'Error: ${state.msg} ',
+                style: const TextStyle(color: AppColors.color1),
+              ));
+            } else if (state is SessionDataSuccess) {
+              final cubit = context.read<AttendanceCubit>();
+              final model = cubit.lectureAttendanceModel!;
+              final attended = model.data.attended;
+              final pending = model.data.pending;
 
-            /// **Make ListView.builder scrollable inside SingleChildScrollView**
-            ListView.builder(
-              padding: EdgeInsets.zero,
-              shrinkWrap: true, // Allow ListView to fit inside ScrollView
-              physics:
-                  const NeverScrollableScrollPhysics(), // Prevent nested scrolling
-              itemCount: 7,
-              itemBuilder: (context, index) {
-                return StudentCheckInDataItem(
-                    id: '42021106',
-                    name: 'Ahmed Mohamed',
-                    status: '10:00',
-                    bColor: index % 2 == 0 ? AppColors.color2 : null);
-              },
-            ),
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(height: 80.h),
+                    _buildTitle('Attendance', date, context),
+                    SizedBox(height: 10.h),
+                    const PurpleDataLogItem(status: 'Time'),
 
-            SizedBox(height: 25.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  'Pending List',
-                  style: GoogleFonts.montserrat(
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(fontSize: 24.sp, fontWeight: FontWeight.w700),
-                  ),
-                ),
-                Text(
-                  '1/1/2025',
-                  style: GoogleFonts.montserrat(
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(fontSize: 24.sp, fontWeight: FontWeight.w700),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10.h),
-            const PurpleDataLogItem(status: 'Time'),
-
-            /// **Second ListView.builder (Pending List)**
-            ListView.builder(
-              padding: EdgeInsets.zero,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return StudentCheckInDataItem(
-                  id: '42021106',
-                  name: 'Ahmed Mohamed',
-                  status: '10:00',
-                  bColor: index % 2 == 0 ? AppColors.color2 : null,
-                );
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: CustomElvatedButton(
-                      text: 'Reject',
-                      backgroundColor: AppColors.color5,
-                      borderSideColor: Colors.transparent,
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white),
-                      onPressed: () {},
+                    /// Attended List
+                    ListView.builder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: attended.length,
+                      itemBuilder: (context, index) {
+                        final item = attended[index];
+                        return StudentCheckInDataItem(
+                          id: item.student.studentId,
+                          name: item.student.studentName,
+                          status:
+                              item.checkInTime.split('T').last.split('.').first,
+                          bColor: index % 2 == 0 ? AppColors.color2 : null,
+                        );
+                      },
                     ),
-                  ),
-                  SizedBox(width: 15.w),
-                  Expanded(
-                    child: CustomElvatedButton(
-                      text: 'Accept',
-                      backgroundColor: AppColors.color1,
-                      borderSideColor: Colors.transparent,
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white),
-                      onPressed: () {},
+
+                    SizedBox(height: 25.h),
+                    _buildTitle('Pending List', date, context),
+                    SizedBox(height: 10.h),
+                    const PurpleDataLogItem(status: 'Time'),
+
+                    /// Pending List
+                    ListView.builder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: pending.length,
+                      itemBuilder: (context, index) {
+                        final item = pending[index];
+                        return StudentCheckInDataItem(
+                          border: AppColors.color5,
+                          id: item.student.studentId,
+                          name: item.student.studentName,
+                          status:
+                              item.checkInTime.split('T').last.split('.').first,
+                          bColor: index % 2 == 0 ? AppColors.color2 : null,
+                        );
+                      },
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: CustomElvatedButton(
+                              text: 'Reject All',
+                              backgroundColor: AppColors.color5,
+                              borderSideColor: Colors.transparent,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white),
+                              onPressed: () {
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const DoctorLayoutScreen(),
+                                  ),
+                                  (route) => false,
+                                );
+                              },
+                            ),
+                          ),
+                          SizedBox(width: 15.w),
+                          Expanded(
+                            child: CustomElvatedButton(
+                              text: 'Accept All',
+                              backgroundColor: AppColors.color1,
+                              borderSideColor: Colors.transparent,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white),
+                              onPressed: () {
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const DoctorLayoutScreen(),
+                                  ),
+                                  (route) => false,
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
+            return const SizedBox();
+          },
         ),
       ),
+    );
+  }
+
+  Row _buildTitle(String title, String date, BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Text(
+          title,
+          style: GoogleFonts.montserrat(
+            textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.w700,
+                ),
+          ),
+        ),
+        Text(
+          date,
+          style: GoogleFonts.montserrat(
+            textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.w700,
+                ),
+          ),
+        ),
+      ],
     );
   }
 }

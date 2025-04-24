@@ -114,6 +114,7 @@ class ChooseHallScreen extends StatelessWidget {
                                 PageTransition(
                                   child: HallEditsScreen(
                                     location: cubit.data[index].location ?? '',
+                                    hallId: cubit.data[index].id ?? '',
                                   ),
                                   type: PageTransitionType.theme,
                                   duration: const Duration(seconds: 1),

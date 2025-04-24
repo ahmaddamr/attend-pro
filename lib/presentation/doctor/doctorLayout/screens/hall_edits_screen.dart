@@ -4,6 +4,7 @@ import 'package:attend_pro/core/widgets/custom_elevatedButton.dart';
 import 'package:attend_pro/data/models/groups_model.dart';
 import 'package:attend_pro/presentation/doctor/doctorLayout/screens/start_check_in_screen.dart';
 import 'package:attend_pro/presentation/manager/cubit/groups_cubit/groups_cubit.dart';
+import 'package:attend_pro/presentation/manager/cubit/halls_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,8 +18,9 @@ import '../../../../data/models/courses_model.dart';
 import '../../../manager/cubit/subjects_cubit/subjects_cubit.dart';
 
 class HallEditsScreen extends StatefulWidget {
-  const HallEditsScreen({super.key, required this.location});
-  final String location;
+  const HallEditsScreen(
+      {super.key, required this.location, required this.hallId});
+  final String location, hallId;
 
   @override
   State<HallEditsScreen> createState() => _HallEditsScreenState();
@@ -30,6 +32,11 @@ class _HallEditsScreenState extends State<HallEditsScreen> {
   GroupData? selectedGroup;
   late GroupsCubit groupsCubit;
 
+  // Controllers for TextFormFields
+  final _sessionDateController = TextEditingController();
+  final _sessionTypeController = TextEditingController();
+  final weekNumber = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -39,7 +46,25 @@ class _HallEditsScreenState extends State<HallEditsScreen> {
   @override
   void dispose() {
     groupsCubit.close();
+    _sessionDateController.dispose();
+    _sessionTypeController.dispose();
+    weekNumber.dispose();
     super.dispose();
+  }
+
+  // Function to show date picker for sessionDate
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null) {
+      setState(() {
+        _sessionDateController.text = DateFormat('yyyy-MM-dd').format(picked);
+      });
+    }
   }
 
   @override
@@ -197,10 +222,7 @@ class _HallEditsScreenState extends State<HallEditsScreen> {
                             contentPadding: EdgeInsets.symmetric(
                                 horizontal: 16.w, vertical: 10.h),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12.r),
-                              borderSide:
-                                  const BorderSide(color: AppColors.color1),
-                            ),
+                                borderRadius: BorderRadius.circular(12.r)),
                           ),
                           hint: const Text("Select a Group"),
                           validator: (value) {
@@ -213,54 +235,178 @@ class _HallEditsScreenState extends State<HallEditsScreen> {
                       },
                     ),
                     SizedBox(height: 30.h),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CustomElvatedButton(
-                              text: 'Cancel',
-                              backgroundColor: AppColors.color5,
-                              borderSideColor: Colors.transparent,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                      fontSize: 20.sp,
-                                      fontWeight: FontWeight.w700),
-                              onPressed: () {}),
+                    // Session Date TextFormField with Date Picker
+                    Text(
+                      'session_date'.tr(),
+                      style: GoogleFonts.montserrat(
+                        textStyle:
+                            Theme.of(context).textTheme.bodySmall!.copyWith(
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                      ),
+                    ),
+                    SizedBox(height: 10.h),
+                    TextFormField(
+                      controller: _sessionDateController,
+                      readOnly: true, // Prevent manual editing
+                      onTap: () => _selectDate(context),
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16.w, vertical: 10.h),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.r),
+                          borderSide: const BorderSide(color: AppColors.color1),
                         ),
-                        SizedBox(width: 15.w),
-                        Expanded(
-                          child: CustomElvatedButton(
-                            text: 'Start',
-                            backgroundColor: AppColors.color1,
-                            borderSideColor: Colors.transparent,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.w700),
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                log('valid');
-                                Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    child: StartCheckInScreen(
-                                      hall: widget.location,
-                                      id: selectedGroup!.id,
-                                    ),
-                                    type: PageTransitionType.theme,
-                                    duration: const Duration(seconds: 1),
-                                  ),
-                                );
-                              } else {
-                                log('invalid');
-                              }
-                            },
-                          ),
+                        hintText: 'Select Session Date',
+                        suffixIcon: const Icon(Icons.calendar_today),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please select a session date';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: 30.h),
+                    // Session Type TextFormField
+                    Text(
+                      'session_type'.tr(),
+                      style: GoogleFonts.montserrat(
+                        textStyle:
+                            Theme.of(context).textTheme.bodySmall!.copyWith(
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                      ),
+                    ),
+                    SizedBox(height: 10.h),
+                    TextFormField(
+                      controller: _sessionTypeController,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16.w, vertical: 10.h),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.r),
+                          borderSide: const BorderSide(color: AppColors.color1),
                         ),
-                      ],
+                        hintText: 'Enter Session Type (e.g., Lecture, Lab)',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a session type';
+                        }
+                        return null;
+                      },
+                    ),
+                    Text(
+                      'Week_Number'.tr(),
+                      style: GoogleFonts.montserrat(
+                        textStyle:
+                            Theme.of(context).textTheme.bodySmall!.copyWith(
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                      ),
+                    ),
+                    SizedBox(height: 10.h),
+                    TextFormField(
+                      keyboardType: TextInputType.number,
+                      controller: weekNumber,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16.w, vertical: 10.h),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.r),
+                          borderSide: const BorderSide(color: AppColors.color1),
+                        ),
+                        hintText: 'Enter Week Number',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a Week Number';
+                        }
+                        return null;
+                      },
+                    ),
+
+                    SizedBox(height: 30.h),
+                    BlocProvider(
+                      create: (context) => HallsCubit(),
+                      child: BlocConsumer<HallsCubit, HallsState>(
+                        listener: (context, state) {
+                          if (state is SelectHallsFailure) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(state.msg),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          }
+
+                          if (state is SelectHallsSuccess) {
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                child: StartCheckInScreen(
+                                  hallId: widget.hallId,
+                                  hall: widget.location,
+                                  id: selectedGroup?.id ?? 'no id',
+                                  date: _sessionDateController.text,
+                                  type: _sessionTypeController.text,
+                                ),
+                                type: PageTransitionType.theme,
+                                duration: const Duration(seconds: 1),
+                              ),
+                            );
+                          }
+                        },
+                        builder: (context, state) {
+                          var selectCubit = HallsCubit.get(context);
+
+                          return Row(
+                            children: [
+                              SizedBox(width: 15.w),
+                              Expanded(
+                                child: CustomElvatedButton(
+                                  text: state is SelectHallsLoading
+                                      ? 'Loading...'
+                                      : 'Start',
+                                  backgroundColor: AppColors.color1,
+                                  borderSideColor: Colors.transparent,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                  onPressed: state is SelectHallsLoading
+                                      ? null
+                                      : () {
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            log('valid');
+                                            selectCubit.selectHall(
+                                              widget.hallId,
+                                              subjectId:
+                                                  selectedCourse?.id ?? 'no id',
+                                              groupId:
+                                                  selectedGroup?.id ?? 'no id',
+                                              weekNumber: 1,
+                                              sessionType:
+                                                  _sessionTypeController.text,
+                                            );
+                                          } else {
+                                            log('invalid');
+                                          }
+                                        },
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
                     )
                   ],
                 ),

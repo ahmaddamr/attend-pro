@@ -33,5 +33,12 @@ abstract class DataSource {
   Future<Response> getGroupAttendance(String id);
   Future<Response> getStudentAttendance(String id);
   Future<Response> getWarnings();
+  Future<Response> getAttendanceData(String id, String date, String type);
+  Future<Response> selectHall(String hallId,
+      {required String subjectId,
+      required String groupId,
+      required int weekNumber,
+      required String sessionType});
+Future<Response> cancelHall(String id);
 
 }

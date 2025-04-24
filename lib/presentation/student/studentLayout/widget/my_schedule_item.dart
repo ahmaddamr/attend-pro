@@ -37,10 +37,10 @@ class MyScheduleItem extends StatelessWidget {
               Text(
                 endTime,
                 style: GoogleFonts.montserrat(
-                  textStyle: Theme.of(context)
-                      .textTheme
-                      .bodySmall!
-                      .copyWith(fontSize: 18.sp, fontWeight: FontWeight.w700,color: Colors.grey),
+                  textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.grey),
                 ),
               ),
             ],
@@ -94,7 +94,7 @@ class MyScheduleItem extends StatelessWidget {
                   ),
                   if (room.isNotEmpty)
                     Text(
-                       'Room: $room',
+                      'Room: $room',
                       style: GoogleFonts.montserrat(
                         textStyle:
                             TextStyle(fontSize: 18.sp, color: Colors.white),

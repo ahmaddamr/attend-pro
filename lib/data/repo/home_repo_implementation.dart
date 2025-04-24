@@ -5,12 +5,15 @@ import 'dart:io';
 
 import 'package:attend_pro/data/data_source.dart';
 import 'package:attend_pro/data/models/all_schedules_model.dart';
+import 'package:attend_pro/data/models/cancel_hall_model.dart';
 import 'package:attend_pro/data/models/courses_model.dart';
 import 'package:attend_pro/data/models/get_halls_model.dart';
 import 'package:attend_pro/data/models/groups_model.dart';
+import 'package:attend_pro/data/models/lecture_attendance_model.dart';
 import 'package:attend_pro/data/models/login_model.dart';
 import 'package:attend_pro/data/models/logout_model.dart';
 import 'package:attend_pro/data/models/my_schedule_model.dart';
+import 'package:attend_pro/data/models/select_hall_model.dart';
 import 'package:attend_pro/data/models/staff_signup_model.dart';
 import 'package:attend_pro/data/models/student_attendance_model.dart';
 import 'package:attend_pro/data/models/student_login_model.dart';
@@ -365,6 +368,69 @@ class HomeRepoImplementation implements HomeRepo {
     try {
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = WarningModel.fromJson(response.data);
+        return data;
+      } else {
+        log('❌ Unexpected response: ${response.data}');
+        throw Exception(
+            'warning failed with status code ${response.statusCode}');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<LectureAttendanceModel> getAttendanceData(
+      String id, String date, String type) async {
+    var response = await dataSource.getAttendanceData(id, date, type);
+
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = LectureAttendanceModel.fromJson(response.data);
+        return data;
+      } else {
+        log('❌ Unexpected response: ${response.data}');
+        throw Exception(
+            'warning failed with status code ${response.statusCode}');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<SelectHallModel> selectHall(String hallId,
+      {required String subjectId,
+      required String groupId,
+      required int weekNumber,
+      required String sessionType}) async {
+    var response = await dataSource.selectHall(hallId,
+        subjectId: subjectId,
+        groupId: groupId,
+        weekNumber: weekNumber,
+        sessionType: sessionType);
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = SelectHallModel.fromJson(response.data);
+        return data;
+      } else {
+        log('❌ Unexpected response: ${response.data}');
+        throw Exception(
+            'warning failed with status code ${response.statusCode}');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<CancelHallModel> cancelHall(String id) async {
+    var response = await dataSource.cancelHall(id);
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = CancelHallModel.fromJson(response.data);
+        log(data.message); // "Device reservation canceled successfully"
+        log(data.device.location);
         return data;
       } else {
         log('❌ Unexpected response: ${response.data}');

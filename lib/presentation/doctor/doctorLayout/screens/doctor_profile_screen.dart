@@ -1,4 +1,5 @@
 import 'package:attend_pro/core/widgets/custom_elevatedButton.dart';
+import 'package:attend_pro/presentation/onboarding/onboarding3.dart';
 import 'package:attend_pro/presentation/student/studentLayout/screens/settings_screen.dart';
 import 'package:attend_pro/presentation/student/studentLayout/widget/settings_item.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/app_colors.dart';
 
 class DoctorProfileScreen extends StatelessWidget {
@@ -114,8 +116,17 @@ class DoctorProfileScreen extends StatelessWidget {
                     fontWeight: FontWeight.w800,
                     color: Colors.white),
               ),
-              onPressed: () {
-                // log out action
+              onPressed: () async {
+                final SharedPreferences prefs =
+                    await SharedPreferences.getInstance();
+                prefs.remove('token');
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Onboarding3(),
+                  ),
+                  (route) => false,
+                );
               })
         ],
       ),

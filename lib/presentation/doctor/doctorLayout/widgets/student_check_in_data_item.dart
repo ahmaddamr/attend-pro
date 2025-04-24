@@ -7,23 +7,24 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/app_colors.dart';
 
 class StudentCheckInDataItem extends StatelessWidget {
-  const StudentCheckInDataItem(
+  StudentCheckInDataItem(
       {super.key,
       required this.id,
       required this.name,
       required this.status,
-      this.bColor});
+      this.bColor,
+      this.border});
   final String id, name;
   final String status;
   final Color? bColor;
+  Color? border;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: bColor,
-        border:
-            const Border(bottom: BorderSide(color: AppColors.color2, width: 2)),
+        border: Border(bottom: BorderSide(color: border??Colors.transparent, width: 4)),
       ),
       child: Padding(
         padding: const EdgeInsets.only(left: 12.0),

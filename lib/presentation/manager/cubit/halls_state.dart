@@ -14,3 +14,23 @@ final class HallsError extends HallsState {
 
   HallsError({required this.msg});
 }
+
+final class SelectHallsLoading extends HallsState {}
+
+final class SelectHallsSuccess extends HallsState {}
+
+final class SelectHallsFailure extends HallsState {
+  final String msg;
+
+  SelectHallsFailure({required this.msg});
+}
+
+final class CancelHallsLoading extends HallsState {}
+
+final class CancelHallsSuccess extends HallsState {}
+
+final class CancelHallsFailure extends HallsState {
+  final String msg;
+
+  CancelHallsFailure({required this.msg});
+}

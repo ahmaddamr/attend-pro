@@ -3,9 +3,12 @@
 import 'dart:io';
 
 import 'package:attend_pro/data/models/all_schedules_model.dart';
+import 'package:attend_pro/data/models/cancel_hall_model.dart';
 import 'package:attend_pro/data/models/groups_model.dart';
+import 'package:attend_pro/data/models/lecture_attendance_model.dart';
 import 'package:attend_pro/data/models/logout_model.dart';
 import 'package:attend_pro/data/models/my_schedule_model.dart';
+import 'package:attend_pro/data/models/select_hall_model.dart';
 import 'package:attend_pro/data/models/student_attendance_model.dart';
 import 'package:attend_pro/data/models/subjects_model.dart';
 import 'package:attend_pro/data/models/warning_model.dart';
@@ -47,4 +50,12 @@ abstract class HomeRepo {
   Future<List<WeekAttendance>> getGroupAttendance(String id);
   Future<List<AttendanceData>> getStudentAttendance(String id);
   Future<WarningModel> getWarnings();
+  Future<LectureAttendanceModel> getAttendanceData(
+      String id, String date, String type);
+  Future<SelectHallModel> selectHall(String hallId,
+      {required String subjectId,
+      required String groupId,
+      required int weekNumber,
+      required String sessionType});
+  Future<CancelHallModel> cancelHall(String id);
 }

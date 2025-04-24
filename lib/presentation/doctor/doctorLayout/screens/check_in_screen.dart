@@ -11,8 +11,9 @@ import 'package:page_transition/page_transition.dart';
 import '../widgets/socket_io.dart';
 
 class CheckInScreen extends StatefulWidget {
-  const CheckInScreen({super.key, required this.id});
-  final String id;
+  const CheckInScreen(
+      {super.key, required this.id, required this.date, required this.type});
+  final String id, date, type;
 
   @override
   State<CheckInScreen> createState() => _CheckInScreenState();
@@ -107,7 +108,11 @@ class _CheckInScreenState extends State<CheckInScreen> {
                 Navigator.push(
                   context,
                   PageTransition(
-                    child: const LectureAttendanceScreen(),
+                    child: LectureAttendanceScreen(
+                      id: widget.id,
+                      date: widget.date,
+                      type: widget.type,
+                    ),
                     type: PageTransitionType.theme,
                     duration: const Duration(seconds: 1),
                   ),

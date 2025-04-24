@@ -34,3 +34,13 @@ final class WarningFailure extends AttendanceState {
 
   WarningFailure({required this.msg});
 }
+
+final class SessionDataLoading extends AttendanceState {}
+
+final class SessionDataSuccess extends AttendanceState {}
+
+final class SessionDataFailure extends AttendanceState {
+  final String msg;
+
+  SessionDataFailure({required this.msg});
+}
