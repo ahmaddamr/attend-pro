@@ -36,6 +36,7 @@ class _HallEditsScreenState extends State<HallEditsScreen> {
   final _sessionDateController = TextEditingController();
   final _sessionTypeController = TextEditingController();
   final weekNumber = TextEditingController();
+  final RegExp sessionTypeRegex = RegExp(r'^(lecture|lab)$'); // غير حساس للأحرف
 
   @override
   void initState() {
@@ -119,7 +120,7 @@ class _HallEditsScreenState extends State<HallEditsScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 30.h),
+                    SizedBox(height: 25.h),
                     Text(
                       'course'.tr(),
                       style: GoogleFonts.montserrat(
@@ -173,7 +174,7 @@ class _HallEditsScreenState extends State<HallEditsScreen> {
                         ),
                         hint: const Text("Select a course"),
                       ),
-                    SizedBox(height: 30.h),
+                    SizedBox(height: 25.h),
                     Text(
                       'group'.tr(),
                       style: GoogleFonts.montserrat(
@@ -234,10 +235,10 @@ class _HallEditsScreenState extends State<HallEditsScreen> {
                         );
                       },
                     ),
-                    SizedBox(height: 30.h),
+                    SizedBox(height: 25.h),
                     // Session Date TextFormField with Date Picker
                     Text(
-                      'session_date'.tr(),
+                      'Session Date'.tr(),
                       style: GoogleFonts.montserrat(
                         textStyle:
                             Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -268,10 +269,10 @@ class _HallEditsScreenState extends State<HallEditsScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 30.h),
+                    SizedBox(height: 25.h),
                     // Session Type TextFormField
                     Text(
-                      'session_type'.tr(),
+                      'Session Type'.tr(),
                       style: GoogleFonts.montserrat(
                         textStyle:
                             Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -290,17 +291,24 @@ class _HallEditsScreenState extends State<HallEditsScreen> {
                           borderRadius: BorderRadius.circular(12.r),
                           borderSide: const BorderSide(color: AppColors.color1),
                         ),
-                        hintText: 'Enter Session Type (e.g., Lecture, Lab)',
+                        hintText: 'Enter Session Type (lecture, lab)',
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter a session type';
                         }
+                        final regex =
+                            RegExp(r'^(lecture|lab)$', caseSensitive: false);
+                        if (!regex.hasMatch(value.trim())) {
+                          return 'Type must be "lecture" or "lab" only';
+                        }
                         return null;
                       },
                     ),
+                    SizedBox(height: 25.h),
+
                     Text(
-                      'Week_Number'.tr(),
+                      'Week Number'.tr(),
                       style: GoogleFonts.montserrat(
                         textStyle:
                             Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -330,7 +338,7 @@ class _HallEditsScreenState extends State<HallEditsScreen> {
                       },
                     ),
 
-                    SizedBox(height: 30.h),
+                    SizedBox(height: 25.h),
                     BlocProvider(
                       create: (context) => HallsCubit(),
                       child: BlocConsumer<HallsCubit, HallsState>(

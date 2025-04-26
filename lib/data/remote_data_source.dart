@@ -208,12 +208,11 @@ class RemoteDataSource implements DataSource {
       String id, String date, String type) async {
     final prefs = await SharedPreferences.getInstance();
 
-    return dio.get(
-      '/attendance/getAttendanceResultsForSession/group/$id?sessionDate=$date&sessionType=$type',
-      options: Options(headers: {
-        'accesstoken': 'accesstoken_${prefs.getString('token')}',
-      }),
-    );
+    return dio.get('/attendance/getAttendanceResultsForSession/group/$id',
+        options: Options(headers: {
+          'accesstoken': 'accesstoken_${prefs.getString('token')}',
+        }),
+        data: {'sessionDate': date, 'sessionType': type});
   }
 
   @override
@@ -244,6 +243,79 @@ class RemoteDataSource implements DataSource {
     final prefs = await SharedPreferences.getInstance();
     return dio.patch(
       '/devices/cancel-selection/$id',
+      options: Options(
+        headers: {
+          'accesstoken': 'accesstoken_${prefs.getString('token')}',
+        },
+      ),
+    );
+  }
+
+  @override
+  Future<Response> startCheck(String id) async {
+    final prefs = await SharedPreferences.getInstance();
+    return dio.patch(
+      '/devices/start-check-in/$id',
+      options: Options(
+        headers: {
+          'accesstoken': 'accesstoken_${prefs.getString('token')}',
+        },
+      ),
+    );
+  }
+
+  @override
+  Future<Response> endCheck(String id) async {
+    final prefs = await SharedPreferences.getInstance();
+    return dio.patch(
+      '/devices/end-check-in/$id',
+      options: Options(
+        headers: {
+          'accesstoken': 'accesstoken_${prefs.getString('token')}',
+        },
+      ),
+    );
+  }
+
+  @override
+  Future<Response> startCheckOut(String id) async {
+    final prefs = await SharedPreferences.getInstance();
+    return dio.patch(
+      '/devices/start-check-out/$id',
+      options: Options(
+        headers: {
+          'accesstoken': 'accesstoken_${prefs.getString('token')}',
+        },
+      ),
+    );
+  }
+
+  @override
+  Future<Response> endCheckOut(String id) async {
+    final prefs = await SharedPreferences.getInstance();
+    return dio.patch(
+      '/devices/end-check-out/$id',
+      options: Options(
+        headers: {
+          'accesstoken': 'accesstoken_${prefs.getString('token')}',
+        },
+      ),
+    );
+  }
+
+  @override
+  Future<Response> createannouncement(
+      {required String content,
+      required String groupId,
+      required String subjectId}) async {
+    final prefs = await SharedPreferences.getInstance();
+    return dio.post(
+      '/announcement/createAnnouncement',
+      data: {
+        'subject': subjectId,
+        'group': groupId,
+        'content': content,
+      },
       options: Options(
         headers: {
           'accesstoken': 'accesstoken_${prefs.getString('token')}',

@@ -39,6 +39,13 @@ abstract class DataSource {
       required String groupId,
       required int weekNumber,
       required String sessionType});
-Future<Response> cancelHall(String id);
-
+  Future<Response> cancelHall(String id);
+  Future<Response> startCheck(String id);
+  Future<Response> endCheck(String id);
+  Future<Response> startCheckOut(String id);
+  Future<Response> endCheckOut(String id);
+  Future<Response> createannouncement(
+      {required String content,
+      required String groupId,
+      required String subjectId});
 }

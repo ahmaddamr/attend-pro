@@ -64,6 +64,31 @@ class StartCheckInScreen extends StatelessWidget {
                 if (state is CancelHallsSuccess) {
                   Navigator.pop(context);
                 }
+
+                if (state is StartCheckFailure) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(state.msg),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
+
+                if (state is StartCheckSuccess) {
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      child: CheckInScreen(
+                        id: id,
+                        date: date,
+                        type: type,
+                        hallId: hallId,
+                      ),
+                      type: PageTransitionType.rightToLeft,
+                      duration: const Duration(milliseconds: 600),
+                    ),
+                  );
+                }
               },
               builder: (context, state) {
                 var cancelCubit = HallsCubit.get(context);
@@ -98,7 +123,9 @@ class StartCheckInScreen extends StatelessWidget {
                       /// Start Check-In Button
                       Expanded(
                         child: CustomElvatedButton(
-                          text: 'Start Check-In',
+                          text: state is StartCheckLoading
+                              ? 'Starting...'
+                              : 'Start Check-In',
                           backgroundColor: AppColors.color1,
                           borderSideColor: Colors.transparent,
                           style:
@@ -107,20 +134,11 @@ class StartCheckInScreen extends StatelessWidget {
                                     fontWeight: FontWeight.w700,
                                     color: Colors.white,
                                   ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              PageTransition(
-                                child: CheckInScreen(
-                                  id: id,
-                                  date: date,
-                                  type: type,
-                                ),
-                                type: PageTransitionType.rightToLeft,
-                                duration: const Duration(milliseconds: 600),
-                              ),
-                            );
-                          },
+                          onPressed: state is StartCheckLoading
+                              ? null
+                              : () {
+                                  cancelCubit.startCheck(hallId);
+                                },
                         ),
                       ),
                     ],

@@ -34,3 +34,43 @@ final class CancelHallsFailure extends HallsState {
 
   CancelHallsFailure({required this.msg});
 }
+
+final class StartCheckLoading extends HallsState {}
+
+final class StartCheckSuccess extends HallsState {}
+
+final class StartCheckFailure extends HallsState {
+  final String msg;
+
+  StartCheckFailure({required this.msg});
+}
+
+final class EndCheckLoading extends HallsState {}
+
+final class EndCheckSuccess extends HallsState {}
+
+final class EndCheckFailure extends HallsState {
+  final String msg;
+
+  EndCheckFailure({required this.msg});
+}
+
+final class StartCheckOutLoading extends HallsState {}
+
+final class StartCheckOutSuccess extends HallsState {}
+
+final class StartCheckOutFailure extends HallsState {
+  final String msg;
+
+  StartCheckOutFailure({required this.msg});
+}
+
+final class EndCheckOutLoading extends HallsState {}
+
+final class EndCheckOutSuccess extends HallsState {}
+
+final class EndCheckOutFailure extends HallsState {
+  final String msg;
+
+  EndCheckOutFailure({required this.msg});
+}

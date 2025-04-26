@@ -1,11 +1,19 @@
 import 'dart:developer';
 
 import 'package:attend_pro/data/models/cancel_hall_model.dart';
+import 'package:attend_pro/data/models/end_check_model.dart';
+import 'package:attend_pro/data/models/end_check_out_model.dart';
 import 'package:attend_pro/data/models/get_halls_model.dart';
 import 'package:attend_pro/data/models/select_hall_model.dart';
+import 'package:attend_pro/data/models/start_check_model.dart';
+import 'package:attend_pro/data/models/start_check_out_model.dart';
 import 'package:attend_pro/domain/use_cases/cancel_hall_use_case.dart';
+import 'package:attend_pro/domain/use_cases/end_check_out_use_case.dart';
+import 'package:attend_pro/domain/use_cases/end_check_use_case.dart';
 import 'package:attend_pro/domain/use_cases/get_halls_use_case.dart';
 import 'package:attend_pro/domain/use_cases/select_hall_use_case.dart';
+import 'package:attend_pro/domain/use_cases/start_check_out_use_case.dart';
+import 'package:attend_pro/domain/use_cases/start_check_use_case.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,8 +28,16 @@ class HallsCubit extends Cubit<HallsState> {
   final GetHallsUseCase useCase = GetHallsUseCase();
   SelectHallUseCase hallUseCase = SelectHallUseCase();
   CancelHallUseCase cancelHallUseCase = CancelHallUseCase();
+  StartCheckUseCase startCheckUseCase = StartCheckUseCase();
+  EndCheckUseCase endCheckUseCase = EndCheckUseCase();
+  StartCheckOutUseCase startCheckOutUseCase = StartCheckOutUseCase();
+  EndCheckOutUseCase endCheckOutUseCase = EndCheckOutUseCase();
   SelectHallModel? model;
   CancelHallModel? cancelHallModel;
+  StartCheckModel? startCheckModel;
+  EndCheckModel? endCheckModel;
+  StartCheckOutModel? startCheckOutModel;
+  EndCheckOutModel? endCheckOutModel;
 
   List<HallDevice> data = [];
 
@@ -69,6 +85,58 @@ class HallsCubit extends Cubit<HallsState> {
       log('❌ Error in cancelHall Cubit: $e');
       log('📍 Stack trace: $stackTrace');
       emit(CancelHallsFailure(msg: e.toString()));
+    }
+  }
+
+  Future<void> startCheck(String id) async {
+    emit(StartCheckLoading());
+    try {
+      startCheckModel = await startCheckUseCase.startCheck(id);
+      log('✅ Started Check: $startCheckModel');
+      emit(StartCheckSuccess());
+    } catch (e, stackTrace) {
+      log('❌ Error in startCheck Cubit: $e');
+      log('📍 Stack trace: $stackTrace');
+      emit(StartCheckFailure(msg: e.toString()));
+    }
+  }
+
+  Future<void> endCheck(String id) async {
+    emit(EndCheckLoading());
+    try {
+      endCheckModel = await endCheckUseCase.endCheck(id);
+      log('✅ Ended Check in: $endCheckModel');
+      emit(EndCheckSuccess());
+    } catch (e, stackTrace) {
+      log('❌ Error in EndCheck Cubit: $e');
+      log('📍 Stack trace: $stackTrace');
+      emit(EndCheckFailure(msg: e.toString()));
+    }
+  }
+
+  Future<void> startCheckOut(String id) async {
+    emit(StartCheckOutLoading());
+    try {
+      startCheckOutModel = await startCheckOutUseCase.startCheckOut(id);
+      log('✅ Started Check Out: $startCheckOutModel');
+      emit(StartCheckOutSuccess());
+    } catch (e, stackTrace) {
+      log('❌ Error in StartCheckOut Cubit: $e');
+      log('📍 Stack trace: $stackTrace');
+      emit(StartCheckOutFailure(msg: e.toString()));
+    }
+  }
+
+  Future<void> endCheckOut(String id) async {
+    emit(EndCheckOutLoading());
+    try {
+      endCheckOutModel = await endCheckOutUseCase.endCheckOut(id);
+      log('✅ Ended Check Out in: $endCheckOutModel');
+      emit(EndCheckOutSuccess());
+    } catch (e, stackTrace) {
+      log('❌ Error in EndCheckOut Cubit: $e');
+      log('📍 Stack trace: $stackTrace');
+      emit(EndCheckOutFailure(msg: e.toString()));
     }
   }
 }

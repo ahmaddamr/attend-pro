@@ -4,7 +4,8 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 class SocketService {
   late IO.Socket socket;
 
-  void connectAndJoinSession(String groupId, Function(dynamic data) onStudentCheckIn) {
+  void connectAndJoinSession(
+      String groupId, Function(dynamic data) onStudentCheckIn) {
     socket = IO.io(
       'https://attend-pro.onrender.com', // No http://https://!
       <String, dynamic>{
@@ -20,7 +21,7 @@ class SocketService {
 
     socket.onConnect((_) {
       log('✅ Connected to Socket.IO server');
-      socket.emit('join-session', 'session-$groupId'); // ✅ Room name must match backend
+      socket.emit('join-session', groupId); // ✅ Room name must match backend
 
       socket.on('student-check-in', (data) {
         log('🎯 Student Checked In: $data');

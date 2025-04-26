@@ -24,10 +24,11 @@ class StudentCheckInDataItem extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: bColor,
-        border: Border(bottom: BorderSide(color: border??Colors.transparent, width: 4)),
+        border: Border(
+            bottom: BorderSide(color: border ?? Colors.transparent, width: 4)),
       ),
       child: Padding(
-        padding: const EdgeInsets.only(left: 12.0),
+        padding: const EdgeInsets.only(left: 20.0),
         child: Row(
           children: [
             Text(
@@ -36,27 +37,27 @@ class StudentCheckInDataItem extends StatelessWidget {
                 textStyle: Theme.of(context)
                     .textTheme
                     .bodySmall!
-                    .copyWith(fontSize: 18.sp, fontWeight: FontWeight.w700),
+                    .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
               ),
             ),
-            SizedBox(width: 20.w), // Space between id and name
+            SizedBox(width: 30.w), // Space between id and name
             Text(
               name,
               style: GoogleFonts.montserrat(
                 textStyle: Theme.of(context)
                     .textTheme
                     .bodySmall!
-                    .copyWith(fontSize: 18.sp, fontWeight: FontWeight.w700),
+                    .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
               ),
             ),
             const Spacer(), // Pushes status to the right
             Text(
               status,
               style: GoogleFonts.montserrat(
-                textStyle: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(fontSize: 18.sp, fontWeight: FontWeight.w700),
+                textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.color1),
               ),
             ),
             PopupMenuButton<String>(

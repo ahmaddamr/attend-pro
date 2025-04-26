@@ -7,6 +7,9 @@ import 'package:attend_pro/data/data_source.dart';
 import 'package:attend_pro/data/models/all_schedules_model.dart';
 import 'package:attend_pro/data/models/cancel_hall_model.dart';
 import 'package:attend_pro/data/models/courses_model.dart';
+import 'package:attend_pro/data/models/create_announce_model.dart';
+import 'package:attend_pro/data/models/end_check_model.dart';
+import 'package:attend_pro/data/models/end_check_out_model.dart';
 import 'package:attend_pro/data/models/get_halls_model.dart';
 import 'package:attend_pro/data/models/groups_model.dart';
 import 'package:attend_pro/data/models/lecture_attendance_model.dart';
@@ -15,6 +18,8 @@ import 'package:attend_pro/data/models/logout_model.dart';
 import 'package:attend_pro/data/models/my_schedule_model.dart';
 import 'package:attend_pro/data/models/select_hall_model.dart';
 import 'package:attend_pro/data/models/staff_signup_model.dart';
+import 'package:attend_pro/data/models/start_check_model.dart';
+import 'package:attend_pro/data/models/start_check_out_model.dart';
 import 'package:attend_pro/data/models/student_attendance_model.dart';
 import 'package:attend_pro/data/models/student_login_model.dart';
 import 'package:attend_pro/data/models/students_signup_model.dart';
@@ -415,8 +420,7 @@ class HomeRepoImplementation implements HomeRepo {
         return data;
       } else {
         log('❌ Unexpected response: ${response.data}');
-        throw Exception(
-            'warning failed with status code ${response.statusCode}');
+        throw Exception('Validation Error ');
       }
     } catch (e) {
       rethrow;
@@ -436,6 +440,102 @@ class HomeRepoImplementation implements HomeRepo {
         log('❌ Unexpected response: ${response.data}');
         throw Exception(
             'warning failed with status code ${response.statusCode}');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<StartCheckModel> startCheck(String id) async {
+    var response = await dataSource.startCheck(id);
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = StartCheckModel.fromJson(response.data);
+        log(data.message); // "Device reservation canceled successfully"
+        log(data.device.location);
+        return data;
+      } else {
+        log('❌ Unexpected response: ${response.data}');
+        throw Exception(
+            'warning failed with status code ${response.statusCode}');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<EndCheckModel> endCheck(String id) async {
+    var response = await dataSource.endCheck(id);
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = EndCheckModel.fromJson(response.data);
+        log(data.message); // "Device reservation canceled successfully"
+        log(data.device.location);
+        return data;
+      } else {
+        log('❌ Unexpected response: ${response.data}');
+        throw Exception(
+            'warning failed with status code ${response.statusCode}');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<StartCheckOutModel> StartCheckOut(String id) async {
+    var response = await dataSource.startCheckOut(id);
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = StartCheckOutModel.fromJson(response.data);
+        log(data.message);
+        log(data.device.location);
+        return data;
+      } else {
+        log('❌ Unexpected response: ${response.data}');
+        throw Exception(
+            'warning failed with status code ${response.statusCode}');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<EndCheckOutModel> endCheckOut(String id) async {
+    var response = await dataSource.endCheckOut(id);
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = EndCheckOutModel.fromJson(response.data);
+        log(data.message);
+        log(data.device.location);
+        return data;
+      } else {
+        log('❌ Unexpected response: ${response.data}');
+        throw Exception('warning failed with status ${response.statusMessage}');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<CreateAnnounceModel> createannouncement(
+      {required String content,
+      required String groupId,
+      required String subjectId}) async {
+    var response = await dataSource.createannouncement(
+        content: content, groupId: groupId, subjectId: subjectId);
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = CreateAnnounceModel.fromJson(response.data);
+        log(data.message);
+        return data;
+      } else {
+        log('❌ Unexpected response: ${response.data}');
+        throw Exception('warning failed with status ${response.statusMessage}');
       }
     } catch (e) {
       rethrow;

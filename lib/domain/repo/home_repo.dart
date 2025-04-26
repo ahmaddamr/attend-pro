@@ -4,11 +4,16 @@ import 'dart:io';
 
 import 'package:attend_pro/data/models/all_schedules_model.dart';
 import 'package:attend_pro/data/models/cancel_hall_model.dart';
+import 'package:attend_pro/data/models/create_announce_model.dart';
+import 'package:attend_pro/data/models/end_check_model.dart';
+import 'package:attend_pro/data/models/end_check_out_model.dart';
 import 'package:attend_pro/data/models/groups_model.dart';
 import 'package:attend_pro/data/models/lecture_attendance_model.dart';
 import 'package:attend_pro/data/models/logout_model.dart';
 import 'package:attend_pro/data/models/my_schedule_model.dart';
 import 'package:attend_pro/data/models/select_hall_model.dart';
+import 'package:attend_pro/data/models/start_check_model.dart';
+import 'package:attend_pro/data/models/start_check_out_model.dart';
 import 'package:attend_pro/data/models/student_attendance_model.dart';
 import 'package:attend_pro/data/models/subjects_model.dart';
 import 'package:attend_pro/data/models/warning_model.dart';
@@ -58,4 +63,12 @@ abstract class HomeRepo {
       required int weekNumber,
       required String sessionType});
   Future<CancelHallModel> cancelHall(String id);
+  Future<StartCheckModel> startCheck(String id);
+  Future<EndCheckModel> endCheck(String id);
+  Future<StartCheckOutModel> StartCheckOut(String id);
+  Future<EndCheckOutModel> endCheckOut(String id);
+  Future<CreateAnnounceModel> createannouncement(
+      {required String content,
+      required String groupId,
+      required String subjectId});
 }

@@ -15,16 +15,16 @@ class LectureAttendanceScreen extends StatelessWidget {
     super.key,
     required this.id,
     required this.date,
-    required this.type,
+    required this.type, required this.time,
   });
 
-  final String id, date, type;
+  final String id, date, type , time;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (_) => AttendanceCubit()..getSessionData(id, date, type),
+        create: (_) => AttendanceCubit()..getSessionData(id, time, type),
         child: BlocBuilder<AttendanceCubit, AttendanceState>(
           builder: (context, state) {
             if (state is SessionDataLoading) {
@@ -97,14 +97,14 @@ class LectureAttendanceScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: CustomElvatedButton(
-                              text: 'Reject All',
+                              text: 'Reject Pending',
                               backgroundColor: AppColors.color5,
                               borderSideColor: Colors.transparent,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall!
                                   .copyWith(
-                                      fontSize: 20.sp,
+                                      fontSize: 18.sp,
                                       fontWeight: FontWeight.w700,
                                       color: Colors.white),
                               onPressed: () {
@@ -122,14 +122,14 @@ class LectureAttendanceScreen extends StatelessWidget {
                           SizedBox(width: 15.w),
                           Expanded(
                             child: CustomElvatedButton(
-                              text: 'Accept All',
+                              text: 'Accept Pending',
                               backgroundColor: AppColors.color1,
                               borderSideColor: Colors.transparent,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall!
                                   .copyWith(
-                                      fontSize: 20.sp,
+                                      fontSize: 18.sp,
                                       fontWeight: FontWeight.w700,
                                       color: Colors.white),
                               onPressed: () {
