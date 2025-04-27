@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:attend_pro/core/app_colors.dart';
 import 'package:attend_pro/presentation/doctor/doctorLayout/screens/doctor_announcments_data_screen.dart';
@@ -10,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:toastification/toastification.dart';
+
 
 class ChooseAnnounceGroupScreen extends StatelessWidget {
   const ChooseAnnounceGroupScreen({
@@ -67,16 +66,9 @@ class ChooseAnnounceGroupScreen extends StatelessWidget {
                 type: ToastificationType.success,
                 style: ToastificationStyle.flat,
                 autoCloseDuration: const Duration(seconds: 3),
-                title: Text('Announcement sent successfully!'),
+                title: const Text('Announcement sent successfully!'),
               );
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return DoctorAnnouncmentsDataScreen();
-                  },
-                ),
-              );
+
               // Navigator.pop(context); // Close ChooseAnnounceGroupScreen
             }
             if (state is AnnouncementsFailure) {
@@ -125,6 +117,17 @@ class ChooseAnnounceGroupScreen extends StatelessWidget {
                         content: announcementText,
                         groupId: group.id,
                         subjectId: id,
+                      );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return DoctorAnnouncmentsDataScreen(
+                              groupId: group.id,
+                              
+                            );
+                          },
+                        ),
                       );
                     },
                     child: AttendanceLogsGroupItem(gNum: group.name),

@@ -13,7 +13,7 @@ class AttendaceItem extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(10.sp),
       child: Container(
-        width: 370.w,
+        width: 450.w,
         height: 80.h,
         decoration: BoxDecoration(
           color: AppColors.color2,

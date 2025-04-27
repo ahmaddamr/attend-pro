@@ -36,7 +36,9 @@ class SettingsScreen extends StatelessWidget {
         children: [
           ListTile(
             title: Text(
-              provider.themeData == AppTheme().darkTheme ? 'dark'.tr() : 'light'.tr(),
+              provider.themeData == AppTheme().darkTheme
+                  ? 'dark'.tr()
+                  : 'light'.tr(),
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge!
@@ -53,7 +55,7 @@ class SettingsScreen extends StatelessWidget {
               },
             ),
           ),
-          LanguageSelectionScreen()
+          const LanguageSelectionScreen()
         ],
       ),
     );

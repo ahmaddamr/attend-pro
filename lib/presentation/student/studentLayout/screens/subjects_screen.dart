@@ -1,4 +1,3 @@
-import 'package:attend_pro/data/models/subjects_model.dart';
 import 'package:attend_pro/presentation/manager/cubit/subjects_cubit/subjects_cubit.dart';
 import 'package:attend_pro/presentation/student/studentLayout/widget/subject_item.dart';
 import 'package:easy_localization/easy_localization.dart';

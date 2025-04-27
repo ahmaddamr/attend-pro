@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:attend_pro/core/app_colors.dart';
 import 'package:attend_pro/presentation/doctor/doctorLayout/screens/choose_announce_group_screen.dart';
-import 'package:attend_pro/presentation/doctor/doctorLayout/screens/doctor_announcments_data_screen.dart';
 import 'package:attend_pro/presentation/manager/cubit/subjects_cubit/subjects_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';

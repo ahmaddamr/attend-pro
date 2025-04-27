@@ -1,5 +1,4 @@
 
-import 'dart:developer';
 
 import 'package:attend_pro/presentation/doctor/doctorLayout/screens/attendanceLogs/attendance_logs_groups_screen.dart';
 import 'package:attend_pro/presentation/doctor/doctorLayout/widgets/attendance_logs_item.dart';

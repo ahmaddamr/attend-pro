@@ -11,6 +11,7 @@ import 'package:attend_pro/data/models/create_announce_model.dart';
 import 'package:attend_pro/data/models/end_check_model.dart';
 import 'package:attend_pro/data/models/end_check_out_model.dart';
 import 'package:attend_pro/data/models/get_halls_model.dart';
+import 'package:attend_pro/data/models/group_announcements_model.dart';
 import 'package:attend_pro/data/models/groups_model.dart';
 import 'package:attend_pro/data/models/lecture_attendance_model.dart';
 import 'package:attend_pro/data/models/login_model.dart';
@@ -539,6 +540,42 @@ class HomeRepoImplementation implements HomeRepo {
       }
     } catch (e) {
       rethrow;
+    }
+  }
+
+  @override
+  Future<List<GroupAnnouncementModel>> getgroupAnnouncement(String id) async {
+    var response = await dataSource.getgroupAnnouncement(id);
+    try {
+      if (response.statusCode == 200) {
+        List<GroupAnnouncementModel> announcements = (response.data as List)
+            .map((json) => GroupAnnouncementModel.fromJson(json))
+            .toList();
+        return announcements;
+      } else {
+        throw Exception(
+            'Failed to load announcements ${response.statusMessage}');
+      }
+    } on Exception catch (e) {
+      throw Exception('Error getting announcements: $e');
+    }
+  }
+
+  @override
+  Future<List<GroupAnnouncementModel>> getStudentAnnouncement() async {
+    var response = await dataSource.getStudentAnnouncement();
+    try {
+      if (response.statusCode == 200) {
+        List<GroupAnnouncementModel> announcements = (response.data as List)
+            .map((json) => GroupAnnouncementModel.fromJson(json))
+            .toList();
+        return announcements;
+      } else {
+        throw Exception(
+            'Failed to load Student announcements ${response.statusMessage}');
+      }
+    } on Exception catch (e) {
+      throw Exception('Error getting announcements: $e');
     }
   }
 }

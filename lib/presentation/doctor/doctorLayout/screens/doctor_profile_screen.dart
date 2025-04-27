@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:attend_pro/core/widgets/custom_elevatedButton.dart';
 import 'package:attend_pro/presentation/onboarding/onboarding3.dart';
 import 'package:attend_pro/presentation/student/studentLayout/screens/settings_screen.dart';

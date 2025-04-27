@@ -323,4 +323,30 @@ class RemoteDataSource implements DataSource {
       ),
     );
   }
+
+  @override
+  Future<Response> getgroupAnnouncement(String id) async {
+    final prefs = await SharedPreferences.getInstance();
+    return dio.get(
+      '/announcement/getGroupAnnouncements/group/$id',
+      options: Options(
+        headers: {
+          'accesstoken': 'accesstoken_${prefs.getString('token')}',
+        },
+      ),
+    );
+  }
+
+  @override
+  Future<Response> getStudentAnnouncement() async {
+    final prefs = await SharedPreferences.getInstance();
+    return dio.get(
+      '/announcement/getStudentAnnouncements',
+      options: Options(
+        headers: {
+          'accesstoken': 'accesstoken_${prefs.getString('token')}',
+        },
+      ),
+    );
+  }
 }

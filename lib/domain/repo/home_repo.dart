@@ -7,6 +7,7 @@ import 'package:attend_pro/data/models/cancel_hall_model.dart';
 import 'package:attend_pro/data/models/create_announce_model.dart';
 import 'package:attend_pro/data/models/end_check_model.dart';
 import 'package:attend_pro/data/models/end_check_out_model.dart';
+import 'package:attend_pro/data/models/group_announcements_model.dart';
 import 'package:attend_pro/data/models/groups_model.dart';
 import 'package:attend_pro/data/models/lecture_attendance_model.dart';
 import 'package:attend_pro/data/models/logout_model.dart';
@@ -71,4 +72,7 @@ abstract class HomeRepo {
       {required String content,
       required String groupId,
       required String subjectId});
+  Future<List<GroupAnnouncementModel>> getgroupAnnouncement(String id);
+  Future<List<GroupAnnouncementModel>> getStudentAnnouncement();
+
 }

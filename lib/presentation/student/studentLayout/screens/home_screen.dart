@@ -1,13 +1,18 @@
 import 'dart:async';
+import 'package:attend_pro/main.dart';
+import 'package:attend_pro/presentation/manager/cubit/attendance_cubit/attendance_cubit.dart';
+import 'package:attend_pro/presentation/manager/cubit/attendance_cubit/attendance_state.dart';
 import 'package:attend_pro/presentation/student/studentLayout/screens/subjects_screen.dart';
 import 'package:attend_pro/presentation/student/studentLayout/screens/warning_screen.dart';
 import 'package:attend_pro/presentation/student/studentLayout/widget/attendace_item.dart';
 import 'package:attend_pro/presentation/student/studentLayout/widget/custom_service_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:toastification/toastification.dart';
 import '../widget/carousel_slider_widget.dart';
 import '../widget/custom_home_container.dart';
 import 'attendance_screen.dart';
@@ -134,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               type: PageTransitionType.rightToLeft,
                               duration: const Duration(milliseconds: 300)));
                     },
-                    child:  CustomServiceWidget(
+                    child: CustomServiceWidget(
                         img: 'assets/images/icons/subject.png',
                         title: 'subject'.tr()),
                   ),
@@ -147,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               type: PageTransitionType.rightToLeft,
                               duration: const Duration(milliseconds: 300)));
                     },
-                    child:  CustomServiceWidget(
+                    child: CustomServiceWidget(
                         img: 'assets/images/icons/warning.png',
                         title: 'warnings'.tr()),
                   ),
@@ -170,14 +175,45 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               SizedBox(
                 height: 1000.h,
-                child: ListView.builder(
-                  // shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return const AttendaceItem(
-                        txt: 'Network', date: '15/10/2024',status: 'no',);
-                  },
+                child: BlocProvider(
+                  create: (context) => AttendanceCubit()
+                    ..getStudentAttendance(prefs.getString('studentId') ?? ""),
+                  child: BlocConsumer<AttendanceCubit, AttendanceState>(
+                    listener: (context, state) {
+                      if (state is StudentAttendanceFailure) {
+                        toastification.show(
+                          context: context,
+                          type: ToastificationType.error,
+                          style: ToastificationStyle.flat,
+                          autoCloseDuration: const Duration(seconds: 5),
+                          title: Text(state.msg),
+                        );
+                      }
+                    },
+                    builder: (context, state) {
+                      var cubit = AttendanceCubit.get(context);
+                      if (state is StudentAttendanceLoading) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (state is StudentAttendanceSuccess) {
+                        return ListView.builder(
+                          itemCount: cubit.attendance.length,
+                          itemBuilder: (context, index) {
+                            return AttendaceItem(
+                              txt: cubit.attendance[index].subjecta.name,
+                              date: cubit.attendance[index].sessionDate
+                                  .substring(0, 10),
+                              status: cubit.attendance[index]
+                                  .status, // Replace with actual date if available
+                            );
+                          },
+                        );
+                      } else {
+                        return const Center(
+                          child: Text("Something went wrong."),
+                        );
+                      }
+                    },
+                  ),
                 ),
               )
             ],

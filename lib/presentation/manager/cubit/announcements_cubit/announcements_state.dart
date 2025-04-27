@@ -14,3 +14,13 @@ final class AnnouncementsFailure extends AnnouncementsState {
 
   AnnouncementsFailure({required this.msg});
 }
+
+final class GetAnnouncementsLoading extends AnnouncementsState {}
+
+final class GetAnnouncementsSuccess extends AnnouncementsState {}
+
+final class GetAnnouncementsFailure extends AnnouncementsState {
+  final String msg;
+
+  GetAnnouncementsFailure({required this.msg});
+}
