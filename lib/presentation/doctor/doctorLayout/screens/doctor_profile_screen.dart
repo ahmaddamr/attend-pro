@@ -76,15 +76,15 @@ class DoctorProfileScreen extends StatelessWidget {
           SizedBox(
             height: 20.h,
           ),
-          SettingsItem(
-              title: 'edprofile'.tr(),
-              onTap: () {
-                // Navigator.push(
-                //     context,
-                //     PageTransition(
-                //         child: const EditDoctorProfileScreen(),
-                //         type: PageTransitionType.rightToLeft));
-              }),
+          // SettingsItem(
+          //     title: 'edprofile'.tr(),
+          //     onTap: () {
+          //       // Navigator.push(
+          //       //     context,
+          //       //     PageTransition(
+          //       //         child: const EditDoctorProfileScreen(),
+          //       //         type: PageTransitionType.rightToLeft));
+          //     }),
           SizedBox(
             height: 15.h,
           ),

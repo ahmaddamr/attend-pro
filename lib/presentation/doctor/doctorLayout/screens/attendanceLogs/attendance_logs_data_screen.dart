@@ -1,5 +1,10 @@
+import 'dart:developer';
+
 import 'package:attend_pro/core/app_colors.dart';
+import 'package:attend_pro/core/services/download_pdf/download_attendance.dart';
 import 'package:attend_pro/core/widgets/custom_elevatedButton.dart';
+import 'package:attend_pro/presentation/manager/cubit/announce_download_cubit/announce_download_cubit.dart';
+import 'package:attend_pro/presentation/manager/cubit/announce_download_cubit/announce_download_state.dart';
 import 'package:attend_pro/presentation/manager/cubit/attendance_cubit/attendance_cubit.dart';
 import 'package:attend_pro/presentation/manager/cubit/attendance_cubit/attendance_state.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -105,6 +110,7 @@ class _AttendanceLogsDataScreenState extends State<AttendanceLogsDataScreen> {
                                     week.records.isNotEmpty
                                         ? week.records.first.createdAt
                                             .toString()
+                                            .substring(0, 10)
                                         : 'Unknown Date',
                                     style: GoogleFonts.montserrat(
                                       textStyle: Theme.of(context)
@@ -129,49 +135,96 @@ class _AttendanceLogsDataScreenState extends State<AttendanceLogsDataScreen> {
                                 itemBuilder: (context, subindex) {
                                   final record = week.records[subindex];
                                   return StudentDataItem(
-                                    id: record.student.studentId ?? 'No Id',
-                                    name:
-                                        record.student.studentName ?? 'No Name',
+                                    id: record.student.studentId,
+                                    name: record.student.studentName,
                                     status: week.records.isNotEmpty
-                                        ? week.records.first.status ??
-                                            'No Status'
+                                        ? week.records.first.status
                                         : 'No Status',
                                   );
                                 },
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    'See More',
-                                    style: GoogleFonts.montserrat(
-                                      textStyle: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                              fontSize: 16.sp,
-                                              fontWeight: FontWeight.w500),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              // Padding(
+                              //   padding: const EdgeInsets.only(top: 8.0),
+                              //   child: Align(
+                              //     alignment: Alignment.centerRight,
+                              //     child: Text(
+                              //       'See More',
+                              //       style: GoogleFonts.montserrat(
+                              //         textStyle: Theme.of(context)
+                              //             .textTheme
+                              //             .bodySmall!
+                              //             .copyWith(
+                              //                 fontSize: 16.sp,
+                              //                 fontWeight: FontWeight.w500),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                               const SizedBox(height: 8),
-                              SizedBox(
-                                width: 145.w,
-                                child: CustomElvatedButton(
-                                  text: 'Save As Pdf',
-                                  backgroundColor: AppColors.color1,
-                                  borderSideColor: Colors.transparent,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white),
-                                  onPressed: () {
-                                    // Save PDF logic here
+                              BlocProvider(
+                                create: (context) => AttendanceDownloadCubit(
+                                    AttendanceRepository()),
+                                child: BlocConsumer<AttendanceDownloadCubit,
+                                    AttendanceDownloadState>(
+                                  listener: (context, state) {
+                                    if (state is AttendanceDownloadSuccess) {
+                                      toastification.show(
+                                        context: context,
+                                        type: ToastificationType.success,
+                                        style: ToastificationStyle.flat,
+                                        autoCloseDuration:
+                                            const Duration(seconds: 5),
+                                        title: const Text(
+                                            'Pdf Downloaded Succesfuly!'),
+                                      );
+
+                                      // تفتح الملف مباشرة لو تحب
+                                      context
+                                          .read<AttendanceDownloadCubit>()
+                                          .openDownloadedFile(state.file);
+                                    } else if (state
+                                        is AttendanceDownloadError) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                            content: Text(state.errorMessage)),
+                                      );
+                                      log(state.errorMessage);
+                                    }
+                                  },
+                                  builder: (context, state) {
+                                    if (state is AttendanceDownloadLoading) {
+                                      return const Center(
+                                          child: CircularProgressIndicator(color: AppColors.color1,));
+                                    }
+
+                                    return Align(
+                                      alignment: Alignment.center,
+                                      child: SizedBox(
+                                        width: 145.w,
+                                        child: CustomElvatedButton(
+                                          text: 'Save As Pdf',
+                                          backgroundColor: AppColors.color1,
+                                          borderSideColor: Colors.transparent,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                  fontSize: 16.sp,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.white),
+                                          onPressed: () {
+                                            context
+                                                .read<AttendanceDownloadCubit>()
+                                                .downloadWeeklyAttendance(
+                                                  groupId: widget.id,
+                                                  week: cubit
+                                                      .data[index].weekNumber,
+                                                );
+                                          },
+                                        ),
+                                      ),
+                                    );
                                   },
                                 ),
                               ),
@@ -181,7 +234,9 @@ class _AttendanceLogsDataScreenState extends State<AttendanceLogsDataScreen> {
                       },
                     );
             }
-            return const Center(child: Text('No data loaded.'));
+            return const Center(
+              child: Text('No data loaded.'),
+            );
           },
         ),
       ),

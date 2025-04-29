@@ -235,40 +235,40 @@ class _HallEditsScreenState extends State<HallEditsScreen> {
                         );
                       },
                     ),
-                    SizedBox(height: 25.h),
+                    SizedBox(height: 15.h),
                     // Session Date TextFormField with Date Picker
-                    Text(
-                      'Session Date'.tr(),
-                      style: GoogleFonts.montserrat(
-                        textStyle:
-                            Theme.of(context).textTheme.bodySmall!.copyWith(
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                      ),
-                    ),
-                    SizedBox(height: 10.h),
-                    TextFormField(
-                      controller: _sessionDateController,
-                      readOnly: true, // Prevent manual editing
-                      onTap: () => _selectDate(context),
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: 16.w, vertical: 10.h),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.r),
-                          borderSide: const BorderSide(color: AppColors.color1),
-                        ),
-                        hintText: 'Select Session Date',
-                        suffixIcon: const Icon(Icons.calendar_today),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please select a session date';
-                        }
-                        return null;
-                      },
-                    ),
+                    // Text(
+                    //   'Session Date'.tr(),
+                    //   style: GoogleFonts.montserrat(
+                    //     textStyle:
+                    //         Theme.of(context).textTheme.bodySmall!.copyWith(
+                    //               fontSize: 20.sp,
+                    //               fontWeight: FontWeight.w600,
+                    //             ),
+                    //   ),
+                    // ),
+                    // SizedBox(height: 10.h),
+                    // TextFormField(
+                    //   controller: _sessionDateController,
+                    //   readOnly: true, // Prevent manual editing
+                    //   onTap: () => _selectDate(context),
+                    //   decoration: InputDecoration(
+                    //     contentPadding: EdgeInsets.symmetric(
+                    //         horizontal: 16.w, vertical: 10.h),
+                    //     border: OutlineInputBorder(
+                    //       borderRadius: BorderRadius.circular(12.r),
+                    //       borderSide: const BorderSide(color: AppColors.color1),
+                    //     ),
+                    //     hintText: 'Select Session Date',
+                    //     suffixIcon: const Icon(Icons.calendar_today),
+                    //   ),
+                    //   validator: (value) {
+                    //     if (value == null || value.isEmpty) {
+                    //       return 'Please select a session date';
+                    //     }
+                    //     return null;
+                    //   },
+                    // ),
                     SizedBox(height: 25.h),
                     // Session Type TextFormField
                     Text(

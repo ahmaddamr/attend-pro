@@ -36,6 +36,7 @@ class ChooseHallScreen extends StatelessWidget {
             if (state is HallsLoading) {
               showDialog(
                 context: context,
+                barrierDismissible: false,
                 builder: (context) {
                   return const AlertDialog(
                     backgroundColor: Colors.transparent,
@@ -49,11 +50,13 @@ class ChooseHallScreen extends StatelessWidget {
                 },
               );
             }
+
             if (state is HallsSuccess) {}
+
             if (state is HallsError) {
-              Navigator.pop(context);
+              Navigator.pop(context); // Dismiss loading dialog
               toastification.show(
-                context: context, // optional if you use ToastificationWrapper
+                context: context,
                 type: ToastificationType.error,
                 style: ToastificationStyle.flat,
                 autoCloseDuration: const Duration(seconds: 5),
@@ -63,74 +66,103 @@ class ChooseHallScreen extends StatelessWidget {
           },
           builder: (context, state) {
             var cubit = HallsCubit.get(context);
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(14.sp),
-                    child: TextFormField(
-                      key: _formKey,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: AppColors.color2,
-                        suffixIcon: const Icon(Icons.search),
-                        hintText: 'Search',
-                        labelStyle: GoogleFonts.montserrat(
-                          textStyle: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  fontSize: 20.sp, fontWeight: FontWeight.w500),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Colors.transparent),
-                          borderRadius: BorderRadius.circular(50.r),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(50.r),
-                          borderSide: const BorderSide(
-                            color: Colors.transparent,
-                            width: 2,
+
+            if (state is HallsLoading) {
+              return const Center(
+                  child: CircularProgressIndicator(
+                color: AppColors.color1,
+              ));
+            }
+
+            if (state is HallsSuccess) {
+              final availableHalls = cubit.data
+                  .where((hall) => hall.status?.toLowerCase() != 'reserved')
+                  .toList();
+
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(14.sp),
+                      child: Form(
+                        key: _formKey,
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: AppColors.color2,
+                            suffixIcon: const Icon(Icons.search),
+                            hintText: 'Search',
+                            labelStyle: GoogleFonts.montserrat(
+                              textStyle: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.w500),
+                            ),
+                            border: OutlineInputBorder(
+                              borderSide:
+                                  const BorderSide(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(50.r),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(50.r),
+                              borderSide: const BorderSide(
+                                color: Colors.transparent,
+                                width: 2,
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      height: 800.h,
-                      child: GridView.builder(
-                        itemCount: cubit.data.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        height: 800.h,
+                        child: GridView.builder(
+                          itemCount: availableHalls.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
                             mainAxisSpacing: 10.h,
-                            crossAxisSpacing: 10.w),
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () => Navigator.push(
+                            crossAxisSpacing: 10.w,
+                          ),
+                          itemBuilder: (context, index) {
+                            final hall = availableHalls[index];
+                            return InkWell(
+                              onTap: () => Navigator.push(
                                 context,
                                 PageTransition(
                                   child: HallEditsScreen(
-                                    location: cubit.data[index].location ?? '',
-                                    hallId: cubit.data[index].id ?? '',
+                                    location: hall.location ?? '',
+                                    hallId: hall.id ?? '',
                                   ),
                                   type: PageTransitionType.theme,
                                   duration: const Duration(seconds: 1),
-                                )),
-                            child: HallItem(
-                              hall: cubit.data[index].location ?? '',
-                              status: cubit.data[index].status ?? '',
-                            ),
-                          );
-                        },
+                                ),
+                              ),
+                              child: HallItem(
+                                hall: hall.location ?? '',
+                                status: hall.status ?? '',
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
-                  )
-                ],
-              ),
-            );
+                  ],
+                ),
+              );
+            }
+
+            if (state is HallsError) {
+              return const Center(
+                child: Text('Failed to load halls'),
+              );
+            }
+
+            return const SizedBox(); // fallback
           },
         ),
       ),

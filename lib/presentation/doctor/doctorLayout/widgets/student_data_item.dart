@@ -41,7 +41,14 @@ class StudentDataItem extends StatelessWidget {
                   .copyWith(fontSize: 18.sp, fontWeight: FontWeight.w700),
             ),
           ),
-          Text(status!,style: GoogleFonts.montserrat(textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 18.sp, fontWeight: FontWeight.w700)),),
+          Text(
+            status!,
+            style: GoogleFonts.montserrat(
+                textStyle: Theme.of(context)
+                    .textTheme
+                    .bodySmall!
+                    .copyWith(fontSize: 18.sp, fontWeight: FontWeight.w700)),
+          ),
           PopupMenuButton<String>(
             onSelected: (value) {
               if (value == "Edit status") {

@@ -60,25 +60,25 @@ class StudentCheckInDataItem extends StatelessWidget {
                     color: AppColors.color1),
               ),
             ),
-            PopupMenuButton<String>(
-              onSelected: (value) {
-                if (value == "Edit status") {
-                  log('Edit');
-                } else if (value == "Send Warning") {
-                  log('Send Warning');
-                }
-              },
-              itemBuilder: (context) => [
-                const PopupMenuItem(
-                  value: "Edit status",
-                  child: Text("Edit status"),
-                ),
-                const PopupMenuItem(
-                  value: "Send Warning",
-                  child: Text("Send Warning"),
-                ),
-              ],
-            )
+            // PopupMenuButton<String>(
+            //   onSelected: (value) {
+            //     if (value == "Edit status") {
+            //       log('Edit');
+            //     } else if (value == "Send Warning") {
+            //       log('Send Warning');
+            //     }
+            //   },
+            //   itemBuilder: (context) => [
+            //     const PopupMenuItem(
+            //       value: "Edit status",
+            //       child: Text("Edit status"),
+            //     ),
+            //     const PopupMenuItem(
+            //       value: "Send Warning",
+            //       child: Text("Send Warning"),
+            //     ),
+            //   ],
+            // )
           ],
         ),
       ),

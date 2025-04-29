@@ -1,5 +1,6 @@
 import 'package:attend_pro/core/app_colors.dart';
 import 'package:attend_pro/core/widgets/custom_elevatedButton.dart';
+import 'package:attend_pro/presentation/doctor/doctorLayout/Auth/screens/doctor_register_screen.dart';
 import 'package:attend_pro/presentation/doctor/doctorLayout/screens/doctor_layout_screen.dart';
 import 'package:attend_pro/presentation/manager/cubit/auth_cubit/auth_cubit.dart';
 import 'package:attend_pro/presentation/student/studentLayout/auth/screen/forget_password_screen.dart';
@@ -299,7 +300,7 @@ class _DoctorLoginScreenState extends State<DoctorLoginScreen> {
                                       onTap: () => Navigator.pushReplacement(
                                         context,
                                         PageTransition(
-                                          child: const RegisterScreen(),
+                                          child:  DoctorRegisterScreen(),
                                           type: PageTransitionType.theme,
                                           duration: const Duration(seconds: 1),
                                         ),

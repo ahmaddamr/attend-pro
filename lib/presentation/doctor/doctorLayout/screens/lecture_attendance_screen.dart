@@ -15,10 +15,11 @@ class LectureAttendanceScreen extends StatelessWidget {
     super.key,
     required this.id,
     required this.date,
-    required this.type, required this.time,
+    required this.type,
+    required this.time,
   });
 
-  final String id, date, type , time;
+  final String id, date, type, time;
 
   @override
   Widget build(BuildContext context) {
@@ -146,6 +147,27 @@ class LectureAttendanceScreen extends StatelessWidget {
                           ),
                         ],
                       ),
+                    ),
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    CustomElvatedButton(
+                      text: 'Return Home',
+                      backgroundColor: AppColors.color1,
+                      borderSideColor: Colors.transparent,
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontSize: 25.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white),
+                      onPressed: () {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const DoctorLayoutScreen(),
+                          ),
+                          (route) => false,
+                        );
+                      },
                     ),
                   ],
                 ),

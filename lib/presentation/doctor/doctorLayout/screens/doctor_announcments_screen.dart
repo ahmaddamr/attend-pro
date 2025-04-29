@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 
 import 'package:attend_pro/core/app_colors.dart';
@@ -45,7 +47,7 @@ class _DoctorAnnouncmentsScreenState extends State<DoctorAnnouncmentsScreen> {
             ),
           ),
           BlocProvider(
-            create: (context) => SubjectsCubit()..getCourses(),
+            create: (context) => SubjectsCubit(),
             child: BlocConsumer<SubjectsCubit, SubjectsState>(
               listener: (context, state) {},
               builder: (context, state) {
@@ -90,11 +92,12 @@ class _DoctorAnnouncmentsScreenState extends State<DoctorAnnouncmentsScreen> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                               ),
-                              onPressed: () {
+                              onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
                                   final announcementText =
                                       _announcementController.text;
-                                      log('announcementText: $announcementText');
+                                  log('announcementText: $announcementText');
+                                  await coursesCubit.getCourses();
                                   showDialog(
                                     context: context,
                                     builder: (context) {
@@ -187,9 +190,11 @@ class _DoctorAnnouncmentsScreenState extends State<DoctorAnnouncmentsScreen> {
                                   );
                                 }
                               },
-                              child: const Text(
-                                "Send To",
-                                style: TextStyle(color: Colors.white),
+                              child: Text(
+                                state is CoursesLoading
+                                    ? "Loading..."
+                                    : "Send To",
+                                style: const TextStyle(color: Colors.white),
                               ),
                             ),
                           ),

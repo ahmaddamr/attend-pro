@@ -79,7 +79,9 @@ class AttendanceLogsGroupsScreen extends StatelessWidget {
                   onTap: () => Navigator.push(
                     context,
                     PageTransition(
-                      child:  AttendanceLogsDataScreen(id: cubit.groups[index].id,),
+                      child: AttendanceLogsDataScreen(
+                        id: cubit.groups[index].id,
+                      ),
                       type: PageTransitionType.theme,
                       duration: const Duration(seconds: 1),
                     ),
