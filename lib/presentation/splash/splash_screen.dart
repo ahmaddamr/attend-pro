@@ -1,7 +1,9 @@
 import 'package:attend_pro/core/app_colors.dart';
 import 'package:attend_pro/presentation/onboarding/onboarding1.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -32,15 +34,48 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.color1,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: Image.asset('assets/images/splashIcons/S1.png'),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF705D9C),   // Deep purple
+              Color(0xFFBFA5E3),   // Soft lavender
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
-          Image.asset('assets/images/splashIcons/S4.png')
-        ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Logo
+            Image.asset(
+              'assets/images/splashIcons/image1.png',
+              width: 300.w,
+              height: 150.h,
+              fit: BoxFit.contain,
+            ),
+            const SizedBox(height: 32),
+            // App Title
+            Text(
+              "Attend Pro",
+              style: GoogleFonts.montserrat(
+                fontSize: 32,
+                color: Colors.white,
+                fontWeight: FontWeight.w800,
+                letterSpacing: 1.2,
+              ),
+            ),
+            const SizedBox(height: 24),
+            // Subtle progress indicator for style
+            // const CircularProgressIndicator(
+            //   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            //   strokeWidth: 3,
+            // ),
+          ],
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:attend_pro/core/app_colors.dart';
 import 'package:attend_pro/main.dart';
 import 'package:attend_pro/presentation/manager/cubit/attendance_cubit/attendance_cubit.dart';
 import 'package:attend_pro/presentation/manager/cubit/attendance_cubit/attendance_state.dart';
@@ -69,113 +70,104 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(20.sp),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'upcoming'.tr(),
-                style: GoogleFonts.montserrat(
-                  textStyle: Theme.of(context)
-                      .textTheme
-                      .bodySmall!
-                      .copyWith(fontSize: 24.sp, fontWeight: FontWeight.w700),
+      body: SafeArea(
+        // Recommended!
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(20.sp),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'upcoming'.tr(),
+                  style: GoogleFonts.montserrat(
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 24.sp, fontWeight: FontWeight.w700),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 15.h,
-              ),
-              CustomHomeContainer(
-                child: SizedBox(
-                  child: ListView.builder(
-                    controller: _scrollController,
-                    itemBuilder: (context, index) => CarouselSliderWidget(
-                      img: imgs[index],
+                SizedBox(height: 15.h),
+                CustomHomeContainer(
+                  child: SizedBox(
+                    height: 120.h,
+                    child: ListView.builder(
+                      controller: _scrollController,
+                      itemBuilder: (context, index) =>
+                          CarouselSliderWidget(img: imgs[index]),
+                      itemCount: imgs.length,
+                      scrollDirection: Axis.horizontal,
                     ),
-                    itemCount: imgs.length, // Number of items
-                    scrollDirection: Axis.horizontal,
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 15.h,
-              ),
-              Text(
-                'services'.tr(),
-                style: GoogleFonts.montserrat(
-                  textStyle: Theme.of(context)
-                      .textTheme
-                      .bodySmall!
-                      .copyWith(fontSize: 24.sp, fontWeight: FontWeight.w700),
+                SizedBox(height: 15.h),
+                Text(
+                  'services'.tr(),
+                  style: GoogleFonts.montserrat(
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 24.sp, fontWeight: FontWeight.w700),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 15.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          PageTransition(
-                              child: const AttendanceScreen(),
-                              type: PageTransitionType.rightToLeft,
-                              duration: const Duration(milliseconds: 300)));
-                    },
-                    child: CustomServiceWidget(
-                        img: 'assets/images/icons/attend.png',
-                        title: 'attendance'.tr()),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          PageTransition(
-                              child: const SubjectsScreen(),
-                              type: PageTransitionType.rightToLeft,
-                              duration: const Duration(milliseconds: 300)));
-                    },
-                    child: CustomServiceWidget(
-                        img: 'assets/images/icons/subject.png',
-                        title: 'subject'.tr()),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          PageTransition(
-                              child: const WarningScreen(),
-                              type: PageTransitionType.rightToLeft,
-                              duration: const Duration(milliseconds: 300)));
-                    },
-                    child: CustomServiceWidget(
-                        img: 'assets/images/icons/warning.png',
-                        title: 'warnings'.tr()),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 15.h,
-              ),
-              Text(
-                'previous'.tr(),
-                style: GoogleFonts.montserrat(
-                  textStyle: Theme.of(context)
-                      .textTheme
-                      .bodySmall!
-                      .copyWith(fontSize: 24.sp, fontWeight: FontWeight.w700),
+                SizedBox(height: 15.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                child: const AttendanceScreen(),
+                                type: PageTransitionType.rightToLeft,
+                                duration: const Duration(milliseconds: 300)));
+                      },
+                      child: CustomServiceWidget(
+                          img: 'assets/images/icons/attend.png',
+                          title: 'attendance'.tr()),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                child: const SubjectsScreen(),
+                                type: PageTransitionType.rightToLeft,
+                                duration: const Duration(milliseconds: 300)));
+                      },
+                      child: CustomServiceWidget(
+                          img: 'assets/images/icons/subject.png',
+                          title: 'subject'.tr()),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                child: const WarningScreen(),
+                                type: PageTransitionType.rightToLeft,
+                                duration: const Duration(milliseconds: 300)));
+                      },
+                      child: CustomServiceWidget(
+                          img: 'assets/images/icons/warning.png',
+                          title: 'warnings'.tr()),
+                    ),
+                  ],
                 ),
-              ),
-              SizedBox(
-                height: 15.h,
-              ),
-              SizedBox(
-                height: 1000.h,
-                child: BlocProvider(
+                SizedBox(height: 15.h),
+                Text(
+                  'previous'.tr(),
+                  style: GoogleFonts.montserrat(
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: 24.sp, fontWeight: FontWeight.w700),
+                  ),
+                ),
+                SizedBox(height: 15.h),
+                // No forced SizeBox height here!
+                BlocProvider(
                   create: (context) => AttendanceCubit()
                     ..getStudentAttendance(prefs.getString('studentId') ?? ""),
                   child: BlocConsumer<AttendanceCubit, AttendanceState>(
@@ -193,17 +185,26 @@ class _HomeScreenState extends State<HomeScreen> {
                     builder: (context, state) {
                       var cubit = AttendanceCubit.get(context);
                       if (state is StudentAttendanceLoading) {
-                        return const Center(child: CircularProgressIndicator());
+                        return const Center(
+                            child: LinearProgressIndicator(
+                          color: AppColors.color1,
+                        ));
                       } else if (state is StudentAttendanceSuccess) {
+                        if (cubit.attendance.isEmpty) {
+                          return const Center(
+                              child: Text("No previous attendance found.",
+                                  style: TextStyle(fontSize: 18)));
+                        }
                         return ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
                           itemCount: cubit.attendance.length,
                           itemBuilder: (context, index) {
                             return AttendaceItem(
                               txt: cubit.attendance[index].subjecta.name,
                               date: cubit.attendance[index].sessionDate
                                   .substring(0, 10),
-                              status: cubit.attendance[index]
-                                  .status, // Replace with actual date if available
+                              status: cubit.attendance[index].status,
                             );
                           },
                         );
@@ -215,8 +216,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
                 ),
-              )
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -46,6 +46,7 @@ class AttendaceItem extends StatelessWidget {
                 ),
               ],
             ),
+            // status ==  Image.asset(''),
             Text(
               status,
               style: GoogleFonts.montserrat(

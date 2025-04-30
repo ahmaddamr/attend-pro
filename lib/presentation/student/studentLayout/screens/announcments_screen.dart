@@ -57,7 +57,10 @@ class AnnouncmentsScreen extends StatelessWidget {
   Widget _buildContent(BuildContext context, AnnouncementsState state,
       AnnouncementsCubit cubit, bool isDark) {
     if (state is GetAnnouncementsLoading) {
-      return const Center(child: CircularProgressIndicator());
+      return const Center(
+          child: CircularProgressIndicator(
+        color: AppColors.color1,
+      ));
     } else if (state is GetAnnouncementsFailure) {
       return const Center(child: Text('Something went wrong. Try again.'));
     } else if (cubit.announcements.isEmpty) {
@@ -90,11 +93,26 @@ class AnnouncmentsScreen extends StatelessWidget {
                         ),
                       ),
                     ),
+                    // SizedBox(width: 35.w,),
+                    // Padding(
+                    //   padding: EdgeInsets.all(8.sp),
+                    //   child: Text(
+                    //     ' ${cubit.announcements[index].subject.code}',
+                    //     style: GoogleFonts.montserrat(
+                    //       textStyle: Theme.of(context)
+                    //           .textTheme
+                    //           .bodySmall!
+                    //           .copyWith(
+                    //               fontSize: 16.sp, fontWeight: FontWeight.w600),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 50.sp, bottom: 10.sp),
+                padding:
+                    EdgeInsets.only(left: 50.sp, bottom: 10.sp, right: 12.sp),
                 child: Container(
                   width: double.infinity,
                   padding: EdgeInsets.all(12.sp),
