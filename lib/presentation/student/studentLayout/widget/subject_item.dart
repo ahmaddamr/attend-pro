@@ -8,17 +8,18 @@ class SubjectItem extends StatelessWidget {
   const SubjectItem(
       {super.key,
       required this.lectDay,
-      required this.dr,
+      required this.group,
       required this.lecTime,
       required this.lectRoom,
       required this.secDay,
       required this.eng,
       required this.secTime,
       required this.secRoom,
-      required this.subject, required this.code});
+      required this.subject,
+      required this.code});
   final String subject,
       lectDay,
-      dr,
+      group,
       lecTime,
       lectRoom,
       secDay,
@@ -69,36 +70,36 @@ class SubjectItem extends StatelessWidget {
                                   fontSize: 17.sp, fontWeight: FontWeight.w400),
                         ),
                       ),
-                      // Text(
-                      //   'Dr, $dr',
-                      //   style: GoogleFonts.montserrat(
-                      //     textStyle: Theme.of(context)
-                      //         .textTheme
-                      //         .bodySmall!
-                      //         .copyWith(
-                      //             fontSize: 17.sp, fontWeight: FontWeight.w400),
-                      //   ),
-                      // ),
-                      // Text(
-                      //   'Time: $lecTime',
-                      //   style: GoogleFonts.montserrat(
-                      //     textStyle: Theme.of(context)
-                      //         .textTheme
-                      //         .bodySmall!
-                      //         .copyWith(
-                      //             fontSize: 17.sp, fontWeight: FontWeight.w400),
-                      //   ),
-                      // ),
-                      // Text(
-                      //   'Room: $lectRoom',
-                      //   style: GoogleFonts.montserrat(
-                      //     textStyle: Theme.of(context)
-                      //         .textTheme
-                      //         .bodySmall!
-                      //         .copyWith(
-                      //             fontSize: 17.sp, fontWeight: FontWeight.w400),
-                      //   ),
-                      // ),
+                      Text(
+                        'Group: $group',
+                        style: GoogleFonts.montserrat(
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                  fontSize: 17.sp, fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                      Text(
+                        'Lecture Day: $lectDay',
+                        style: GoogleFonts.montserrat(
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                  fontSize: 17.sp, fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                      Text(
+                        'Room: $lectRoom',
+                        style: GoogleFonts.montserrat(
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                  fontSize: 17.sp, fontWeight: FontWeight.w400),
+                        ),
+                      ),
                     ],
                   ),
                 ),

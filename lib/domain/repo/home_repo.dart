@@ -48,7 +48,7 @@ abstract class HomeRepo {
       required String password,
       required String phoneNumber});
   Future<List<HallDevice>> getAllHalls();
-  Future<List<Subject>> getAllSubjects();
+  Future<List<SubjectData>> getAllSubjects();
   Future<List<CourseSubject>> getCourses();
   Future<List<GroupData>> getGroups(String id);
   Future<List<ScheduleGroup>> getAllSchedules();

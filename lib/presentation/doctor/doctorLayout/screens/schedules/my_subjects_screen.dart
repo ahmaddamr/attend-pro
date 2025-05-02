@@ -27,17 +27,17 @@ class MySubjectsScreen extends StatelessWidget {
             child: ListView.builder(
               itemCount: 7,
               itemBuilder: (context, index) {
-                return  const SubjectItem(
-                    lectDay: 'sunday',
-                    code: '000',
-                    dr: 'Ahmed',
-                    lecTime: '12:30',
-                    lectRoom: '108',
-                    secDay: 'saturday',
-                    eng: 'ali',
-                    secTime: '1:30',
-                    secRoom: '112',
-                    subject: 'DataBase');
+                // return SubjectItem(
+                //     subject: cubit.subjects[index].subject.name,
+                //     code: cubit.subjects[index].subject.code,
+                //     lectDay: cubit.subjects[index].schedule.day,
+                //     group: cubit.subjects[index].group.name,
+                //     lecTime: '10:00',
+                //     lectRoom: '211',
+                //     secDay: 'sun',
+                //     eng: 'sara',
+                //     secTime: '11:00',
+                //     secRoom: '210');
               },
             ),
           )

@@ -120,7 +120,7 @@ class RemoteDataSource implements DataSource {
   Future<Response> getAllSubjects() async {
     final prefs = await SharedPreferences.getInstance();
     return dio.get(
-      '/subjects/getAllSubjects',
+      '/students/getSubjectForStudent',
       options: Options(headers: {
         'accesstoken': 'accesstoken_${prefs.getString('token')}',
       }),

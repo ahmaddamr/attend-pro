@@ -1,3 +1,4 @@
+import 'package:attend_pro/core/app_colors.dart';
 import 'package:attend_pro/main.dart';
 import 'package:attend_pro/presentation/manager/cubit/attendance_cubit/attendance_cubit.dart';
 import 'package:attend_pro/presentation/manager/cubit/attendance_cubit/attendance_state.dart';
@@ -52,7 +53,10 @@ class AttendanceScreen extends StatelessWidget {
           builder: (context, state) {
             var cubit = AttendanceCubit.get(context);
             if (state is StudentAttendanceLoading) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                  child: CircularProgressIndicator(
+                color: AppColors.color1,
+              ));
             } else if (state is StudentAttendanceSuccess) {
               return ListView.builder(
                 padding: EdgeInsets.all(16.sp),

@@ -186,9 +186,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       var cubit = AttendanceCubit.get(context);
                       if (state is StudentAttendanceLoading) {
                         return const Center(
-                            child: LinearProgressIndicator(
-                          color: AppColors.color1,
-                        ));
+                          child: LinearProgressIndicator(
+                            color: AppColors.color1,
+                          ),
+                        );
                       } else if (state is StudentAttendanceSuccess) {
                         if (cubit.attendance.isEmpty) {
                           return const Center(

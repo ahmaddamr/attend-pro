@@ -11,7 +11,7 @@ part 'subjects_state.dart';
 class SubjectsCubit extends Cubit<SubjectsState> {
   SubjectsCubit() : super(SubjectsInitial());
   static SubjectsCubit get(BuildContext context) => BlocProvider.of(context);
-  List<Subject> subjects = [];
+  List<SubjectData> subjects = [];
   List<CourseSubject> courses = [];
   SubjectsUseCase useCase = SubjectsUseCase();
   GetCoursesUseCase coursesUseCase = GetCoursesUseCase();

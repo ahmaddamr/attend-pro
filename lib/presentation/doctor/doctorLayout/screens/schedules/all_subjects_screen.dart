@@ -93,9 +93,9 @@ class AllSubjectsScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         var subject = cubit.subjects[index];
                         return SubjectDataItem(
-                          subject: subject.name, // Use actual subject data
+                          subject: subject.subject.name, // Use actual subject data
                           drname: '', // Update with actual data
-                          code: subject.code, // Use actual course code
+                          code: subject.subject.code, // Use actual course code
                           color: index % 2 == 0 ? AppColors.color2 : null,
                         );
                       },

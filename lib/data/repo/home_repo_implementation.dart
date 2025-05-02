@@ -232,13 +232,13 @@ class HomeRepoImplementation implements HomeRepo {
   }
 
   @override
-  Future<List<Subject>> getAllSubjects() async {
+  Future<List<SubjectData>> getAllSubjects() async {
     var response = await dataSource.getAllSubjects();
     try {
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = SubjectsModel.fromJson(response.data);
-        log(data.subjects.toString());
-        return data.subjects ?? [];
+        log(data.data.toString());
+        return data.data ?? [];
       } else {
         log('❌ Unexpected response: ${response.data}');
         return [];

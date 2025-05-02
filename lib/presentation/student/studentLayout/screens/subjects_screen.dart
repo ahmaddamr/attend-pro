@@ -14,21 +14,21 @@ class SubjectsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // backgroundColor: Colors.transparent,
-        title: Text(
-          'subject'.tr(),
-          style: GoogleFonts.montserrat(
-            textStyle: Theme.of(context)
-                .textTheme
-                .bodySmall!
-                .copyWith(fontSize: 24.sp, fontWeight: FontWeight.w700),
+    return BlocProvider(
+      create: (context) => SubjectsCubit()..getSubjects(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'subject'.tr(),
+            style: GoogleFonts.montserrat(
+              textStyle: Theme.of(context)
+                  .textTheme
+                  .bodySmall!
+                  .copyWith(fontSize: 24.sp, fontWeight: FontWeight.w700),
+            ),
           ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
+        body: Padding(
           padding: EdgeInsets.all(16.sp),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,32 +45,12 @@ class SubjectsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              BlocProvider(
-                create: (context) => SubjectsCubit()..getSubjects(),
+              Expanded(
                 child: BlocConsumer<SubjectsCubit, SubjectsState>(
                   listener: (context, state) {
-                    if (state is SubjectsLoading) {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return const AlertDialog(
-                            backgroundColor: Colors.transparent,
-                            elevation: 0,
-                            content: Center(
-                              child: CircularProgressIndicator(
-                                color: AppColors.color1,
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    }
-                    if (state is SubjectsSuccess) {}
                     if (state is SubjectsFailure) {
-                      Navigator.pop(context);
                       toastification.show(
-                        context:
-                            context, // optional if you use ToastificationWrapper
+                        context: context,
                         type: ToastificationType.error,
                         style: ToastificationStyle.flat,
                         autoCloseDuration: const Duration(seconds: 5),
@@ -79,28 +59,41 @@ class SubjectsScreen extends StatelessWidget {
                     }
                   },
                   builder: (context, state) {
-                    var cubit = SubjectsCubit.get(context);
-                    return SizedBox(
-                      height: 1000.h,
-                      child: ListView.builder(
-                        // shrinkWrap: true,
-                        // physics: const NeverScrollableScrollPhysics(),
-                        itemCount: cubit.subjects.length,
+                    if (state is SubjectsLoading) {
+                      return const Center(
+                        child:
+                            CircularProgressIndicator(color: AppColors.color1),
+                      );
+                    } else if (state is SubjectsSuccess) {
+                      var subjects = SubjectsCubit.get(context).subjects;
+                      if (subjects.isEmpty) {
+                        return const Center(
+                            child: Text("No subjects available"));
+                      }
+                      return ListView.builder(
+                        itemCount: subjects.length,
                         itemBuilder: (context, index) {
+                          final model = subjects[index];
                           return SubjectItem(
-                              subject: cubit.subjects[index].name,
-                              code: cubit.subjects[index].code,
-                              lectDay: 'sunaday',
-                              dr: 'Ahmed',
-                              lecTime: '10:00',
-                              lectRoom: '211',
-                              secDay: 'sun',
-                              eng: 'sara',
-                              secTime: '11:00',
-                              secRoom: '210');
+                            subject: model.subject.name,
+                            code: model.subject.code,
+                            lectDay: model.schedule.day,
+                            group: model.group.name,
+                            lecTime: '10:00',
+                            lectRoom: model.schedule.location,
+                            secDay: 'sun',
+                            eng: 'sara',
+                            secTime: '11:00',
+                            secRoom: '210',
+                          );
                         },
-                      ),
-                    );
+                      );
+                    } else if (state is SubjectsFailure) {
+                      return const Center(
+                          child: Text("Failed to load subjects"));
+                    } else {
+                      return const SizedBox.shrink();
+                    }
                   },
                 ),
               ),

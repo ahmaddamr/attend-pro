@@ -5,5 +5,5 @@ import 'package:attend_pro/domain/repo/home_repo.dart';
 class SubjectsUseCase {
   HomeRepo repo = HomeRepoImplementation();
 
-  Future<List<Subject>> getSubjects() async => await repo.getAllSubjects();
+  Future<List<SubjectData>> getSubjects() async => await repo.getAllSubjects();
 }
