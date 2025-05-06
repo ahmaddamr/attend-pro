@@ -50,5 +50,9 @@ abstract class DataSource {
       required String subjectId});
   Future<Response> getgroupAnnouncement(String id);
   Future<Response> getStudentAnnouncement();
+  Future<Response> getStaffSubjects();
+  Future<Response> getNewAllSchedules();
+
+
 
 }

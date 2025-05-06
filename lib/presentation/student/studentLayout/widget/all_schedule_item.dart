@@ -11,8 +11,8 @@ class AllScheduleItem extends StatelessWidget {
       required this.end,
       required this.subject,
       required this.groub,
-      required this.room});
-  final String start, end, subject, groub, room;
+      required this.room, required this.session});
+  final String start, end, subject, groub, room , session;
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +103,15 @@ class AllScheduleItem extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 5.h),
+                  Text(
+                    'Session: $session',
+                    style: GoogleFonts.montserrat(
+                      textStyle: TextStyle(
+                          fontSize: 22.sp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ),
 
                   // if (room.isNotEmpty)
                   //   Text(

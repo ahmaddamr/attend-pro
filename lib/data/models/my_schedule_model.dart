@@ -20,6 +20,7 @@ class MyScheduleModel {
 class ScheduleItems {
   final Subjectl subject;
   final String day;
+  final String sessionType; // ✅ New field
   final String startTime;
   final String endTime;
   final String location;
@@ -28,6 +29,7 @@ class ScheduleItems {
   ScheduleItems({
     required this.subject,
     required this.day,
+    required this.sessionType,
     required this.startTime,
     required this.endTime,
     required this.location,
@@ -38,6 +40,7 @@ class ScheduleItems {
     return ScheduleItems(
       subject: Subjectl.fromJson(json['subject_id']),
       day: json['day'] ?? '',
+      sessionType: json['sessionType'] ?? '', // ✅ Map sessionType
       startTime: json['startTime'] ?? '',
       endTime: json['endTime'] ?? '',
       location: json['location'] ?? '',

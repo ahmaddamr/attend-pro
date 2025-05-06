@@ -17,8 +17,10 @@ import 'package:attend_pro/data/models/lecture_attendance_model.dart';
 import 'package:attend_pro/data/models/login_model.dart';
 import 'package:attend_pro/data/models/logout_model.dart';
 import 'package:attend_pro/data/models/my_schedule_model.dart';
+import 'package:attend_pro/data/models/new_all_schedules_model.dart';
 import 'package:attend_pro/data/models/select_hall_model.dart';
 import 'package:attend_pro/data/models/staff_signup_model.dart';
+import 'package:attend_pro/data/models/staff_subjects_model.dart';
 import 'package:attend_pro/data/models/start_check_model.dart';
 import 'package:attend_pro/data/models/start_check_out_model.dart';
 import 'package:attend_pro/data/models/student_attendance_model.dart';
@@ -576,6 +578,40 @@ class HomeRepoImplementation implements HomeRepo {
       }
     } on Exception catch (e) {
       throw Exception('Error getting announcements: $e');
+    }
+  }
+
+  @override
+  Future<List<StaffSubjectData>> getStaffSubjects() async {
+    var response = await dataSource.getStaffSubjects();
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = StaffSubjectsModel.fromJson(response.data);
+        log(data.data.toString());
+        return data.data;
+      } else {
+        log('❌ Unexpected response: ${response.data}');
+        throw Exception('warning failed with status ${response.statusMessage}');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<NewAllSchedulesModel> getNewAllSchedules() async {
+    var response = await dataSource.getNewAllSchedules();
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = NewAllSchedulesModel.fromJson(response.data);
+        log(data.data.toString());
+        return data;
+      } else {
+        log('❌ Unexpected response: ${response.data}');
+        throw Exception('warning failed with status ${response.statusMessage}');
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 }

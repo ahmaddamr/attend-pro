@@ -1,4 +1,5 @@
 import 'package:attend_pro/presentation/doctor/doctorLayout/widgets/subject_data_item.dart';
+import 'package:attend_pro/presentation/manager/cubit/staff_sub_cubit/staff_subjects_cubit.dart';
 import 'package:attend_pro/presentation/manager/cubit/subjects_cubit/subjects_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -59,10 +60,10 @@ class AllSubjectsScreen extends StatelessWidget {
             ),
           ),
           BlocProvider(
-            create: (context) => SubjectsCubit()..getSubjects(),
-            child: BlocConsumer<SubjectsCubit, SubjectsState>(
+            create: (context) => StaffSubjectsCubit()..getStaffSubjects(),
+            child: BlocConsumer<StaffSubjectsCubit, StaffSubjectsState>(
               listener: (context, state) {
-                if (state is SubjectsFailure) {
+                if (state is StaffSubjectsFailure) {
                   Navigator.pop(context);
                   toastification.show(
                     context:
@@ -75,8 +76,8 @@ class AllSubjectsScreen extends StatelessWidget {
                 }
               },
               builder: (context, state) {
-                var cubit = SubjectsCubit.get(context);
-                if (state is SubjectsLoading) {
+                var cubit = StaffSubjectsCubit.get(context);
+                if (state is StaffSubjectsLoading) {
                   // Return the loading indicator when SubjectsCubit is loading
                   return const Center(
                     child: CircularProgressIndicator(
@@ -84,16 +85,17 @@ class AllSubjectsScreen extends StatelessWidget {
                     ),
                   );
                 }
-                if (state is SubjectsSuccess) {
+                if (state is StaffSubjectsSuccess) {
                   // Display the list of subjects when data is successfully loaded
                   return Expanded(
                     child: ListView.builder(
                       itemCount:
-                          cubit.subjects.length, // Update to dynamic count
+                          cubit.staffSubjects.length, // Update to dynamic count
                       itemBuilder: (context, index) {
-                        var subject = cubit.subjects[index];
+                        var subject = cubit.staffSubjects[index];
                         return SubjectDataItem(
-                          subject: subject.subject.name, // Use actual subject data
+                          subject:
+                              subject.subject.name, // Use actual subject data
                           drname: '', // Update with actual data
                           code: subject.subject.code, // Use actual course code
                           color: index % 2 == 0 ? AppColors.color2 : null,
@@ -110,4 +112,4 @@ class AllSubjectsScreen extends StatelessWidget {
       ),
     );
   }
-} 
+}

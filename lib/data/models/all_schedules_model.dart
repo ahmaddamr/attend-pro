@@ -51,6 +51,7 @@ class ScheduleGroup {
 class ScheduleItem {
   final Subjects subject;
   final String day;
+  final String sessionType; // <-- Added this field
   final String startTime;
   final String endTime;
   final String location;
@@ -59,6 +60,7 @@ class ScheduleItem {
   ScheduleItem({
     required this.subject,
     required this.day,
+    required this.sessionType, // <-- Added this parameter
     required this.startTime,
     required this.endTime,
     required this.location,
@@ -69,6 +71,7 @@ class ScheduleItem {
     return ScheduleItem(
       subject: Subjects.fromJson(json['subject_id']),
       day: json['day'],
+      sessionType: json['sessionType'], // <-- Parsing the new field
       startTime: json['startTime'],
       endTime: json['endTime'],
       location: json['location'],

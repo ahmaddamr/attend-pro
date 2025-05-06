@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:attend_pro/core/widgets/custom_elevatedButton.dart';
 import 'package:attend_pro/presentation/manager/cubit/auth_cubit/auth_cubit.dart';
 import 'package:attend_pro/presentation/onboarding/onboarding3.dart';
@@ -79,15 +81,15 @@ class ProfileScreen extends StatelessWidget {
           SizedBox(
             height: 20.h,
           ),
-          SettingsItem(
-              title: 'edprofile'.tr(),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    PageTransition(
-                        child: const EditProfileScreen(),
-                        type: PageTransitionType.rightToLeft));
-              }),
+          // SettingsItem(
+          //     title: 'edprofile'.tr(),
+          //     onTap: () {
+          //       Navigator.push(
+          //           context,
+          //           PageTransition(
+          //               child: const EditProfileScreen(),
+          //               type: PageTransitionType.rightToLeft));
+          //     }),
           SizedBox(
             height: 15.h,
           ),
@@ -171,6 +173,13 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     (route) => false,
                   );
+                  toastification.show(
+                  context: context, // optional if you use ToastificationWrapper
+                  type: ToastificationType.success,
+                  style: ToastificationStyle.flat,
+                  autoCloseDuration: const Duration(seconds: 5),
+                  title: const Text('Logout Success!'),
+                );
                 },
               );
             },

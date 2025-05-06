@@ -13,6 +13,7 @@ import 'package:attend_pro/data/models/lecture_attendance_model.dart';
 import 'package:attend_pro/data/models/logout_model.dart';
 import 'package:attend_pro/data/models/my_schedule_model.dart';
 import 'package:attend_pro/data/models/select_hall_model.dart';
+import 'package:attend_pro/data/models/staff_subjects_model.dart';
 import 'package:attend_pro/data/models/start_check_model.dart';
 import 'package:attend_pro/data/models/start_check_out_model.dart';
 import 'package:attend_pro/data/models/student_attendance_model.dart';
@@ -23,6 +24,7 @@ import 'package:attend_pro/data/models/week_attendance_model.dart';
 import '../../data/models/courses_model.dart';
 import '../../data/models/get_halls_model.dart';
 import '../../data/models/login_model.dart';
+import '../../data/models/new_all_schedules_model.dart';
 import '../../data/models/staff_signup_model.dart';
 import '../../data/models/student_login_model.dart';
 import '../../data/models/students_signup_model.dart';
@@ -74,5 +76,8 @@ abstract class HomeRepo {
       required String subjectId});
   Future<List<GroupAnnouncementModel>> getgroupAnnouncement(String id);
   Future<List<GroupAnnouncementModel>> getStudentAnnouncement();
+  Future<List<StaffSubjectData>> getStaffSubjects();
+  Future<NewAllSchedulesModel> getNewAllSchedules();
+
 
 }

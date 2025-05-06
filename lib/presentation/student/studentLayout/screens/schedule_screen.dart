@@ -193,6 +193,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                           final schedule =
                               daySchedules[index] as Map<String, dynamic>;
                           return AllScheduleItem(
+                            session: schedule['sessionType'] ?? '',
                             start: schedule['startTime'] ?? '',
                             end: schedule['endTime'] ?? '',
                             subject: schedule['subject'] ?? '',
@@ -202,6 +203,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                         } else {
                           final item = daySchedules[index] as ScheduleItems;
                           return MyScheduleItem(
+                            session: item.sessionType,
                             startTime: item.startTime,
                             endTime: item.endTime,
                             title: item.subject.name,

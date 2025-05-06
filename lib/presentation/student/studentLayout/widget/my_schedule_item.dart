@@ -11,8 +11,8 @@ class MyScheduleItem extends StatelessWidget {
       required this.title,
       required this.instructor,
       required this.room,
-      required this.color});
-  final String startTime, endTime, title, instructor, room;
+      required this.color, required this.session});
+  final String startTime, endTime, title, instructor, room,session;
   final Color color;
   @override
   Widget build(BuildContext context) {
@@ -95,6 +95,13 @@ class MyScheduleItem extends StatelessWidget {
                   if (room.isNotEmpty)
                     Text(
                       'Room: $room',
+                      style: GoogleFonts.montserrat(
+                        textStyle:
+                            TextStyle(fontSize: 18.sp, color: Colors.white),
+                      ),
+                    ),
+                    Text(
+                      'Session: $session',
                       style: GoogleFonts.montserrat(
                         textStyle:
                             TextStyle(fontSize: 18.sp, color: Colors.white),

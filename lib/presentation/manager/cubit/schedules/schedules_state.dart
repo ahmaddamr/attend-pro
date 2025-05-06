@@ -26,3 +26,13 @@ final class MySchedulesFailure extends SchedulesState {
 
   MySchedulesFailure({required this.msg});
 }
+
+final class NewAllSchedulesLoading extends SchedulesState {}
+
+final class NewAllSchedulesSuccess extends SchedulesState {}
+
+final class NewAllSchedulesFailure extends SchedulesState {
+  final String msg;
+
+  NewAllSchedulesFailure({required this.msg});
+}
