@@ -1,3 +1,4 @@
+import 'package:attend_pro/core/app_colors.dart';
 import 'package:attend_pro/presentation/manager/cubit/staff_sub_cubit/staff_subjects_cubit.dart';
 import 'package:attend_pro/presentation/student/studentLayout/widget/subject_item.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -12,21 +13,21 @@ class MySubjectsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'mysub'.tr(),
-          style: GoogleFonts.montserrat(
-            textStyle: Theme.of(context)
-                .textTheme
-                .bodySmall!
-                .copyWith(fontSize: 20.sp, fontWeight: FontWeight.w600),
+    return BlocProvider(
+      create: (context) => StaffSubjectsCubit()..getStaffSubjects(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'mysub'.tr(),
+            style: GoogleFonts.montserrat(
+              textStyle: Theme.of(context)
+                  .textTheme
+                  .bodySmall!
+                  .copyWith(fontSize: 20.sp, fontWeight: FontWeight.w600),
+            ),
           ),
         ),
-      ),
-      body: BlocProvider(
-        create: (context) => StaffSubjectsCubit()..getStaffSubjects(),
-        child: BlocConsumer<StaffSubjectsCubit, StaffSubjectsState>(
+        body: BlocConsumer<StaffSubjectsCubit, StaffSubjectsState>(
           listener: (context, state) {
             if (state is StaffSubjectsFailure) {
               toastification.show(
@@ -39,32 +40,53 @@ class MySubjectsScreen extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            var cubit = StaffSubjectsCubit.get(context);
-            return Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: cubit.staffSubjects.length,
-                    itemBuilder: (context, index) {
-                      return SubjectItem(
-                          subject: cubit.staffSubjects[index].subject.name,
-                          code: cubit.staffSubjects[index].subject.code,
-                          lectDay:
-                              cubit.staffSubjects[index].schedule?.day ?? "",
-                          group: cubit.staffSubjects[index].group.name,
-                          lecTime: '10:00',
-                          lectRoom:
-                              cubit.staffSubjects[index].schedule?.location ??
-                                  "M203",
-                          secDay: 'sun',
-                          eng: 'sara',
-                          secTime: '11:00',
-                          secRoom: '210');
-                    },
+            final cubit = StaffSubjectsCubit.get(context);
+
+            if (state is StaffSubjectsLoading) {
+              return const Center(child: CircularProgressIndicator(color: AppColors.color1,));
+            }
+
+            if (state is StaffSubjectsSuccess) {
+              if (cubit.staffSubjects.isEmpty) {
+                return Center(
+                  child: Text(
+                    'no_subjects'.tr(), // make sure this is translated
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
-                )
-              ],
-            );
+                );
+              }
+
+              return ListView.builder(
+                padding: EdgeInsets.symmetric(vertical: 10.h),
+                itemCount: cubit.staffSubjects.length,
+                itemBuilder: (context, index) {
+                  final item = cubit.staffSubjects[index];
+                  return SubjectItem(
+                    subject: item.subject.name,
+                    code: item.subject.code,
+                    lectDay: item.schedule?.day ?? "",
+                    group: item.group.name,
+                    lecTime: '10:00', // Consider fetching real time if possible
+                    lectRoom: item.schedule?.location ?? "M203",
+                    secDay: 'sun',    // Static: consider linking real data
+                    eng: 'sara',
+                    secTime: '11:00',
+                    secRoom: '210',
+                  );
+                },
+              );
+            }
+
+            if (state is StaffSubjectsFailure) {
+              return Center(
+                child: Text(
+                  'error_occurred'.tr(),
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              );
+            }
+
+            return const SizedBox(); // fallback in case of unexpected state
           },
         ),
       ),

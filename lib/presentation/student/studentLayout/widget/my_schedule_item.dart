@@ -85,13 +85,13 @@ class MyScheduleItem extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 5.h),
-                  Text(
-                    ' $instructor',
-                    style: GoogleFonts.montserrat(
-                      textStyle:
-                          TextStyle(fontSize: 18.sp, color: Colors.white),
-                    ),
-                  ),
+                  // Text(
+                  //   ' $instructor',
+                  //   style: GoogleFonts.montserrat(
+                  //     textStyle:
+                  //         TextStyle(fontSize: 18.sp, color: Colors.white),
+                  //   ),
+                  // ),
                   if (room.isNotEmpty)
                     Text(
                       'Room: $room',

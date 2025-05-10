@@ -58,23 +58,23 @@ class _LayoutScreenState extends State<DoctorLayoutScreen> {
           ],
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                PageTransition(
-                  child: const DoctorNotificationsScreen(),
-                  type: PageTransitionType.theme,
-                  duration: const Duration(milliseconds: 900),
-                ),
-              );
-            },
-            icon: Icon(
-              Icons.notifications_none_outlined,
-              size: 40.sp,
-              color: AppColors.color1,
-            ),
-          ),
+          // IconButton(
+          //   onPressed: () {
+          //     Navigator.push(
+          //       context,
+          //       PageTransition(
+          //         child: const DoctorNotificationsScreen(),
+          //         type: PageTransitionType.theme,
+          //         duration: const Duration(milliseconds: 900),
+          //       ),
+          //     );
+          //   },
+          //   icon: Icon(
+          //     Icons.notifications_none_outlined,
+          //     size: 40.sp,
+          //     color: AppColors.color1,
+          //   ),
+          // ),
           InkWell(
             onTap: () {
               Navigator.push(

@@ -59,16 +59,16 @@ class _LayoutScreenState extends State<LayoutScreen> {
           ],
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              // Navigator.push(context, route)
-            },
-            icon: Icon(
-              Icons.notifications_none_outlined,
-              size: 40.sp,
-              color: AppColors.color1,
-            ),
-          ),
+          // IconButton(
+          //   onPressed: () {
+          //     // Navigator.push(context, route)
+          //   },
+          //   icon: Icon(
+          //     Icons.notifications_none_outlined,
+          //     size: 40.sp,
+          //     color: AppColors.color1,
+          //   ),
+          // ),
           InkWell(
             onTap: () {
               Navigator.push(
