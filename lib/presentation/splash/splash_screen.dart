@@ -1,6 +1,7 @@
 import 'package:attend_pro/core/app_colors.dart';
 import 'package:attend_pro/presentation/onboarding/onboarding1.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -39,22 +40,22 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // App Logo
-            // Image.asset(
-            //   'assets/images/splashIcons/splashf.png',
-            //   width: 80,
-            //   height: 80,
-            // ),
+            Image.asset(
+              'assets/images/splashIcons/logo.png',
+              width: 400.w,
+              height: 400.h,
+            ),
             const SizedBox(height: 16),
             // App Name
-            Text(
-              'ATTEND PRO',
-              style: GoogleFonts.montserrat(
-                color: const Color(0xFF7AD9E7), // Blue-ish color like in the image
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-                letterSpacing: 2,
-              ),
-            ),
+            // Text(
+            //   'ATTEND PRO',
+            //   style: GoogleFonts.montserrat(
+            //     color: const Color(0xFF7AD9E7), // Blue-ish color like in the image
+            //     fontWeight: FontWeight.bold,
+            //     fontSize: 24,
+            //     letterSpacing: 2,
+            //   ),
+            // ),
           ],
         ),
       ),

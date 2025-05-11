@@ -10,6 +10,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:toastification/toastification.dart';
 
@@ -34,6 +35,19 @@ class _DoctorLoginScreenState extends State<DoctorLoginScreen> {
             /// **Main Content (Background or Logo)**
             Column(
               children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 100.h),
+                  child: Text(
+                    'ATTEND PRO',
+                    style: GoogleFonts.montserrat(
+                      color: const Color(
+                          0xFF7AD9E7), // Blue-ish color like in the image
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      letterSpacing: 2,
+                    ),
+                  ),
+                ),
                 // Image.asset('assets/images/onboarding/On1.png'),
                 Expanded(child: Container()), // Pushes everything up
               ],
@@ -102,7 +116,7 @@ class _DoctorLoginScreenState extends State<DoctorLoginScreen> {
                       }
                     },
                     builder: (context, state) {
-                    AuthCubit cubit = AuthCubit.get(context);
+                      AuthCubit cubit = AuthCubit.get(context);
                       return Padding(
                         padding: EdgeInsets.all(25.sp),
                         child: SingleChildScrollView(
@@ -166,7 +180,7 @@ class _DoctorLoginScreenState extends State<DoctorLoginScreen> {
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter your Email';
-                                    } 
+                                    }
                                     return null;
                                   },
                                 ),
@@ -222,31 +236,32 @@ class _DoctorLoginScreenState extends State<DoctorLoginScreen> {
                                     return null;
                                   },
                                 ),
-                                InkWell(
-                                  onTap: () => Navigator.push(
-                                    context,
-                                    PageTransition(
-                                      child: const ForgetPasswordScreen(),
-                                      type: PageTransitionType.theme,
-                                      duration:
-                                          const Duration(milliseconds: 900),
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'forget'.tr(),
-                                      textAlign: TextAlign.center,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            fontSize: 16.sp,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                  ),
-                                ),
+                                //## Forget pass ##
+                                // InkWell(
+                                //   onTap: () => Navigator.push(
+                                //     context,
+                                //     PageTransition(
+                                //       child: const ForgetPasswordScreen(),
+                                //       type: PageTransitionType.theme,
+                                //       duration:
+                                //           const Duration(milliseconds: 900),
+                                //     ),
+                                //   ),
+                                //   child: Padding(
+                                //     padding: const EdgeInsets.all(8.0),
+                                //     child: Text(
+                                //       'forget'.tr(),
+                                //       textAlign: TextAlign.center,
+                                //       style: Theme.of(context)
+                                //           .textTheme
+                                //           .bodySmall!
+                                //           .copyWith(
+                                //             fontSize: 16.sp,
+                                //             fontWeight: FontWeight.w500,
+                                //           ),
+                                //     ),
+                                //   ),
+                                // ),
 
                                 SizedBox(height: 32.h),
 
@@ -300,7 +315,7 @@ class _DoctorLoginScreenState extends State<DoctorLoginScreen> {
                                       onTap: () => Navigator.pushReplacement(
                                         context,
                                         PageTransition(
-                                          child:  DoctorRegisterScreen(),
+                                          child: DoctorRegisterScreen(),
                                           type: PageTransitionType.theme,
                                           duration: const Duration(seconds: 1),
                                         ),

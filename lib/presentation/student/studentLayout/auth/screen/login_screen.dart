@@ -9,6 +9,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:toastification/toastification.dart';
 
@@ -34,6 +35,19 @@ class _LoginScreenState extends State<LoginScreen> {
             /// **Main Content (Background or Logo)**
             Column(
               children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 100.h),
+                  child: Text(
+                    'ATTEND PRO',
+                    style: GoogleFonts.montserrat(
+                      color: const Color(
+                          0xFF7AD9E7), // Blue-ish color like in the image
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      letterSpacing: 2,
+                    ),
+                  ),
+                ),
                 // Image.asset('assets/images/onboarding/On1.png'),
                 Expanded(child: Container()), // Pushes everything up
               ],
@@ -225,30 +239,31 @@ class _LoginScreenState extends State<LoginScreen> {
                                   return null;
                                 },
                               ),
-                              InkWell(
-                                onTap: () => Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    child: const ForgetPasswordScreen(),
-                                    type: PageTransitionType.theme,
-                                    duration: const Duration(milliseconds: 900),
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'forget'.tr(),
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                ),
-                              ),
+                              //## forget pass ##
+                              // InkWell(
+                              //   onTap: () => Navigator.push(
+                              //     context,
+                              //     PageTransition(
+                              //       child: const ForgetPasswordScreen(),
+                              //       type: PageTransitionType.theme,
+                              //       duration: const Duration(milliseconds: 900),
+                              //     ),
+                              //   ),
+                              //   child: Padding(
+                              //     padding: const EdgeInsets.all(8.0),
+                              //     child: Text(
+                              //       'forget'.tr(),
+                              //       textAlign: TextAlign.center,
+                              //       style: Theme.of(context)
+                              //           .textTheme
+                              //           .bodySmall!
+                              //           .copyWith(
+                              //             fontSize: 16.sp,
+                              //             fontWeight: FontWeight.w500,
+                              //           ),
+                              //     ),
+                              //   ),
+                              // ),
 
                               SizedBox(height: 32.h),
 

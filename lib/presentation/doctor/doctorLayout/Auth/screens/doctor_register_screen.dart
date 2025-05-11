@@ -7,6 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:toastification/toastification.dart';
 
@@ -25,7 +26,21 @@ class DoctorRegisterScreen extends StatelessWidget {
           children: [
             /// **Main Content (Background or Logo)**
             Column(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 100.h),
+                  child: Text(
+                    'ATTEND PRO',
+                    style: GoogleFonts.montserrat(
+                      color: const Color(
+                          0xFF7AD9E7), // Blue-ish color like in the image
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      letterSpacing: 2,
+                    ),
+                  ),
+                ),
                 // Image.asset('assets/images/onboarding/On1.png'),
                 Expanded(child: Container()), // Pushes everything up
               ],
