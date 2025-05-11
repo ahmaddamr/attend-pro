@@ -55,7 +55,7 @@ class ProfileScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Ahmed miahmed mohamed',
+                    'Ahmed Amr',
                     style: GoogleFonts.montserrat(
                       textStyle: Theme.of(context)
                           .textTheme
@@ -174,12 +174,13 @@ class ProfileScreen extends StatelessWidget {
                     (route) => false,
                   );
                   toastification.show(
-                  context: context, // optional if you use ToastificationWrapper
-                  type: ToastificationType.success,
-                  style: ToastificationStyle.flat,
-                  autoCloseDuration: const Duration(seconds: 5),
-                  title: const Text('Logout Success!'),
-                );
+                    context:
+                        context, // optional if you use ToastificationWrapper
+                    type: ToastificationType.success,
+                    style: ToastificationStyle.flat,
+                    autoCloseDuration: const Duration(seconds: 5),
+                    title: const Text('Logout Success!'),
+                  );
                 },
               );
             },

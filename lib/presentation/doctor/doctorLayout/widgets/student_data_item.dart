@@ -58,10 +58,10 @@ class StudentDataItem extends StatelessWidget {
               }
             },
             itemBuilder: (context) => [
-              const PopupMenuItem(
-                value: "Edit status",
-                child: Text("Edit status"),
-              ),
+              // const PopupMenuItem(
+              //   value: "Edit status",
+              //   child: Text("Edit status"),
+              // ),
               const PopupMenuItem(
                 value: "Send Warning",
                 child: Text("Send Warning"),
