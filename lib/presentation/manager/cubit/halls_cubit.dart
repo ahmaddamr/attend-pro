@@ -57,14 +57,14 @@ class HallsCubit extends Cubit<HallsState> {
   Future<void> selectHall(String hallId,
       {required String subjectId,
       required String groupId,
-      required int weekNumber,
+      // required int weekNumber,
       required String sessionType}) async {
     emit(SelectHallsLoading());
     try {
       model = await hallUseCase.selectHall(hallId,
           subjectId: subjectId,
           groupId: groupId,
-          weekNumber: weekNumber,
+          // weekNumber: weekNumber,
           sessionType: sessionType);
       log('✅ Selected Hall: $model');
       emit(SelectHallsSuccess());

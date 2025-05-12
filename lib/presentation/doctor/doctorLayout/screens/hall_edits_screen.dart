@@ -307,36 +307,36 @@ class _HallEditsScreenState extends State<HallEditsScreen> {
                     ),
                     SizedBox(height: 25.h),
 
-                    Text(
-                      'Week Number'.tr(),
-                      style: GoogleFonts.montserrat(
-                        textStyle:
-                            Theme.of(context).textTheme.bodySmall!.copyWith(
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                      ),
-                    ),
+                    // Text(
+                    //   'Week Number'.tr(),
+                    //   style: GoogleFonts.montserrat(
+                    //     textStyle:
+                    //         Theme.of(context).textTheme.bodySmall!.copyWith(
+                    //               fontSize: 20.sp,
+                    //               fontWeight: FontWeight.w600,
+                    //             ),
+                    //   ),
+                    // ),
                     SizedBox(height: 10.h),
-                    TextFormField(
-                      keyboardType: TextInputType.number,
-                      controller: weekNumber,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: 16.w, vertical: 10.h),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.r),
-                          borderSide: const BorderSide(color: AppColors.color1),
-                        ),
-                        hintText: 'Enter Week Number',
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter a Week Number';
-                        }
-                        return null;
-                      },
-                    ),
+                    // TextFormField(
+                    //   keyboardType: TextInputType.number,
+                    //   controller: weekNumber,
+                    //   decoration: InputDecoration(
+                    //     contentPadding: EdgeInsets.symmetric(
+                    //         horizontal: 16.w, vertical: 10.h),
+                    //     border: OutlineInputBorder(
+                    //       borderRadius: BorderRadius.circular(12.r),
+                    //       borderSide: const BorderSide(color: AppColors.color1),
+                    //     ),
+                    //     hintText: 'Enter Week Number',
+                    //   ),
+                    //   validator: (value) {
+                    //     if (value == null || value.isEmpty) {
+                    //       return 'Please enter a Week Number';
+                    //     }
+                    //     return null;
+                    //   },
+                    // ),
 
                     SizedBox(height: 25.h),
                     BlocProvider(
@@ -401,7 +401,7 @@ class _HallEditsScreenState extends State<HallEditsScreen> {
                                                   selectedCourse?.id ?? 'no id',
                                               groupId:
                                                   selectedGroup?.id ?? 'no id',
-                                              weekNumber: 9,
+                                              // weekNumber: 9,
                                               sessionType:
                                                   _sessionTypeController.text,
                                             );

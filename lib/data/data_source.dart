@@ -37,7 +37,7 @@ abstract class DataSource {
   Future<Response> selectHall(String hallId,
       {required String subjectId,
       required String groupId,
-      required int weekNumber,
+      // required int weekNumber,
       required String sessionType});
   Future<Response> cancelHall(String id);
   Future<Response> startCheck(String id);

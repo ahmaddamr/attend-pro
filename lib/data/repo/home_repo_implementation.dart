@@ -411,12 +411,12 @@ class HomeRepoImplementation implements HomeRepo {
   Future<SelectHallModel> selectHall(String hallId,
       {required String subjectId,
       required String groupId,
-      required int weekNumber,
+      // required int weekNumber,
       required String sessionType}) async {
     var response = await dataSource.selectHall(hallId,
         subjectId: subjectId,
         groupId: groupId,
-        weekNumber: weekNumber,
+        // weekNumber: weekNumber,
         sessionType: sessionType);
     try {
       if (response.statusCode == 200 || response.statusCode == 201) {

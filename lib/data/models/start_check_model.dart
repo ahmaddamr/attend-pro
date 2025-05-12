@@ -32,7 +32,7 @@ class Device {
   final String createdAt;
   final String updatedAt;
   final String? sessionType;
-  final int? weekNumber;
+  // final int? weekNumber;
 
   Device({
     required this.id,
@@ -45,7 +45,7 @@ class Device {
     required this.createdAt,
     required this.updatedAt,
     this.sessionType,
-    this.weekNumber,
+    // this.weekNumber,
   });
 
   factory Device.fromJson(Map<String, dynamic> json) {
@@ -60,7 +60,7 @@ class Device {
       createdAt: json['createdAt'] ?? '',
       updatedAt: json['updatedAt'] ?? '',
       sessionType: json['sessionType'],
-      weekNumber: json['weekNumber'],
+      // weekNumber: json['weekNumber'],
     );
   }
 
@@ -76,7 +76,7 @@ class Device {
       'createdAt': createdAt,
       'updatedAt': updatedAt,
       'sessionType': sessionType,
-      'weekNumber': weekNumber,
+      // 'weekNumber': weekNumber,
     };
   }
 }

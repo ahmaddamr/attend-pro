@@ -219,7 +219,7 @@ class RemoteDataSource implements DataSource {
   Future<Response> selectHall(String hallId,
       {required String subjectId,
       required String groupId,
-      required int weekNumber,
+      // required int weekNumber,
       required String sessionType}) async {
     final prefs = await SharedPreferences.getInstance();
     return dio.patch(
@@ -227,7 +227,7 @@ class RemoteDataSource implements DataSource {
       data: {
         'subjectId': subjectId,
         'groupId': groupId,
-        'weekNumber': weekNumber,
+        // 'weekNumber': weekNumber,
         'sessionType': sessionType
       },
       options: Options(

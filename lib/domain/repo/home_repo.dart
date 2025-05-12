@@ -64,7 +64,7 @@ abstract class HomeRepo {
   Future<SelectHallModel> selectHall(String hallId,
       {required String subjectId,
       required String groupId,
-      required int weekNumber,
+      // required int weekNumber,
       required String sessionType});
   Future<CancelHallModel> cancelHall(String id);
   Future<StartCheckModel> startCheck(String id);
