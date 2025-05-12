@@ -74,22 +74,27 @@ class LectureAttendanceScreen extends StatelessWidget {
                     const PurpleDataLogItem(status: 'Time'),
 
                     /// Pending List
-                    ListView.builder(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: pending.length,
-                      itemBuilder: (context, index) {
-                        final item = pending[index];
-                        return StudentCheckInDataItem(
-                          border: AppColors.color5,
-                          id: item.student.studentId,
-                          name: item.student.studentName,
-                          status:
-                              item.checkInTime.split('T').last.split('.').first,
-                          bColor: index % 2 == 0 ? AppColors.color2 : null,
-                        );
-                      },
+                    /// Pending List with fixed height
+                    SizedBox(
+                      height: 300.h, // غيّر هذا الرقم حسب ما يناسبك
+                      child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        itemCount: pending.length,
+                        itemBuilder: (context, index) {
+                          final item = pending[index];
+                          return StudentCheckInDataItem(
+                            border: AppColors.color5,
+                            id: item.student.studentId,
+                            name: item.student.studentName,
+                            status: item.checkInTime
+                                .split('T')
+                                .last
+                                .split('.')
+                                .first,
+                            bColor: index % 2 == 0 ? AppColors.color2 : null,
+                          );
+                        },
+                      ),
                     ),
 
                     Padding(

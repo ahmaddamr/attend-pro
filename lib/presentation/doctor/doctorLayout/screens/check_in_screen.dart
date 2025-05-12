@@ -105,23 +105,27 @@ class _CheckInScreenState extends State<CheckInScreen> {
             toastification.show(
               context: context,
               type: ToastificationType.success,
+              autoCloseDuration: const Duration(seconds: 2),
               title: const Text('Check-In End Success!'),
             );
           } else if (state is EndCheckFailure) {
             toastification.show(
               context: context,
               type: ToastificationType.error,
+              autoCloseDuration: const Duration(seconds: 2),
               title: const Text('Check-In Error!'),
             );
           } else if (state is StartCheckOutSuccess) {
             toastification.show(
               context: context,
+              autoCloseDuration: const Duration(seconds: 2),
               type: ToastificationType.success,
               title: const Text('Check-Out Started Successfully!'),
             );
           } else if (state is StartCheckOutFailure) {
             toastification.show(
               context: context,
+              autoCloseDuration: const Duration(seconds: 2),
               type: ToastificationType.error,
               title: const Text('Please End Check-In First'),
             );
@@ -129,6 +133,7 @@ class _CheckInScreenState extends State<CheckInScreen> {
             toastification.show(
               context: context,
               type: ToastificationType.success,
+              autoCloseDuration: const Duration(seconds: 2),
               title: const Text('Ended Check-Out Successfully!'),
             );
             Navigator.push(
