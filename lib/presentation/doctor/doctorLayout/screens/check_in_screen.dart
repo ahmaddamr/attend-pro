@@ -55,6 +55,7 @@ class _CheckInScreenState extends State<CheckInScreen> {
           'status': data['status'],
         };
 
+        if (!mounted) return;
         setState(() {
           if (existingIndex != -1) {
             students[existingIndex] = newEntry;
@@ -68,19 +69,18 @@ class _CheckInScreenState extends State<CheckInScreen> {
 
         final index = students
             .indexWhere((s) => s['id'] == data['student']['student_id']);
-        if (index != -1) {
-          setState(() {
+        if (!mounted) return;
+        setState(() {
+          if (index != -1) {
             students[index]['status'] = data['status'];
-          });
-        } else {
-          setState(() {
+          } else {
             students.add({
               'id': data['student']['student_id'],
               'name': data['student']['fullName'],
               'status': data['status'],
             });
-          });
-        }
+          }
+        });
       },
     );
   }
@@ -98,8 +98,9 @@ class _CheckInScreenState extends State<CheckInScreen> {
       child: BlocConsumer<HallsCubit, HallsState>(
         listener: (context, state) {
           if (state is EndCheckSuccess) {
+            if (!mounted) return;
             setState(() {
-              isCheckInEnded = true; // Allowing Check-Out to start
+              isCheckInEnded = true;
               showStartCheckInButton = true;
             });
             toastification.show(
@@ -165,7 +166,7 @@ class _CheckInScreenState extends State<CheckInScreen> {
               children: [
                 SizedBox(height: 100.h),
 
-                /// End Check-In Button
+                // End Check-In Button
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -239,8 +240,7 @@ class _CheckInScreenState extends State<CheckInScreen> {
                                     fontWeight: FontWeight.w700,
                                     color: Colors.white,
                                   ),
-                          onPressed:
-                              null, // Disable Start Check-Out until check-in ends
+                          onPressed: null,
                         )
                       else
                         Column(
@@ -306,6 +306,7 @@ class _CheckInScreenState extends State<CheckInScreen> {
                                     ? null
                                     : () {
                                         cubit.startCheck(widget.hallId);
+                                        if (!mounted) return;
                                         setState(() {
                                           isCheckInEnded = false;
                                           showStartCheckInButton = false;
@@ -326,6 +327,7 @@ class _CheckInScreenState extends State<CheckInScreen> {
     );
   }
 }
+
 
 // // ignore_for_file: prefer_typing_uninitialized_variables
 // import 'dart:developer';

@@ -401,7 +401,7 @@ class _HallEditsScreenState extends State<HallEditsScreen> {
                                                   selectedCourse?.id ?? 'no id',
                                               groupId:
                                                   selectedGroup?.id ?? 'no id',
-                                              weekNumber: 1,
+                                              weekNumber: 9,
                                               sessionType:
                                                   _sessionTypeController.text,
                                             );

@@ -18,6 +18,7 @@ import 'package:attend_pro/data/models/login_model.dart';
 import 'package:attend_pro/data/models/logout_model.dart';
 import 'package:attend_pro/data/models/my_schedule_model.dart';
 import 'package:attend_pro/data/models/new_all_schedules_model.dart';
+import 'package:attend_pro/data/models/pending_model.dart';
 import 'package:attend_pro/data/models/select_hall_model.dart';
 import 'package:attend_pro/data/models/staff_signup_model.dart';
 import 'package:attend_pro/data/models/staff_subjects_model.dart';
@@ -604,6 +605,25 @@ class HomeRepoImplementation implements HomeRepo {
     try {
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = NewAllSchedulesModel.fromJson(response.data);
+        log(data.data.toString());
+        return data;
+      } else {
+        log('❌ Unexpected response: ${response.data}');
+        throw Exception('warning failed with status ${response.statusMessage}');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<PendingModel> acceptPending(String groupId,
+      {required String sessionDate, required String sessionType}) async {
+    var response = await dataSource.acceptPending(groupId,
+        sessionDate: sessionDate, sessionType: sessionType);
+    try {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = PendingModel.fromJson(response.data);
         log(data.data.toString());
         return data;
       } else {

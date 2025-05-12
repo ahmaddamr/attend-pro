@@ -375,4 +375,26 @@ class RemoteDataSource implements DataSource {
       ),
     );
   }
+
+  @override
+  Future<Response> acceptPending(
+    String groupId, {
+    required String sessionDate,
+    required String sessionType,
+  }) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    return dio.patch(
+      '/attendance/acceptAllPendingStudents/group/$groupId',
+      data: {
+        'sessionDate': sessionDate,
+        'sessionType': sessionType,
+      },
+      options: Options(
+        headers: {
+          'accesstoken': 'accesstoken_${prefs.getString('token')}',
+        },
+      ),
+    );
+  }
 }

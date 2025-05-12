@@ -1,10 +1,12 @@
 import 'package:attend_pro/presentation/doctor/doctorLayout/screens/doctor_layout_screen.dart';
 import 'package:attend_pro/presentation/manager/cubit/attendance_cubit/attendance_cubit.dart';
 import 'package:attend_pro/presentation/manager/cubit/attendance_cubit/attendance_state.dart';
+import 'package:attend_pro/presentation/manager/cubit/pending_cubit/pending_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:toastification/toastification.dart';
 import '../../../../core/app_colors.dart';
 import '../../../../core/widgets/custom_elevatedButton.dart';
 import '../../doctorLayout/widgets/purple_data_log_item.dart';
@@ -73,7 +75,6 @@ class LectureAttendanceScreen extends StatelessWidget {
                     SizedBox(height: 10.h),
                     const PurpleDataLogItem(status: 'Time'),
 
-                    /// Pending List
                     /// Pending List with fixed height
                     SizedBox(
                       height: 300.h, // غيّر هذا الرقم حسب ما يناسبك
@@ -97,60 +98,94 @@ class LectureAttendanceScreen extends StatelessWidget {
                       ),
                     ),
 
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: CustomElvatedButton(
-                              text: 'Reject Pending',
-                              backgroundColor: AppColors.color5,
-                              borderSideColor: Colors.transparent,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                      fontSize: 18.sp,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white),
-                              onPressed: () {
-                                Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const DoctorLayoutScreen(),
+                    BlocProvider(
+                      create: (context) => PendingCubit(),
+                      child: BlocConsumer<PendingCubit, PendingState>(
+                        listener: (context, state) {
+                          if (state is AcceptPendingSuccess) {
+                            toastification.show(
+                              context: context,
+                              type: ToastificationType.success,
+                              autoCloseDuration: const Duration(seconds: 2),
+                              title: const Text('AcceptPendingSuccess!'),
+                            );
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const DoctorLayoutScreen()),
+                              (route) => false,
+                            );
+                          } else if (state is AcceptPendingFailure) {
+                            toastification.show(
+                              context: context,
+                              type: ToastificationType.success,
+                              autoCloseDuration: const Duration(seconds: 2),
+                              title: const Text('AcceptPendingError!'),
+                            );
+                          }
+                        },
+                        builder: (context, state) {
+                          var pendingCubit = context.read<PendingCubit>();
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: CustomElvatedButton(
+                                    text: 'Reject Pending',
+                                    backgroundColor: AppColors.color5,
+                                    borderSideColor: Colors.transparent,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                          fontSize: 18.sp,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white,
+                                        ),
+                                    onPressed: () {
+                                      Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const DoctorLayoutScreen()),
+                                        (route) => false,
+                                      );
+                                    },
                                   ),
-                                  (route) => false,
-                                );
-                              },
+                                ),
+                                SizedBox(width: 15.w),
+                                Expanded(
+                                  child: state is AcceptPendingLoading
+                                      ? const Center(
+                                          child: CircularProgressIndicator())
+                                      : CustomElvatedButton(
+                                          text: 'Accept Pending',
+                                          backgroundColor: AppColors.color1,
+                                          borderSideColor: Colors.transparent,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                  fontSize: 18.sp,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Colors.white),
+                                          onPressed: () {
+                                            debugPrint(
+                                                '🔍 Accepting pending with ID: $id, Date: $time, Type: $type');
+                                            pendingCubit.acceptPending(
+                                              id,
+                                              sessionDate: time,
+                                              sessionType: type,
+                                            );
+                                          },
+                                        ),
+                                ),
+                              ],
                             ),
-                          ),
-                          SizedBox(width: 15.w),
-                          Expanded(
-                            child: CustomElvatedButton(
-                              text: 'Accept Pending',
-                              backgroundColor: AppColors.color1,
-                              borderSideColor: Colors.transparent,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                      fontSize: 18.sp,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white),
-                              onPressed: () {
-                                Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const DoctorLayoutScreen(),
-                                  ),
-                                  (route) => false,
-                                );
-                              },
-                            ),
-                          ),
-                        ],
+                          );
+                        },
                       ),
                     ),
                     SizedBox(

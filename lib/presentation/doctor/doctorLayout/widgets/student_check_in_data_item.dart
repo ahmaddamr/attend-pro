@@ -22,6 +22,7 @@ class StudentCheckInDataItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 35.h,
       decoration: BoxDecoration(
         color: bColor,
         border: Border(

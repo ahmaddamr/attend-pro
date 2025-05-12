@@ -52,7 +52,6 @@ abstract class DataSource {
   Future<Response> getStudentAnnouncement();
   Future<Response> getStaffSubjects();
   Future<Response> getNewAllSchedules();
-
-
-
+  Future<Response> acceptPending(String groupId,
+      {required String sessionDate, required String sessionType});
 }

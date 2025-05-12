@@ -12,6 +12,7 @@ import 'package:attend_pro/data/models/groups_model.dart';
 import 'package:attend_pro/data/models/lecture_attendance_model.dart';
 import 'package:attend_pro/data/models/logout_model.dart';
 import 'package:attend_pro/data/models/my_schedule_model.dart';
+import 'package:attend_pro/data/models/pending_model.dart';
 import 'package:attend_pro/data/models/select_hall_model.dart';
 import 'package:attend_pro/data/models/staff_subjects_model.dart';
 import 'package:attend_pro/data/models/start_check_model.dart';
@@ -78,6 +79,9 @@ abstract class HomeRepo {
   Future<List<GroupAnnouncementModel>> getStudentAnnouncement();
   Future<List<StaffSubjectData>> getStaffSubjects();
   Future<NewAllSchedulesModel> getNewAllSchedules();
-
-
+  Future<PendingModel> acceptPending(
+    String groupId, {
+    required String sessionDate,
+    required String sessionType,
+  });
 }
