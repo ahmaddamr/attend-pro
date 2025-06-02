@@ -172,6 +172,7 @@ class LectureAttendanceScreen extends StatelessWidget {
                                                   fontWeight: FontWeight.w700,
                                                   color: Colors.white),
                                           onPressed: () {
+                                            // log
                                             debugPrint(
                                                 '🔍 Accepting pending with ID: $id, Date: $time, Type: $type');
                                             pendingCubit.acceptPending(

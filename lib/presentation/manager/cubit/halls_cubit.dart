@@ -14,7 +14,6 @@ import 'package:attend_pro/domain/use_cases/get_halls_use_case.dart';
 import 'package:attend_pro/domain/use_cases/select_hall_use_case.dart';
 import 'package:attend_pro/domain/use_cases/start_check_out_use_case.dart';
 import 'package:attend_pro/domain/use_cases/start_check_use_case.dart';
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

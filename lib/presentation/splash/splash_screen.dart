@@ -1,8 +1,6 @@
-import 'package:attend_pro/core/app_colors.dart';
 import 'package:attend_pro/presentation/onboarding/onboarding1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
 class SplashScreen extends StatefulWidget {

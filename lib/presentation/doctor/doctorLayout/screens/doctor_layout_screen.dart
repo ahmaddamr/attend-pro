@@ -1,12 +1,10 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:attend_pro/core/app_colors.dart';
-import 'package:attend_pro/presentation/doctor/doctorLayout/screens/doctor_notifications_screen.dart';
 import 'package:attend_pro/presentation/doctor/doctorLayout/screens/doctor_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
 
 import 'doctor_announcments_screen.dart';
 import 'doctor_home_screen.dart';

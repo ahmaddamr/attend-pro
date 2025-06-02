@@ -166,7 +166,7 @@ class _DoctorFullSheduleScreenState extends State<DoctorFullSheduleScreen> {
                                   color: Colors.white, fontSize: 14.sp),
                             ),
                             Text(
-                              "${item.groupName}",
+                              item.groupName,
                               style: TextStyle(
                                   color: Colors.white, fontSize: 14.sp),
                             ),

@@ -1,6 +1,5 @@
 import 'package:attend_pro/presentation/doctor/doctorLayout/widgets/subject_data_item.dart';
 import 'package:attend_pro/presentation/manager/cubit/staff_sub_cubit/staff_subjects_cubit.dart';
-import 'package:attend_pro/presentation/manager/cubit/subjects_cubit/subjects_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

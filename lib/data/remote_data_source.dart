@@ -2,7 +2,6 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:dio/src/response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'data_source.dart';
 import 'package:http_parser/http_parser.dart'; // ✅ Import http_parser
@@ -208,7 +207,7 @@ class RemoteDataSource implements DataSource {
       String id, String date, String type) async {
     final prefs = await SharedPreferences.getInstance();
 
-    return dio.get('/attendance/getAttendanceResultsForSession/group/$id',
+    return dio.post('/attendance/getAttendanceResultsForSession/group/$id',
         options: Options(headers: {
           'accesstoken': 'accesstoken_${prefs.getString('token')}',
         }),

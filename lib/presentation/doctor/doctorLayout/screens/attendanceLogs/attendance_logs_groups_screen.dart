@@ -36,7 +36,7 @@ class AttendanceLogsGroupsScreen extends StatelessWidget {
           listener: (context, state) async {
             // Static variable to avoid multiple dialogs stacking/nesting
             // (Very important if you use async pop/show with Bloc)
-            Future<void> _maybePopDialog() async {
+            Future<void> maybePopDialog() async {
               if (Navigator.canPop(context)) {
                 Navigator.pop(context);
               }
